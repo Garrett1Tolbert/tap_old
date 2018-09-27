@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="icon" href="images/Tap(Dark).png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Arvo:400,400i,700,700i" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Login</title>
+  </head>
+  <body>
+
+    <div class="container initial_screen">
+      <div class="row">
+        <div class="col-lg-2 section">
+        </div>
+        <div class="col-lg-8 section">
+          <img id="logo_is" src="images/Tap(Light).png" alt="Tap Logo" height="175" width="175">
+
+          <div class="container inside_create_account shadow p-3 mb-5 bg-white rounded">
+            <div class="row">
+              <div class="col-lg-2 inside_section">
+              </div>
+              <div id="main_content" class="col-lg-8 inside_section">
+                <h1 style="font-weight: bold;font-size: 2.75em; color: #4A4A4A; margin-top: 8%; text-align: center">Login</h1>
+                <button type="button" class="social_auth" id="google_auth">
+                  <div class="initial_screen_logos">
+                    <img id="google_logo" src="images/icons8-google-plus-480.png">
+                  </div>
+                  <div class="initial_screen_desc">
+                    Google Sign in
+                  </div>
+                </button>
+                <button type="button" class="social_auth" id="facebook_auth">
+                  <div class="initial_screen_logos">
+                    <img id="facebook_logo" src="images/icons8-facebook-48.png" >
+                  </div>
+                  <div class="initial_screen_desc">
+                    Facebook Sign in
+                  </div>
+                </button>
+                <img id="or_filler" src="images/or_filler.png" alt="">
+
+                <!--FORM INFORMATION-->
+                <form id="login_form">
+                  <div class="row input_field top">
+                    <div class="col">
+                      <input type="text" class="form-control" placeholder="Username/Email">
+                    </div>
+                  </div>
+                  <div class="row input_field bottom">
+                    <div class="col">
+                      <input type="password" class="form-control" placeholder="Password">
+                    </div>
+                  </div>
+                  <!-- <div id="remember_me" class="form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                  </div> -->
+                  <div class="login">
+                    <button id="btn_login" type="submit">LOGIN</button>
+                  </div>
+                  <a id="link_to_create" href="create.html">Don't have an account yet? Click here</a>
+                </form>
+                <!--END FORM INFORMATION-->
+
+              </div>
+              <div class="col-lg-2 inside_section">
+                <img style="float:right" src="images/lock.png" alt="">
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-lg-2 section">
+        </div>
+      </div>
+    </div>
+
+
+    <!--SCRIPTS-->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </body>
+</html>
