@@ -1,0 +1,16 @@
+{
+  "hosting": {
+    "public": "tap_project",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "login.html"
+      }
+    ]
+  }
+}
