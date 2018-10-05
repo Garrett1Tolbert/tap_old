@@ -1,42 +1,101 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Login</title>
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.css" />
     <link rel="icon" href="images/Tap(Dark).png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Arvo:400,400i,700,700i" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
-    <!--FIREBASE-->
-    <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase.js"></script>
+  <!--Firebase Project Initialization-->
+<script src="https://www.gstatic.com/firebasejs/5.5.3/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAIpR8O8xEDrSitpVI6jpVBEvXU5reQLNM",
+    authDomain: "alphabetter-tap-v1.firebaseapp.com",
+    databaseURL: "https://alphabetter-tap-v1.firebaseio.com",
+    projectId: "alphabetter-tap-v1",
+    storageBucket: "alphabetter-tap-v1.appspot.com",
+    messagingSenderId: "806333716389"
+  };
+  firebase.initializeApp(config);
+</script>
 
-    <!--FIREBASE PRODUCTS-->
-    <script defer src="https://www.gstatic.com/firebasejs/5.4.1/firebase-auth.js"></script>
-    <!-- <script defer src="https://www.gstatic.com/firebasejs/5.4.1/firebase-database.js"></script>
-    <script defer src="https://www.gstatic.com/firebasejs/5.4.1/firebase-firestore.js"></script> -->
-    <!-- <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-messaging.js"></script> -->
-    <!-- <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-functions.js"></script> -->
-    <!--END FIREBASE PRODUCTS-->
+  <!--Firebase Sign-In Widget-->
+  <script src="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.css" />
+  <script type="text/javascript">
+    // FirebaseUI config.
+    var uiConfig = {
+      signInSuccessUrl: 'signin_success.html',
+      signInOptions: [
+        // Leave the lines as is for the providers you want to offer your users.
+        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+        firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+        firebase.auth.EmailAuthProvider.PROVIDER_ID,
+      ],
+      // tosUrl and privacyPolicyUrl accept either url string or a callback
+      // function.
+      // Terms of service url/callback.
+      tosUrl: '<your-tos-url>',
+    };
 
-    <script>
-      // Initialize Firebase
-      var config = {
-        apiKey: "AIzaSyAIpR8O8xEDrSitpVI6jpVBEvXU5reQLNM",
-        authDomain: "alphabetter-tap-v1.firebaseapp.com",
-        databaseURL: "https://alphabetter-tap-v1.firebaseio.com",
-        projectId: "alphabetter-tap-v1",
-        storageBucket: "alphabetter-tap-v1.appspot.com",
-        messagingSenderId: "806333716389"
+    // Initialize the FirebaseUI Widget using Firebase.
+    var ui = new firebaseui.auth.AuthUI(firebase.auth());
+    // The start method will wait until the DOM is loaded.
+    ui.start('#firebaseui-auth-container', uiConfig);
+  </script>
+  <script type="text/javascript">
+      initApp = function() {
+        firebase.auth().onAuthStateChanged(function(user) {
+          if (user) {
+            // User is signed in.
+            var displayName = user.displayName;
+            var email = user.email;
+            var emailVerified = user.emailVerified;
+            var photoURL = user.photoURL;
+            var uid = user.uid;
+            var phoneNumber = user.phoneNumber;
+            var providerData = user.providerData;
+            user.getIdToken().then(function(accessToken) {
+              document.getElementById('sign-in-status').textContent = 'Signed in';
+              document.getElementById('sign-in').textContent = 'Sign out';
+              document.getElementById('account-details').textContent = JSON.stringify({
+                displayName: displayName,
+                email: email,
+                emailVerified: emailVerified,
+                phoneNumber: phoneNumber,
+                photoURL: photoURL,
+                uid: uid,
+                accessToken: accessToken,
+                providerData: providerData
+              }, null, '  ');
+            });
+          } else {
+            // User is signed out.
+            document.getElementById('sign-in-status').textContent = 'Signed out';
+            document.getElementById('sign-in').textContent = 'Sign in';
+            document.getElementById('account-details').textContent = 'null';
+          }
+        }, function(error) {
+          console.log(error);
+        });
       };
-      firebase.initializeApp(config);
+
+      window.addEventListener('load', function() {
+        initApp()
+      });
     </script>
-    <!--END FIREBASE-->
+</head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Login</title>
-  </head>
-  <body onload = "app.js">
+  <!--Sample Body-->
+  <body>
 
     <div class="container initial_screen">
       <div class="row">
@@ -49,48 +108,7 @@
             <div class="row">
               <div class="col-lg-2 inside_section">
               </div>
-              <div id="main_content" class="col-lg-8 inside_section">
-                <h1 style="font-weight: bold;font-size: 2.75em; color: #4A4A4A; margin-top: 8%; text-align: center">Login</h1>
-                <button type="button" class="social_auth" id="google_auth">
-                  <div class="initial_screen_logos">
-                    <img id="google_logo" src="images/icons8-google-plus-480.png">
-                  </div>
-                  <div class="initial_screen_desc">
-                    Google Sign in
-                  </div>
-                </button>
-                <button type="button" class="social_auth" id="facebook_auth">
-                  <div class="initial_screen_logos">
-                    <img id="facebook_logo" src="images/icons8-facebook-48.png" >
-                  </div>
-                  <div class="initial_screen_desc">
-                    Facebook Sign in
-                  </div>
-                </button>
-                <img id="or_filler" src="images/or_filler.png" alt="">
-
-                <!--FORM INFORMATION-->
-                <form id="login_form">
-                  <div class="row input_field top">
-                    <div class="col">
-                      <input type="text" class="form-control" placeholder="Username/Email">
-                    </div>
-                  </div>
-                  <div class="row input_field bottom">
-                    <div class="col">
-                      <input type="password" class="form-control" placeholder="Password">
-                    </div>
-                  </div>
-                  <!-- <div id="remember_me" class="form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                  </div> -->
-                  <div class="login">
-                    <button id="btn_login" type="submit">LOGIN</button>
-                  </div>
-                  <a id="link_to_create" href="create.html">Don't have an account yet? Click here</a>
-                </form>
-                <!--END FORM INFORMATION-->
+              <div id="firebaseui-auth-container" class="col-lg-8 inside_section">
 
               </div>
               <div class="col-lg-2 inside_section">
@@ -111,8 +129,18 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <script src="app.js">
-
+    <script>
+      document.getElementById("link_to_create").addEventListener("click",function() {
+        document.getElementById("login_fragment").style.display = "none";
+        document.getElementById("create_fragment").style.display = "block";
+        console.log("Click event going to create account fragment");
+      });
+      document.getElementById("link_to_login").addEventListener("click",function() {
+        document.getElementById("create_fragment").style.display = "none";
+        document.getElementById("login_fragment").style.display = "block";
+        console.log("Click event going to login fragment");
+      });
     </script>
+    <script src="app.js"></script>
   </body>
 </html>
