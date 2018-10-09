@@ -73,47 +73,6 @@ function googleLogin() {
 
 }
 
-  // //Add login event
-  // loginBtn.addEventListener('click', e => {
-  //   const auth = firebase.auth();
-  //   //Sign in
-  //   const promise = auth.signInWithEmailAndPassword(loginEmail,loginPassword);
-  //
-  //   promise.catch(e => console.log(e.message));
-  // });
-  //
-  // //Add create account event
-  // createBtn.addEventListener('click', e => {
-  //   const auth = firebase.auth();
-  //   //Sign in
-  //   const promise = auth.createUserWithEmailAndPassword(createEmail,createPassword);
-  //
-  //   promise.catch(e => console.log(e.message));
-  //
-  // });
-  //
-  // //Sign out
-  // logoutBtn.addEventListener('click', e => {
-  //   firebase.auth().signOut();
-  // });
-  //
-  //
-  // //Add a realtime listener
-  // firebase.auth().onAuthStateChanged(firebaseUser => {
-  //   if(firebaseUser) {
-  //     console.log(firebaseUser);
-  //     window.location = 'signin_success.html';
-  //   } else {
-  //     console.log('Not logged in');
-  //   }
-  // });
-
-
-
-
-  //
-  // document.addEventListener("DOMContentLoaded", event => {
-  //   const app = firebase.app();
-  //   console.log(app);
-  // });
-  //
+function createChallenge() {
+  window.alert("Creating challenge...");
+}

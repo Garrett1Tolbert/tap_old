@@ -13,13 +13,74 @@
 
   <title>Feed</title>
   </head>
-  <body id="feed_body">
-    <header>
+  <body id="feed_page">
+    <nav id="feed_header" class="navbar sticky-top navbar-light shadow-sm p-3" style="background-color: #FFC000">
+    <!-- <nav id="feed_header" class="navbar sticky-top navbar-light shadow-sm p-3" > -->
+      <a class="navbar-brand" href="feed.html" style="margin-left:7%;">
+        <img src="images/Tap(Light).png" width="60" height="60" alt="Logo">
+      </a>
 
-    </header>
-    <div id="body">
-
+    </nav>
+    <div id="feed_body">
+      <div id="challengeArea">
+        <div id="hub" class="shadow rounded">
+          <div id="hubTop" class="rounded">
+            <img class="rounded-circle" style="border: 2px solid #537EA6; margin-left: 5px; padding: 5px;" src="images/Tap(Light).png" width="60" height="60" alt="Profile_Pic">
+            <span style="vertical-align: middle;margin-left: 15px;font-weight: 700;">Krystalis Ruiz Rohena</span>
+          </div>
+          <div id="hubBottom" class="rounded">
+            <ul id="hubLinks" style="list-style:none; padding-top: 5px; margin-bottom: 0;padding-left: 3px;">
+              <li><a href="#">Profile</a> </li>
+              <li><a href="#">My Challenges</a> </li>
+              <li><a href="#">Liked Challenges</a> </li>
+              <li><a href="#">Settings</a> </li>
+              <li><a href="#">Help Center</a> </li>
+            </ul>
+          </div>
+        </div>
+        <!-- <div class="rounded shadow challenge">
+          Test challenge
+        </div>
+        <div class="rounded shadow challenge">
+          Test challenge
+        </div>
+        <div class="rounded shadow challenge">
+          Test challenge
+        </div>
+        <div class="rounded shadow challenge">
+          Test challenge
+        </div>
+        <div class="rounded shadow challenge">
+          Test challenge
+        </div>
+        <div class="rounded shadow challenge">
+          Test challenge
+        </div>
+        <div class="rounded shadow challenge">
+          Test challenge
+        </div>
+        <div class="rounded shadow challenge">
+          Test challenge
+        </div>
+        <div class="rounded shadow challenge">
+          Test challenge
+        </div>
+        <div class="rounded shadow challenge">
+          Test challenge
+        </div>
+        <div class="rounded shadow challenge">
+          Test challenge
+        </div> -->
+      </div>
     </div>
-    <footer></footer>
+    <!-- <footer id="feed_footer"></footer> -->
+    <nav id="feed_footer" class="navbar">
+      <!-- <a class="navbar-brand" href="feed.html" style="margin-left:7%;">
+        <img src="images/Tap(Light).png" width="60" height="60" alt="">
+      </a> -->
+      <img id="recordBtn"  src="images/recordBtn.png" width="150" height="150" alt="" onclick="createChallenge()">
+
+    </nav>
+    <script src="app.js"></script>
   </body>
 </html>
