@@ -162,10 +162,19 @@ form .input_field.bottom {
   /* border: 5px solid black; */
   height: 100px;
 }
+#followersTab {
+  color: #537EA6;
+  font-size: 1.2em;
+  font-weight: 700;
+}
+#followersTab:hover {
+    text-decoration: none;
+}
+
 #feed_body {
   /* border: 5px solid blue; */
-  height:640px;
-  margin-top: 2%;
+  height:700px;
+  margin-top: 0;
   overflow: auto;
   position: relative;
 }
@@ -186,7 +195,8 @@ form .input_field.bottom {
   /* border: 5px solid red; */
   margin-right: 7%;
   margin-top: 0;
-  width: 160px;
+  width: 200px;
+  height: 250px;
   position: fixed;
   right: 0;
   z-index: 10;
@@ -195,13 +205,17 @@ form .input_field.bottom {
   /* border: 5px solid blue; */
   background-color: #FFC000;
   margin-left: 0;
-  height: 75px;
+  height: 80px;
   width: inherit;
   display: flex;
   align-items: center;
 }
 #hubBottom {
   /* border: 5px solid green; */
+
+}
+#hubLinks li {
+  padding-bottom: 10px;
 }
 #hubLinks li a{
   padding-left:3px;
@@ -229,8 +243,12 @@ form .input_field.bottom {
   cursor: pointer;
 }
 
+#searchbar {
+    margin-right: 6.25%;
+}
+
 .searchbar{
-  width: 300px;
+  /* width: 300px; */
   vertical-align: middle;
   white-space: nowrap;
   position: relative;
@@ -239,13 +257,13 @@ form .input_field.bottom {
 }
 
 .searchbar input#search{
-  width: 300px;
+  width: 800px;
   height: 50px;
   background: ;
   border: none;
-  font-size: 10pt;
+  color: lightgray;
+  text-align: center;
   float: left;
-  color: #FFC000;
   padding-left: 45px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -256,11 +274,15 @@ form .input_field.bottom {
   position: absolute;
   top: 50%;
   margin-left: 17px;
-  margin-top: 17px;
+  padding-bottom: 7px;
+  margin-top: 13px;
   z-index: 1;
   color: lightgray;
 }
 .searchbar input#search:focus, .searchbar input#search:active{
   outline:none;
-  border-color: lightgray;
+  /* border-color: lightgray; */
+}
+::placeholder {
+  color: lightgray;
 }

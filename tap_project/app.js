@@ -72,13 +72,17 @@ function googleLogin() {
           .catch(console.log);
 
 }
+
+function grabFollowers() {
+  window.alert("Grabbing friends...🔄");
+}
 //-----------------
 // Record Challenge
 //-----------------
 $(document).ready(function(){
   $("#recordBtn").click(function() {
     console.log("Modal showing");
-    $("#exampleModal").modal("show");
+    $("#newChallengeModal").modal("show");
     console.log("Modal shown...");
   });
 });
