@@ -72,7 +72,13 @@ function googleLogin() {
           .catch(console.log);
 
 }
-
-function createChallenge() {
-  window.alert("Creating challenge...");
-}
+//-----------------
+// Record Challenge
+//-----------------
+$(document).ready(function(){
+  $("#recordBtn").click(function() {
+    console.log("Modal showing");
+    $("#exampleModal").modal("show");
+    console.log("Modal shown...");
+  });
+});
