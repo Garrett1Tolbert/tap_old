@@ -66,19 +66,20 @@
                   <img id="or_filler" src="images/or_filler.png" alt="">
 
                   <!--FORM INFORMATION-->
-                  <form id="login_form">
+                  <form action="#" method=post name="login_form_name" id="login_form" onsubmit="login()">
                     <div class="row input_field top">
                       <div class="col">
-                        <input id="login_email" type="text" class="form-control" placeholder="Email">
+                        <input id="login_email" name="login_email_name" type="email" class="form-control" placeholder="Email">
                       </div>
                     </div>
                     <div class="row input_field bottom">
                       <div class="col">
-                        <input id="login_password" type="password" class="form-control" placeholder="Password">
+                        <input id="login_password" name="login_email_name" type="password" class="form-control" placeholder="Password">
                       </div>
                     </div>
                     <div class="login">
-                      <button id="btn_login" type="submit" onclick="login()">LOGIN</button>
+                      <!-- <button id="btn_login" type="submit" onclick="login()">LOGIN</button> -->
+                      <input id="btn_login" type="submit" value="LOGIN">
                     </div>
                     <a id="link_to_create">Don't have an account yet? Click here</a>
                   </form>
@@ -109,19 +110,19 @@
                   <img id="or_filler" src="images/or_filler.png" alt="">
 
                   <!--FORM INFORMATION-->
-                  <form id="create_account_form">
+                  <form action="#" method=post name="create_form_name" id="create_account_form">
                     <div class="row input_field top">
                       <div class="col">
-                        <input id="create_email" type="email" class="form-control" placeholder="Email">
+                        <input id="create_email" name="create_email_name" type="email" class="form-control" placeholder="Email">
                       </div>
                     </div>
                     <div class="row input_field bottom">
                       <div class="col">
-                        <input id="create_password" type="password" class="form-control" placeholder="Password">
+                        <input id="create_password" name="create_password_name" type="password" class="form-control" placeholder="Password">
                       </div>
                     </div>
                     <div class="createAccount">
-                      <button id="btn_create_account" type="submit" onclick="create()">Create Account</button>
+                      <button id="btn_create_account" onclick="create()">Create Account</button>
                     </div>
                     <a id="link_to_login">Already have an account? Click here</a>
                   </form>

@@ -2,42 +2,51 @@
 
 function login() {
   //Get elements
-  const loginEmail = document.getElementById('login_email').value;
-  const loginPassword = document.getElementById('login_password').value;
-  const loginBtn = document.getElementById('btn_login');
+  var loginEmail = document.getElementById('login_email').value;
+  var loginPassword = document.getElementById('login_password').value;
+  var loginBtn = document.getElementById('btn_login');
+  console.log("Email:" + loginEmail);
 
   firebase.auth().signInWithEmailAndPassword(loginEmail, loginPassword).catch(function(error) {
     // Handle Errors here.
     var errorCode = error.code;
     var errorMessage = error.message;
+
     // ...
+    // console.log("Error: " + errorCode);
+    // console.log("Error message: " + errorCode);
     window.alert("Error: " + errorMessage);
   });
 
   // When the authorization state changes
-  firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-      // User is signed in.
-      window.location.replace('dummy_profile_page.html');
-
-    } else {
-        // Not sure what happens when the user is not signed in
-    }
-  });
+  // firebase.auth().onAuthStateChanged(function(user) {
+  //   if (user) {
+  //     // User is signed in.
+  //     window.location.replace('dummy_profile_page.html');
+  //
+  //   } else {
+  //       // Not sure what happens when the user is not signed in
+  //   }
+  // });
 }
 
 function create() {
   //Get elements
-  const createEmail = document.getElementById('create_email').value;
-  const createPassword = document.getElementById('create_password').value;
-  const createBtn = document.getElementById('btn_create_account');
+  var createEmail = document.getElementById('create_email').value;
+  var createPassword = document.getElementById('create_password').value;
+  var createBtn = document.getElementById('btn_create_account');
 
+  console.log("Email:" + createEmail);
+  console.log("Password:" + createPassword);
   firebase.auth().createUserWithEmailAndPassword(createEmail, createPassword).catch(function(error) {
     // Handle Errors here.
     var errorCode = error.code;
     var errorMessage = error.message;
     // ...
-    window.alert("Error: " + errorMessage);
+    // window.alert("Error: " + errorMessage);
+    console.log("Error: " + errorCode);
+    console.log("Error message: " + errorCode);
+
   });
 
   // When the authorization state changes
@@ -45,6 +54,7 @@ function create() {
     if (user) {
       // User is signed in.
       window.location.replace('dummy_profile_page.html');
+      console.log("User is signed in.");
 
     } else {
         // Not sure what happens when the user is not signed in
@@ -71,6 +81,8 @@ function googleLogin() {
           // Not sure what happens when the user is not signed in
       }
     });
+
+
     // ...
   }).catch(function(error) {
     // Handle Errors here.
@@ -82,6 +94,8 @@ function googleLogin() {
     var credential = error.credential;
     // ...
   });
+
+
 
 
 }
