@@ -1,0 +1,288 @@
+html {
+  height: 100%;
+  margin: 0;
+}
+body {
+  background-color: #FFC000;
+  min-height: 120%;
+  font-family: 'Arvo', serif;
+  margin: 0;
+  position: relative;
+}
+button:hover, a:hover {
+  cursor:  pointer;
+}
+
+.account_fragments {
+  width: inherit;
+}
+
+.container.initial_screen {
+  /* border: 3px solid red; */
+  min-height: 100%;
+  min-width: 100%;
+}
+
+.section {
+  /* border: 5px solid black; */
+  min-height: 100%;
+}
+
+.inside_create_account {
+  background-color: white;
+  box-shadow:
+}
+
+.inside_section {
+  /* border: 5px solid green; */
+  height: 100%;
+}
+
+
+#logo_is {
+  margin-top: 10%;
+  padding-bottom: 2.5%;
+}
+
+.social_auth{
+  font-size: 1.2em;
+  font-weight: 400;
+  letter-spacing: 5px;
+  color: white;
+  border-width: 7px;
+  border-radius: 7px;
+  display: flex;
+  height: 15%;
+  width: 100%;
+}
+
+.social_auth span {
+  color: white;
+  vertical-align: middle;
+}
+
+.initial_screen_logos {
+  margin-left: 3%;
+}
+.initial_screen_desc {
+  margin-top: 1.5%;
+  margin-left: 22%;
+}
+
+
+
+#google_logo {
+  height: 42px;
+  width: 42px;
+}
+#google_auth {
+  background-color: #F4511E;
+  border-color: hsla(14, 90.7%, 50.7%,1);
+  margin-top: 10%;
+}
+
+#facebook_logo {
+  height: 42px;
+  width: 42px;
+}
+#facebook_auth {
+  background-color: #3F51B5;
+  border-color: hsla(231, 48.4%, 44.8%,1);
+  margin-top: 1%;
+}
+
+#or_filler {
+  padding-top: 5%;
+  padding-bottom: 5%;
+  /* margin-left: 25%;
+  margin-right: 25%; */
+  display: block;
+  margin: auto;
+  width: 45%;
+}
+
+/*FORM INFORMATION*/
+form .input_field.bottom {
+  margin-top: 5%;
+}
+
+.createAccount button, .login button {
+  margin-top: 7%;
+  margin-bottom: 2%;
+  background-color: #537EA6;
+  font-size: 1.2em;
+  font-weight: 400;
+  letter-spacing: 10px;
+  color: white;
+  border-radius: 7px;
+  width: 100%;
+  height: 50px;
+}
+
+
+.form-control {
+  height: 50px;
+  font-size: 1.5em;
+  width: 75%;
+  text-align:center;
+  margin-left: 12.5%;
+}
+
+
+#link_to_create {
+  text-decoration: underline;
+  font-style: italic;
+  color: lightgray;
+  text-align: center;
+  margin-left: 25%;
+  margin-right: 25%;
+  width: inherit;
+}
+#link_to_login {
+  text-decoration: underline;
+  font-style: italic;
+  color: lightgray;
+  text-align: center;
+  margin-left: 25%;
+  margin-right: 25%;
+  width: inherit;
+}
+/*END FORM INFORMATION*/
+
+
+/*---------
+    FEED
+-----------*/
+#feed_page {
+  background-color: #ffffff;
+  min-height: 100%;
+}
+
+#feed_header {
+  /* border: 5px solid black; */
+  height: 100px;
+}
+#followersTab {
+  color: #537EA6;
+  font-size: 1.2em;
+  font-weight: 700;
+}
+#followersTab:hover {
+    text-decoration: none;
+}
+
+#feed_body {
+  /* border: 5px solid blue; */
+  height:700px;
+  margin-top: 0;
+  overflow: auto;
+  position: relative;
+}
+#challengeArea{
+  /* border: 5px solid green; */
+}
+.challenge {
+  border: 2px solid lightgray;
+  margin-top: 3%;
+  margin-left: 20%;
+  width: 40%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: center;
+}
+
+#hub {
+  /* border: 5px solid red; */
+  margin-right: 7%;
+  margin-top: 0;
+  width: 200px;
+  height: 250px;
+  position: fixed;
+  right: 0;
+  z-index: 10;
+}
+#hubTop {
+  /* border: 5px solid blue; */
+  background-color: #FFC000;
+  margin-left: 0;
+  height: 80px;
+  width: inherit;
+  display: flex;
+  align-items: center;
+}
+#hubBottom {
+  /* border: 5px solid green; */
+
+}
+#hubLinks li {
+  padding-bottom: 10px;
+}
+#hubLinks li a{
+  padding-left:3px;
+  padding-right:3px;
+  color: #537EA6;
+}
+#hubLinks li  a:hover{
+  text-decoration: none;
+  font-weight: bold;
+}
+
+#feed_footer {
+  /* border: 5px solid purple; */
+  bottom: 0;
+  height: 175px;
+  width: 100%;
+  position: fixed;
+  /* box-shadow: 1px -2px 5px lightgray; */
+}
+#recordBtn {
+  top: 0;
+  margin-left: 35%;
+}
+#recordBtn:hover {
+  cursor: pointer;
+}
+
+#searchbar {
+    margin-right: 6.25%;
+}
+
+.searchbar{
+  /* width: 300px; */
+  vertical-align: middle;
+  white-space: nowrap;
+  position: relative;
+  border: 10px;
+  border-color: lightgray;
+}
+
+.searchbar input#search{
+  width: 800px;
+  height: 50px;
+  background: ;
+  border: none;
+  color: lightgray;
+  text-align: center;
+  float: left;
+  padding-left: 45px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+
+}
+.searchbar .icon{
+  position: absolute;
+  top: 50%;
+  margin-left: 17px;
+  padding-bottom: 7px;
+  margin-top: 13px;
+  z-index: 1;
+  color: lightgray;
+}
+.searchbar input#search:focus, .searchbar input#search:active{
+  outline:none;
+  /* border-color: lightgray; */
+}
+::placeholder {
+  color: lightgray;
+}

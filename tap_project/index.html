@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="icon" href="images/Tap(Dark).png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Arvo:400,400i,700,700i" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://www.gstatic.com/firebasejs/5.5.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.3/firebase-auth.js"></script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Login</title>
+  </head>
+  <body>
+
+    <div class="container initial_screen">
+      <div class="row">
+        <div class="col-lg-2 section">
+        </div>
+        <div class="col-lg-8 section">
+          <img id="logo_is" src="images/Tap(Light).png" alt="Tap Logo" height="175" width="175">
+
+          <div class="container inside_create_account shadow p-3 mb-5 bg-white rounded">
+            <div class="row">
+              <div class="col-lg-2 inside_section">
+              </div>
+              <div id="main_content" class="col-lg-8 inside_section">
+
+                <!--LOGIN FRAGMENT-->
+                <div id="login_fragment" class="account_fragments">
+                  <h1 id="loginTitle" style="font-weight: bold;font-size: 2.75em; color: #4A4A4A; margin-top: 8%; text-align: center">Login</h1>
+                  <button type="button" class="social_auth" id="google_auth" onclick="googleLogin()">
+                    <div class="initial_screen_logos">
+                      <img id="google_logo" src="images/icons8-google-plus-480.png">
+                    </div>
+                    <div class="initial_screen_desc">
+                      Continue with Google
+                    </div>
+                  </button>
+                  <button type="button" class="social_auth" id="facebook_auth">
+                    <div class="initial_screen_logos">
+                      <img id="facebook_logo" src="images/icons8-facebook-48.png" >
+                    </div>
+                    <div class="initial_screen_desc">
+                      Continue with Facebook
+                    </div>
+                  </button>
+                  <img id="or_filler" src="images/or_filler.png" alt="">
+
+                  <!--FORM INFORMATION-->
+                  <form id="login_form">
+                    <div class="row input_field top">
+                      <div class="col">
+                        <input id="login_email" type="text" class="form-control" placeholder="Email">
+                      </div>
+                    </div>
+                    <div class="row input_field bottom">
+                      <div class="col">
+                        <input id="login_password" type="password" class="form-control" placeholder="Password">
+                      </div>
+                    </div>
+                    <div class="login">
+                      <button id="btn_login" type="submit" onclick="login()">LOGIN</button>
+                    </div>
+                    <a id="link_to_create">Don't have an account yet? Click here</a>
+                  </form>
+                  <!--END FORM INFORMATION-->
+                  <!--END LOGIN FRAGMENT-->
+                </div>
+
+                <!--CREATE FRAGMENT-->
+                <div id="create_fragment" class="account_fragments" style="display:none">
+                  <!--CREATE ACCOUNT-->
+                  <h1 id="createTitle" style="font-weight: bold;font-size: 2.75em; color: #4A4A4A; margin-top: 8%; text-align: center">Create your personal account</h1>
+                  <button type="button" class="social_auth" id="google_auth" onclick="googleLogin()">
+                    <div class="initial_screen_logos">
+                      <img id="google_logo" src="images/icons8-google-plus-480.png">
+                    </div>
+                    <div class="initial_screen_desc">
+                      Continue with Google
+                    </div>
+                  </button>
+                  <button type="button" class="social_auth" id="facebook_auth">
+                    <div class="initial_screen_logos">
+                      <img id="facebook_logo" src="images/icons8-facebook-48.png" >
+                    </div>
+                    <div class="initial_screen_desc">
+                      Continue with Facebook
+                    </div>
+                  </button>
+                  <img id="or_filler" src="images/or_filler.png" alt="">
+
+                  <!--FORM INFORMATION-->
+                  <form id="create_account_form">
+                    <div class="row input_field top">
+                      <div class="col">
+                        <input id="create_email" type="email" class="form-control" placeholder="Email">
+                      </div>
+                    </div>
+                    <div class="row input_field bottom">
+                      <div class="col">
+                        <input id="create_password" type="password" class="form-control" placeholder="Password">
+                      </div>
+                    </div>
+                    <div class="createAccount">
+                      <button id="btn_create_account" type="submit" onclick="create()">Create Account</button>
+                    </div>
+                    <a id="link_to_login">Already have an account? Click here</a>
+                  </form>
+                  <!--END FORM INFORMATION-->
+                  <!--END CREATE FRAGMENT-->
+                </div>
+              </div>
+              <div class="col-lg-2 inside_section">
+                <img style="float:right" src="images/lock.png" alt="">
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-lg-2 section">
+        </div>
+      </div>
+    </div>
+
+
+    <!--SCRIPTS-->
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script>
+      document.getElementById("link_to_create").addEventListener("click",function() {
+        document.getElementById("login_fragment").style.display = "none";
+        document.getElementById("create_fragment").style.display = "block";
+        console.log("Click event going to create account fragment");
+      });
+      document.getElementById("link_to_login").addEventListener("click",function() {
+        document.getElementById("create_fragment").style.display = "none";
+        document.getElementById("login_fragment").style.display = "block";
+        console.log("Click event going to login fragment");
+      });
+    </script>
+    <script src="main.js"></script>
+  </body>
+</html>
