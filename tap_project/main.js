@@ -27,7 +27,9 @@
     }
   });
 
-
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
 }());
 
 
@@ -91,10 +93,31 @@ function googleLogin() {
 function grabFollowers() {
   window.alert("Grabbing friends...🔄");
 }
-//-----------------
-// Record Challenge
-//-----------------
+function recordAudio() {
+  window.alert("Recording audio...");
+}
+function playbackAudio() {
+  window.alert("Playing audio...");
+}
+
+function createChallenge() {
+
+  //correct answer is not selected
+  if(!(document.getElementById('radio1').checked || document.getElementById('radio2').checked
+  || document.getElementById('radio3').checked || document.getElementById('radio4').checked)) {
+    document.getElementById('correctAnswerAlert').style.display = "block";
+  }
+  else { //correct answer is selected
+    document.getElementById('correctAnswerAlert').style.display = "none";
+    $("#postChallengeModal").modal("show");
+    setTimeout("location.href = 'feed.html'", 3000);
+  }
+}
+
 $(document).ready(function(){
+  //-----------------
+  // Record Challenge
+  //-----------------
   $("#recordBtn").click(function() {
     console.log("Modal showing");
     $("#newChallengeModal").modal("show");
