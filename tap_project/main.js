@@ -1,5 +1,11 @@
 
 
+  // Initialize Cloud Firestore through Firebase
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      // User is signed in.
+      var user = firebase.auth().currentUser;
+
 console.log("App loaded");
 
 
@@ -87,7 +93,23 @@ function googleLogin() {
 }
 
 function grabFollowers() {
-  window.alert("Grabbing friends...🔄");
+  const db = firebase.firestore();
+  var docRef = db.collection("users").doc("liannesr");
+
+  docRef.get()
+    .then(function(doc) {
+        if (doc.exists) {
+            console.log("Document data:", doc.data());
+        } else {
+              // doc.data() will be undefined in this case
+            console.log("No such document!");
+          }
+
+        })
+    .catch(function(error) {
+    console.log("Error getting document:", error);
+    });
+  //window.alert("Grabing followers");
 }
 function recordAudio() {
   window.alert("Recording audio...");
