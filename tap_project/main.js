@@ -1,10 +1,14 @@
 
 
   // Initialize Cloud Firestore through Firebase
-  firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-      // User is signed in.
-      var user = firebase.auth().currentUser;
+  // firebase.auth().onAuthStateChanged(function(user) {
+  //     if (user) {
+  //       // User is signed in.
+  //       var user = firebase.auth().currentUser;
+  //     }
+  //     else{}
+  //   });
+
 
 console.log("App loaded");
 
