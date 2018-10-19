@@ -1,17 +1,13 @@
-
-
-  // Initialize Cloud Firestore through Firebase
-  // firebase.auth().onAuthStateChanged(function(user) {
-  //     if (user) {
-  //       // User is signed in.
-  //       var user = firebase.auth().currentUser;
-  //     }
-  //     else{}
-  //   });
-
-
 console.log("App loaded");
 
+
+
+// Initialize Cloud Firestore through Firebase
+var db = firebase.firestore();
+// Disable deprecated features
+db.settings({
+  timestampsInSnapshots: true
+});
 
 $(function () {
     $('[data-toggle="tooltip"]').tooltip();
@@ -98,7 +94,7 @@ function googleLogin() {
 
 function grabFollowers() {
   const db = firebase.firestore();
-  var docRef = db.collection("users").doc("liannesr");
+  var docRef = db.collection("users").doc("liannes");
 
   docRef.get()
     .then(function(doc) {
