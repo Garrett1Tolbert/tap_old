@@ -1,36 +1,25 @@
-(function() {
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyAIpR8O8xEDrSitpVI6jpVBEvXU5reQLNM",
-    authDomain: "alphabetter-tap-v1.firebaseapp.com",
-    databaseURL: "https://alphabetter-tap-v1.firebaseio.com",
-    projectId: "alphabetter-tap-v1",
-    storageBucket: "alphabetter-tap-v1.appspot.com",
-    messagingSenderId: "806333716389"
-  };
-  firebase.initializeApp(config);
+console.log("App loaded");
 
-  firebase.auth().onAuthStateChanged(function(user) {
+firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
-      // User is signed in.
-      var user = firebase.auth().currentUser;
-
-      if(window.location.href.indexOf("feed") > -1) {
-        console.log("You're on the right page " + user.displayName);
-      }
-      // window.location = 'feed.html';
-      console.log("User signed in");
-
-    } else {
-      // No user is signed in.
-      console.log("User signed out");
+      console.log(user);
+    }
+    else{
+      console.log("User is signed out.")
     }
   });
 
-  $(function () {
-    $('[data-toggle="tooltip"]').tooltip()
-  })
-}());
+// Initialize Cloud Firestore through Firebase
+var db = firebase.firestore();
+// Disable deprecated features
+db.settings({
+  timestampsInSnapshots: true
+});
+
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+  });
+
 
 
 function logout() {
@@ -40,6 +29,7 @@ function logout() {
     // Sign-out successful.
   }).catch(function(error) {
     // An error happened.
+    console.log("Error occurerd");
   });
 }
 
@@ -47,7 +37,7 @@ function login() {
   //Get elements
   const loginEmail = document.getElementById('login_email').value;
   const loginPassword = document.getElementById('login_password').value;
-  const loginBtn = document.getElementById('btn_login');
+
 
   firebase.auth().signInWithEmailAndPassword(loginEmail, loginPassword).catch(function(error) {
     // Handle Errors here.
@@ -55,15 +45,25 @@ function login() {
     var errorMessage = error.message;
     // ...
     window.alert("Error: " + errorMessage);
-    location.replace = 'feed.html';
   });
+
+
+  firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        console.log(user);
+        location.replace('feed.html');
+      }
+      else{
+        console.log("User is signed out.")
+      }
+    });
+
 }
 
 function create() {
-  //Get elements
+
   const createEmail = document.getElementById('create_email').value;
   const createPassword = document.getElementById('create_password').value;
-  const createBtn = document.getElementById('btn_create_account');
 
   firebase.auth().createUserWithEmailAndPassword(createEmail, createPassword).catch(function(error) {
     // Handle Errors here.
@@ -71,8 +71,17 @@ function create() {
     var errorMessage = error.message;
     // ...
     window.alert("Error: " + errorMessage);
-    location.replace = 'feed.html';
   });
+
+  firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+       location.replace('feed.html');
+      }
+      else{
+        console.log("User is signed out.")
+      }
+    });
+
 }
 
 function googleLogin() {
@@ -83,15 +92,32 @@ function googleLogin() {
 
           .then(result => {
             const user = result.user;
-            // location = "feed.html";
-            // location.reload(true);
+
             location.replace('feed.html');
           })
           .catch(console.log);
+
+
 }
 
 function grabFollowers() {
-  window.alert("Grabbing friends...🔄");
+  const db = firebase.firestore();
+  var docRef = db.collection("users").doc("liannes");
+
+  docRef.get()
+    .then(function(doc) {
+        if (doc.exists) {
+            console.log("Document data:", doc.data());
+        } else {
+              // doc.data() will be undefined in this case
+            console.log("No such document!");
+          }
+
+        })
+    .catch(function(error) {
+    console.log("Error getting document:", error);
+    });
+  //window.alert("Grabing followers");
 }
 // function recordAudio() {
 //   window.alert("Recording audio...");
@@ -170,3 +196,15 @@ const playAudio = () => {
    audio.play();
  }
 };
+
+// Checks that the Firebase SDK has been correctly setup and configured.
+function checkSetup() {
+  if (!window.firebase || !(firebase.app instanceof Function) || !firebase.app().options) {
+    window.alert('You have not configured and imported the Firebase SDK. ' +
+        'Make sure you go through the codelab setup instructions and make ' +
+        'sure you are running the codelab using `firebase serve`');
+  }
+}
+
+// Checks that Firebase has been imported.
+checkSetup();
