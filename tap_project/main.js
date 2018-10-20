@@ -93,21 +93,21 @@ function googleLogin() {
 function grabFollowers() {
   window.alert("Grabbing friends...🔄");
 }
-function recordAudio() {
-  window.alert("Recording audio...");
-}
-function playbackAudio() {
-  window.alert("Playing audio...");
-}
+// function recordAudio() {
+//   window.alert("Recording audio...");
+// }
+// function playbackAudio() {
+//   window.alert("Playing audio...");
+// }
 
 function createChallenge() {
-
-  //correct answer is not selected
+  var chosen_option;
+  //an answer is not selected as the correct answer
   if(!(document.getElementById('radio1').checked || document.getElementById('radio2').checked
   || document.getElementById('radio3').checked || document.getElementById('radio4').checked)) {
     document.getElementById('correctAnswerAlert').style.display = "block";
   }
-  else { //correct answer is selected
+  else { //an answer is selected as the correct answer
     document.getElementById('correctAnswerAlert').style.display = "none";
     $("#postChallengeModal").modal("show");
     setTimeout("location.href = 'feed.html'", 3000);
@@ -116,7 +116,7 @@ function createChallenge() {
 
 $(document).ready(function(){
   //-----------------
-  // Record Challenge
+  // Create New Challenge
   //-----------------
   $("#recordBtn").click(function() {
     console.log("Modal showing");
@@ -124,3 +124,49 @@ $(document).ready(function(){
     console.log("Modal shown...");
   });
 });
+
+//-----------------
+// Record Challenge
+//-----------------
+const recordAudio = () =>
+ new Promise(async resolve => {
+   const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+   const mediaRecorder = new MediaRecorder(stream);
+   const audioChunks = [];
+   mediaRecorder.addEventListener("dataavailable", event => {
+     audioChunks.push(event.data);
+   });
+   const start = () => mediaRecorder.start();
+   const stop = () =>
+     new Promise(resolve => {
+       mediaRecorder.addEventListener("stop", () => {
+         const audioBlob = new Blob(audioChunks);
+         const audioUrl = URL.createObjectURL(audioBlob);
+         const audio = new Audio(audioUrl);
+         const play = () => audio.play();
+         resolve({ audioBlob, audioUrl, play });
+       });
+       mediaRecorder.stop();
+     });
+   resolve({ start, stop });
+ });
+let recorder = null;
+let audio = null;
+async function recordStop() {
+  console.log("Anurag");
+  if (recorder) {
+   audio = await recorder.stop();
+   recorder = null;
+   document.querySelector("#record_stopBtn").setAttribute("src", "images/record_audio.png");
+   document.querySelector("#playbackAudioBtn").removeAttribute("disabled");
+  } else {
+   recorder = await recordAudio();
+   recorder.start();
+   document.querySelector("#record_stopBtn").setAttribute("src", "images/stop_recording.png");
+  }
+};
+const playAudio = () => {
+ if (audio && typeof audio.play === "function") {
+   audio.play();
+ }
+};

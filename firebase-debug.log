@@ -1,0 +1,28 @@
+[debug] [2018-10-20T06:41:37.730Z] ----------------------------------------------------------------------
+[debug] [2018-10-20T06:41:37.732Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2018-10-20T06:41:37.732Z] CLI Version:   4.2.1
+[debug] [2018-10-20T06:41:37.732Z] Platform:      darwin
+[debug] [2018-10-20T06:41:37.732Z] Node Version:  v10.10.0
+[debug] [2018-10-20T06:41:37.737Z] Time:          Fri Oct 19 2018 23:41:37 GMT-0700 (Pacific Daylight Time)
+[debug] [2018-10-20T06:41:37.738Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-10-20T06:41:37.780Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-10-20T06:41:37.781Z] > authorizing via signed-in user
+[debug] [2018-10-20T06:41:37.784Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-10-20T06:41:37.784Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+
+[debug] [2018-10-20T06:41:37.975Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-20T06:41:37.989Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/alphabetter-tap-v1  
+ 
+[debug] [2018-10-20T06:41:38.431Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-20T06:41:38.432Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/alphabetter-tap-v1  
+ 
+[debug] [2018-10-20T06:41:38.772Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/gtolbert/Desktop/tap'...
+[info] 
+[debug] [2018-10-20T06:41:38.774Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/806333716389/clients/_:getWebAppConfig  
+ 
+[debug] [2018-10-20T06:41:39.230Z] <<< HTTP RESPONSE 200
+[info] i  hosting[alphabetter-tap-v1]: Serving hosting files from: tap_project
+[info] ✔  hosting[alphabetter-tap-v1]: Local server: http://localhost:5000

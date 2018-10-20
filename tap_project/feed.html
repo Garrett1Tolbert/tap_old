@@ -32,38 +32,16 @@
       </div>
     </nav>
     <div id="feed_body">
-      <!-- Modal -->
-      <!-- <div class="modal fade" id="newChallengeModal" tabindex="-1" role="dialog" aria-labelledby="newChallengeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header" style="border: 3px solid blue">
-              <h5 class="modal-title" id="newChallengeModalLabel" style="color: #537EA6; margin-left: 35%">New Challenge</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body" style="border: 3px solid black">
-              <div class="row" style="border: 3px solid red">
-                <img id="recordAudioBtn" onclick="recordAudio()" src="images/record_audio.png" alt="record_audio" style="margin-left: 3%">
-                <img src="images/fake_audio_level.png" style="margin-left: 5%; margin-right: 5px" alt="audio_level">
-                <img src="images/playback.png" alt="playback">
-              </div>
-              <div class="row" style="border: 3px solid green; margin-top: 10%;">
-                <h4 style="font-size: 1em">Correct Answer: </h4>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-              <button type="button" class="btn btn-primary">POST</button>
-            </div>
-          </div>
-        </div>
-      </div> -->
       <div id="postChallengeModal" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">
           <div class="modal-content">
             <div class="modal-body" style="margin-top:5%; padding-bottom: 0">
               Adding challenge to feed 👍
+              <div id="posted_details">
+                <p style="text-decoration: underline">Answer choices</p>
+                <p id="correctOption"></p>
+                <p id="correctAnswer"></p>
+              </div>
               <p style="font-size: 0.75em; margin-top: 5%">Refreshing...</p>
             </div>
           </div>
@@ -80,78 +58,50 @@
             </div>
             <div class="modal-body" style="margin-top:5%; padding-bottom: 2%">
               <div class="row">
-                <img id="recordAudioBtn" data-toggle="tooltip" data-placement="top" title="Record Audio" onclick="recordAudio()" src="images/record_audio.png" alt="record_audio" style="margin-left: 10%; margin-right: 5%">
+                <img id="record_stopBtn" data-toggle="tooltip" data-placement="top" title="Record Audio" onclick="recordStop()" src="images/record_audio.png" alt="record_audio" style="margin-left: 10%; margin-right: 5%">
                 <img src="images/fake_audio_level.png" style="margin-left: 5%; margin-right: 5%" alt="audio_level">
-                <img data-toggle="tooltip" data-placement="right" title="Playback" onclick="playbackAudio()" src="images/playback.png" style="margin-left: 5%; margin-right: 5%; margin-top: 15px;" height="35px" width="35px" alt="playback">
+                <img id="playbackAudioBtn" data-toggle="tooltip" data-placement="right" title="Playback" onclick="playAudio()" src="images/playback.png" style="margin-left: 5%; margin-right: 5%; margin-top: 15px;" height="35px" width="35px" alt="playback">
               </div>
               <div class="row" style="margin-top: 10%; height: 40px">
-                <!-- <div class="form-check" style="margin-right: 5%; padding-top: 5px">
-                  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                  <label class="form-check-label" for="defaultCheck1">
-                    Checkbox
-                  </label>
-                </div>
-                <div class="form-check" style="margin-right: 5%; padding-top: 5px">
-                  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                  <label class="form-check-label" for="defaultCheck1">
-                    Checkbox
-                  </label>
-                </div> -->
-                <div class="input-group input-group-sm mb-3" style="width: inherit; margin-left: 5%">
+                <div id="option1" class="input-group input-group-sm mb-3" style="width: inherit; margin-left: 5%">
                   <div class="input-group-prepend">
                     <div class="input-group-text">
                       <input id="radio1" type="radio" name="correct_answer" aria-label="Radio button for following text input">
                     </div>
                   </div>
-                  <input id="answer_choice1" type="text" class="form-control" placeholder="Answer Choice 1" style="margin-left: 0;" aria-label="Text input with radio button">
+                  <input id="answer_choice1" type="text" class="form-control challengeAnswers" placeholder="Answer Choice 1" style="margin-left: 0;" aria-label="Text input with radio button">
                 </div>
-                <div class="input-group input-group-sm mb-3" style="width: inherit; margin-left: 5%">
+                <div id="option2" class="input-group input-group-sm mb-3" style="width: inherit; margin-left: 5%">
                   <div class="input-group-prepend">
                     <div class="input-group-text">
                       <input id="radio2" type="radio" name="correct_answer" aria-label="Radio button for following text input">
                     </div>
                   </div>
-                  <input id="answer_choice2" type="text" class="form-control" placeholder="Answer Choice 2" style="margin-left: 0;" aria-label="Text input with radio button">
+                  <input id="answer_choice2" type="text" class="form-control challengeAnswers" placeholder="Answer Choice 2" style="margin-left: 0;" aria-label="Text input with radio button">
                 </div>
-                <div class="input-group input-group-sm mb-3" style="width: 275px; margin-left: 5%">
+                <div id="labels" class="input-group input-group-sm mb-3" style="width: 275px; margin-left: 5%">
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroup-sizing-sm">Labels</span>
                   </div>
                   <input id="challengeLabels" type="text" class="form-control" style="margin-left: 0;" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="separate labels by comma(.)">
                 </div>
-                <!-- <div class="label" style="margin-left: 15%; display: flex">
-                  <h4 style="font-size:1em; padding-top: 5px">Labels: </h4>
-                  <input type="text" name="" placeholder="separate labels by comma(.)" style="height: 20px; width: 250px; margin-top: 5px;margin-left: 5%; font-size: 1em">
-                </div> -->
               </div>
               <div class="row" style="height: 40px">
-                <!-- <div class="form-check" style="margin-right: 5%; padding-top: 5px">
-                  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                  <label class="form-check-label" for="defaultCheck1">
-                    Checkbox
-                  </label>
-                </div>
-                <div class="form-check" style="margin-right: 5%; padding-top: 5px">
-                  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                  <label class="form-check-label" for="defaultCheck1">
-                    Checkbox
-                  </label>
-                </div> -->
-                <div class="input-group input-group-sm mb-3" style="width: inherit; margin-left: 5%">
+                <div id="option3" class="input-group input-group-sm mb-3" style="width: inherit; margin-left: 5%">
                   <div class="input-group-prepend">
                     <div class="input-group-text">
                       <input id="radio3" type="radio" name="correct_answer" aria-label="Radio button for following text input">
                     </div>
                   </div>
-                  <input id="answer_choice3" type="text" class="form-control" placeholder="Answer Choice 3" style="margin-left: 0;" aria-label="Text input with radio button">
+                  <input id="answer_choice3" type="text" class="form-control challengeAnswers" placeholder="Answer Choice 3" style="margin-left: 0;" aria-label="Text input with radio button">
                 </div>
-                <div class="input-group input-group-sm mb-3" style="width: inherit; margin-left: 5%">
+                <div id="option4" class="input-group input-group-sm mb-3" style="width: inherit; margin-left: 5%">
                   <div class="input-group-prepend">
                     <div class="input-group-text">
                       <input id="radio4" type="radio" name="correct_answer" aria-label="Radio button for following text input">
                     </div>
                   </div>
-                  <input id="answer_choice4" type="text" class="form-control" placeholder="Answer Choice 4" style="margin-left: 0;" aria-label="Text input with radio button">
+                  <input id="answer_choice4" type="text" class="form-control challengeAnswers" placeholder="Answer Choice 4" style="margin-left: 0;" aria-label="Text input with radio button">
                 </div>
               </div>
               <p id="correctAnswerAlert" style=" display: none; margin-top: 2%; margin-bottom: 0; padding-left: 3%; font-size: 1em; color:#537EA6"><span style="font-style: italic">Don't forget to select the correct answer! </span> 😊</p>
