@@ -117,14 +117,9 @@ function grabFollowers() {
     .catch(function(error) {
     console.log("Error getting document:", error);
     });
-  //window.alert("Grabing followers");
 }
-// function recordAudio() {
-//   window.alert("Recording audio...");
-// }
-// function playbackAudio() {
-//   window.alert("Playing audio...");
-// }
+
+
 
 function createChallenge() {
   var chosen_option;
