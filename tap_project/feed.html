@@ -36,21 +36,18 @@
           <div class="modal-content">
             <div class="modal-body" style="margin-top:5%; padding-bottom: 0">
               Adding challenge to feed 👍
-              <div id="posted_details">
-                <p style="text-decoration: underline">Answer choices</p>
-                <p id="correctOption"></p>
-                <p id="correctAnswer"></p>
-              </div>
               <p style="font-size: 0.75em; margin-top: 5%">Refreshing...</p>
             </div>
           </div>
         </div>
       </div>
+
+      <!-- New Challenge Modal -->
       <div id="newChallengeModal" class="modal fade bd-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="newChallengeModalLabel" style="color: #537EA6; margin-left: 35%">New Challenge</h5>
+              <h5 class="modal-title" id="newChallengeModalLabel" style="color: #537EA6; font-weight: bold;margin-left: 40%">New Challenge</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -107,7 +104,54 @@
             </div>
             <div class="modal-footer">
               <button id="cancelModal" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-              <button id="postModal" type="button" class="btn btn-primary" onclick="createChallenge()">POST</button>
+              <button id="postModal" type="button" class="btn btn-primary" onclick="postChallenge()">POST</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Modal -->
+      <div class="modal fade" id="faqModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="faqModalTitle" style="color: #537EA6; margin-left: 45%; font-size: 1.5em;font-weight:bold">FAQ</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h1 class="faq_questions" style="font-size:1.25em;color: #FFC000;text-transform:uppercase;">How do I earn more points?</h1>
+              <p class="faq_answers" style="background-color:#efefef; border-radius: 10px; padding: 5px">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
+                pharetra tortor tortor, a rutrum eros porta eget. Proin diam neque,
+                interdum venenatis nulla nec, interdum sollicitudin risus. Quisque
+                mattis semper gravida. Fusce dictum purus in pulvinar elementum.
+                Vestibulum eget ipsum id lorem vestibulum consequat. Donec convallis
+                risus id sodales feugiat. Donec rhoncus finibus tincidunt. Donec feugiat
+                cursus arcu, sit amet faucibus lorem vulputate eget.</p>
+              <h1 class="faq_questions" style="font-size:1.25em;color: #FFC000;text-transform:uppercase; ">How do you create a challenge?</h1>
+              <p class="faq_answers" style="background-color:#efefef; border-radius: 10px; padding: 5px">Nulla rutrum congue eros sed vestibulum. Cras tristique interdum magna
+                eu ornare. Vivamus sem leo, tincidunt nec ipsum congue, consequat lacinia
+                purus. Quisque vitae pellentesque diam. Proin eu metus eu lorem maximus molestie.
+                Nullam bibendum mauris et dui blandit ultricies tincidunt vel dolor. Suspendisse
+                non commodo felis.</p>
+              <h1 class="faq_questions" style="font-size:1.25em;color: #FFC000;text-transform:uppercase; ">What is Tap?</h1>
+              <p class="faq_answers" style="background-color:#efefef; border-radius: 10px; padding: 5px">Maecenas vitae facilisis arcu, sit amet auctor augue. Maecenas blandit,
+                est nec tincidunt euismod, sem ipsum rhoncus nisl, nec efficitur diam magna eget purus. Cras
+                et vehicula felis. Nulla pulvinar at elit fringilla mattis. Integer sit amet nunc quis nulla
+                mollis finibus quis non eros. Nam nec lectus non mi malesuada tristique non non massa. Integer
+                mollis posuere tempus. Aliquam vestibulum augue vitae diam ultrices, sed fringilla lectus viverra.
+                Aenean vitae laoreet lacus. Nulla tempus porttitor sem ac pretium. In hac habitasse platea dictumst.
+                Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
+              <h1 class="faq_questions" style="font-size:1.25em;color: #FFC000;text-transform:uppercase;">How can I see my challenges?</h1>
+              <p class="faq_answers" style="background-color:#efefef; border-radius: 10px; padding: 5px">Phasellus feugiat, justo quis scelerisque
+                pharetra, enim sem iaculis libero, vel auctor arcu ipsum eget turpis. Fusce facilisis at ex id euismod. Sed feugiat leo urna, vel
+                luctus leo tincidunt et. Aenean at tincidunt nibh. Donec ante felis, rhoncus vel ipsum et, dictum dictum libero. Maecenas eget augue
+                aliquet, vestibulum quam aliquam, aliquet nisi. Nullam felis ex, rutrum eget sapien nec, bibendum pharetra ipsum. Maecenas
+                semper egestas est. Aenean pharetra, dui nec mollis elementum, tortor risus ultricies nulla, nec tristique massa ligula
+                non ante. Nulla dapibus turpis eget tempus dictum. Praesent massa mauris, porta quis elit eget, condimentum cursus erat.
+                Nunc elit justo, eleifend ac imperdiet ac, fringilla nec nisi. Praesent scelerisque, lectus in imperdiet finibus, augue magna
+                dignissim velit, in porta nisl diam sed nunc.</p>
             </div>
           </div>
         </div>
@@ -124,7 +168,7 @@
               <li><a href="#">Profile</a> </li>
               <li><a href="#">My Challenges</a> </li>
               <li><a href="#">Liked Challenges</a> </li>
-              <li><a href="#">Help Center</a> </li>
+              <li id="view_FAQ"><a href="#">FAQ</a> </li>
               <li id="logoutBtn" onclick="logout()"><a>Logout <img src="images/logout_icon.png" width="25px" height="25px" alt="logout_icon"> </a> </li>
             </ul>
           </div>

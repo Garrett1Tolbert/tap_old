@@ -121,8 +121,8 @@ function grabFollowers() {
 
 
 
-function createChallenge() {
-  var chosen_option;
+function postChallenge() {
+
   //an answer is not selected as the correct answer
   if(!(document.getElementById('radio1').checked || document.getElementById('radio2').checked
   || document.getElementById('radio3').checked || document.getElementById('radio4').checked)) {
@@ -140,9 +140,14 @@ $(document).ready(function(){
   // Create New Challenge
   //-----------------
   $("#recordBtn").click(function() {
-    console.log("Modal showing");
+    console.log("New Challenge Modal showing");
     $("#newChallengeModal").modal("show");
-    console.log("Modal shown...");
+    console.log("New Challenge Modal showing");
+  });
+  $("#view_FAQ").click(function() {
+    console.log("FAQ Modal showing");
+    $("#faqModal").modal("show");
+    console.log("FAQ Modal shown...");
   });
 });
 
