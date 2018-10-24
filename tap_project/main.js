@@ -176,13 +176,6 @@ function postChallenge() {
       }
     }
     console.log(challengeLabels);
-<<<<<<< Updated upstream
-=======
-    //reset challenge data
-    for(var i = 0; i<inputs.length; i++) {
-      inputs[i].value = '';
-    }
->>>>>>> Stashed changes
 
     $("#postChallengeModal").modal("show");
     //setTimeout("location.href = 'feed.html'", 3000);
