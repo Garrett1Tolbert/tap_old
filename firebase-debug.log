@@ -26,3 +26,31 @@
 [debug] [2018-10-24T06:02:32.856Z] <<< HTTP RESPONSE 200
 [info] i  hosting[alphabetter-tap-v1]: Serving hosting files from: tap_project
 [info] ✔  hosting[alphabetter-tap-v1]: Local server: http://localhost:5000
+[debug] [2018-10-24T17:50:39.848Z] ----------------------------------------------------------------------
+[debug] [2018-10-24T17:50:39.850Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2018-10-24T17:50:39.850Z] CLI Version:   4.2.1
+[debug] [2018-10-24T17:50:39.850Z] Platform:      darwin
+[debug] [2018-10-24T17:50:39.850Z] Node Version:  v10.10.0
+[debug] [2018-10-24T17:50:39.851Z] Time:          Wed Oct 24 2018 10:50:39 GMT-0700 (Pacific Daylight Time)
+[debug] [2018-10-24T17:50:39.851Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-10-24T17:50:39.868Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-10-24T17:50:39.869Z] > authorizing via signed-in user
+[debug] [2018-10-24T17:50:39.871Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-10-24T17:50:39.872Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+
+[debug] [2018-10-24T17:50:40.067Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-24T17:50:40.082Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/alphabetter-tap-v1  
+ 
+[debug] [2018-10-24T17:50:40.771Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-24T17:50:40.772Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/alphabetter-tap-v1  
+ 
+[debug] [2018-10-24T17:50:41.085Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/gtolbert/Desktop/tap'...
+[info] 
+[debug] [2018-10-24T17:50:41.088Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/806333716389/clients/_:getWebAppConfig  
+ 
+[debug] [2018-10-24T17:50:41.343Z] <<< HTTP RESPONSE 200
+[info] i  hosting[alphabetter-tap-v1]: Serving hosting files from: tap_project
+[info] ✔  hosting[alphabetter-tap-v1]: Local server: http://localhost:5000

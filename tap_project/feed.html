@@ -30,6 +30,58 @@
         </div>
       </div>
     </nav>
+    <!-- Anonymous FAQ Modal -->
+    <div class="modal fade" id="anonfaqModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="anonfaqModalTitle" style="color: #537EA6; margin-left: 45%; font-size: 1.5em;font-weight:bold">FAQ</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h1 class="faq_questions" style="font-size:1.25em;color: #FFC000;text-transform:uppercase;">How do I earn more points?</h1>
+            <p class="faq_answers" style="text-align: justify; background-color:#efefef; border-radius: 10px; padding: 5px">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
+              pharetra tortor tortor, a rutrum eros porta eget. Proin diam neque,
+              interdum venenatis nulla nec, interdum sollicitudin risus. Quisque
+              mattis semper gravida. Fusce dictum purus in pulvinar elementum.
+              Vestibulum eget ipsum id lorem vestibulum consequat. Donec convallis
+              risus id sodales feugiat. Donec rhoncus finibus tincidunt. Donec feugiat
+              cursus arcu, sit amet faucibus lorem vulputate eget.</p>
+            <h1 class="faq_questions" style="font-size:1.25em;color: #FFC000;text-transform:uppercase; ">How do I create a challenge?</h1>
+            <p class="faq_answers" style="text-align: justify; background-color:#efefef; border-radius: 10px; padding: 5px">Nulla rutrum congue eros sed vestibulum. Cras tristique interdum magna
+              eu ornare. Vivamus sem leo, tincidunt nec ipsum congue, consequat lacinia
+              purus. Quisque vitae pellentesque diam. Proin eu metus eu lorem maximus molestie.
+              Nullam bibendum mauris et dui blandit ultricies tincidunt vel dolor. Suspendisse
+              non commodo felis.</p>
+            <h1 class="faq_questions" style="font-size:1.25em;color: #FFC000;text-transform:uppercase; ">What is Tap?</h1>
+            <p class="faq_answers" style="text-align: justify; background-color:#efefef; border-radius: 10px; padding: 5px">Maecenas vitae facilisis arcu, sit amet auctor augue. Maecenas blandit,
+              est nec tincidunt euismod, sem ipsum rhoncus nisl, nec efficitur diam magna eget purus. Cras
+              et vehicula felis. Nulla pulvinar at elit fringilla mattis. Integer sit amet nunc quis nulla
+              mollis finibus quis non eros. Nam nec lectus non mi malesuada tristique non non massa. Integer
+              mollis posuere tempus. Aliquam vestibulum augue vitae diam ultrices, sed fringilla lectus viverra.
+              Aenean vitae laoreet lacus. Nulla tempus porttitor sem ac pretium. In hac habitasse platea dictumst.
+              Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
+            <h1 class="faq_questions" style="font-size:1.25em;color: #FFC000;text-transform:uppercase;">How can I see my challenges?</h1>
+            <p class="faq_answers" style="text-align: justify; background-color:#efefef; border-radius: 10px; padding: 5px">Phasellus feugiat, justo quis scelerisque
+              pharetra, enim sem iaculis libero, vel auctor arcu ipsum eget turpis. Fusce facilisis at ex id euismod. Sed feugiat leo urna, vel
+              luctus leo tincidunt et. Aenean at tincidunt nibh. Donec ante felis, rhoncus vel ipsum et, dictum dictum libero. Maecenas eget augue
+              aliquet, vestibulum quam aliquam, aliquet nisi. Nullam felis ex, rutrum eget sapien nec, bibendum pharetra ipsum. Maecenas
+              semper egestas est. Aenean pharetra, dui nec mollis elementum, tortor risus ultricies nulla, nec tristique massa ligula
+              non ante. Nulla dapibus turpis eget tempus dictum. Praesent massa mauris, porta quis elit eget, condimentum cursus erat.
+              Nunc elit justo, eleifend ac imperdiet ac, fringilla nec nisi. Praesent scelerisque, lectus in imperdiet finibus, augue magna
+              dignissim velit, in porta nisl diam sed nunc.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div id="anonymousAlert" class="alert alert-warning" role="alert" style="margin-top: 20%; width: 50%; margin-left: auto; margin-right: auto">
+      This is a warning alert. For security purposes, user data will be hidden <a href="index.html" class="alert-link">until you Login</a>!
+      <br> You can check out our FAQs <a id="anonymousFAQView"><span style="text-decoration: underline">here</span></a> for more details.
+    </div> -->
+
     <div id="feed_body">
       <div id="postChallengeModal" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">
@@ -100,7 +152,9 @@
                   <input id="answer_choice4" type="text" class="form-control challengeAnswers" placeholder="Answer Choice 4" style="margin-left: 0;" aria-label="Text input with radio button">
                 </div>
               </div>
-              <p id="correctAnswerAlert" style=" display: none; margin-top: 2%; margin-bottom: 0; padding-left: 3%; font-size: 1em; color:#537EA6"><span style="font-style: italic">Don't forget to select the correct answer! </span> 😊</p>
+              <div id="correctAnswerAlert" class="alert alert-danger fade show" role="alert" style=" display: none; width: 55%; margin-top: 2%; margin-bottom: 0; margin-left: 3.5%; font-size: 1em; color:#537EA6">
+                 Don't forget to select the correct answer!
+              </div>
             </div>
             <div class="modal-footer">
               <button id="cancelModal" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -129,7 +183,7 @@
                 Vestibulum eget ipsum id lorem vestibulum consequat. Donec convallis
                 risus id sodales feugiat. Donec rhoncus finibus tincidunt. Donec feugiat
                 cursus arcu, sit amet faucibus lorem vulputate eget.</p>
-              <h1 class="faq_questions" style="font-size:1.25em;color: #FFC000;text-transform:uppercase; ">How do you create a challenge?</h1>
+              <h1 class="faq_questions" style="font-size:1.25em;color: #FFC000;text-transform:uppercase; ">How do I create a challenge?</h1>
               <p class="faq_answers" style="text-align: justify; background-color:#efefef; border-radius: 10px; padding: 5px">Nulla rutrum congue eros sed vestibulum. Cras tristique interdum magna
                 eu ornare. Vivamus sem leo, tincidunt nec ipsum congue, consequat lacinia
                 purus. Quisque vitae pellentesque diam. Proin eu metus eu lorem maximus molestie.
@@ -160,8 +214,8 @@
       <div id="challengeArea">
         <div id="hub" class="shadow rounded">
           <div id="hubTop" class="rounded">
-            <img class="rounded-circle" style="border: 2px solid #537EA6; margin-left: 5px; padding: 5px;" src="images/default_profile_pic.png" width="60" height="60" alt="Profile_Pic">
-            <span style="vertical-align: middle;margin-left: 15px;font-weight: 700; padding-right: 5px;">Pedro Luis Rivera Gomez</span>
+            <img id="user_Photo" class="rounded-circle" style="border: 2px solid #537EA6; margin-left: 5px;" src="images/default_profile_pic.png" width="60" height="60" alt="Profile_Pic">
+            <span id="user_Name" style="text-align: center;vertical-align: middle;margin-left: 15px;font-weight: 700; padding-right: 5px;">Welcome!</span>
           </div>
           <div id="hubBottom" class="rounded">
             <ul id="hubLinks" style="list-style:none; padding-top: 5px; margin-bottom: 0;padding-left: 3px;">
@@ -209,7 +263,11 @@
       </div>
     </div>
     <nav id="feed_footer" class="navbar">
-      <img id="recordBtn"  src="images/recordBtn.png" width="150" height="150" alt="">
+      <img id="recordBtn"  src="images/recordBtn.png" width="150" height="150" alt="record_button">
+      <div id="anonymousAlert" class="alert alert-warning" role="alert" style="display: none">
+        This is a warning alert. For security purposes, user data will be hidden <a href="index.html" class="alert-link">until you Login</a>!
+        <br> You can check out our FAQs <a id="anonymousFAQView"><span style="text-decoration: underline">here</span></a> for more details.
+      </div>
     </nav>
 
     <!-- Firebase App is always required and must be first -->

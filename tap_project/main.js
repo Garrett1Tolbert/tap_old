@@ -6,6 +6,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     }
     else{
       console.log("User is signed out.")
+      document.getElementById('anonymousAlert').style.display = "block";
     }
   });
 
@@ -172,17 +173,29 @@ function postChallenge() {
     }
     console.log(challengeLabels);
 
-    //reset challenge data
-    for(var i = 0; i<inputs.length; i++) {
-      inputs[i].value = '';
-    }
-
     $("#postChallengeModal").modal("show");
     setTimeout("location.href = 'feed.html'", 3000);
   }
 }
 
 $(document).ready(function(){
+
+  firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        document.getElementById('user_Name').innerHTML = user.displayName;
+        document.getElementById('user_Photo').setAttribute("src",user.photoURL);
+      } else {
+        document.getElementById('feed_body').remove();
+        document.getElementById('anonymousAlert').style.display = "block";
+
+        $("#anonymousFAQView").click(function() {
+          console.log("Anonymous FAQ Modal showing");
+          $("#anonfaqModal").modal("show");
+          console.log("Anonymous FAQ Modal shown...");
+        });
+      }
+    });
+
   //-----------------
   // Create New Challenge
   //-----------------
@@ -201,6 +214,7 @@ $(document).ready(function(){
     $("#faqModal").modal("show");
     console.log("FAQ Modal shown...");
   });
+
 });
 
 //-----------------
