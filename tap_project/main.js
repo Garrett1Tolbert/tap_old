@@ -19,6 +19,7 @@ db.settings({
 
 $(function () {
     $('[data-toggle="tooltip"]').tooltip();
+    $('.collapse').collapse();
   });
 
 
@@ -137,71 +138,80 @@ function postChallenge() {
   const db = firebase.firestore();
   var chosen_option;
 
-  //an answer is not selected as the correct answer
-  if(!(document.getElementById('radio1').checked || document.getElementById('radio2').checked
-  || document.getElementById('radio3').checked || document.getElementById('radio4').checked)) {
-    document.getElementById('correctAnswerAlert').style.display = "block";
+  //check to see if all answer choices have values
+  if(option1 == "" || option2 == "" ||option3 == "" || option4 == ""
+     || option1 == " " || option2 == " " ||option3 == " " || option4 == " ") {
+    document.getElementById('allAnswersRequiredAlert').style.display = "block";
   }
-  else { //an answer is selected as the correct answer
-    document.getElementById('correctAnswerAlert').style.display = "none";
+  else { //all answer choices have values
+    document.getElementById('allAnswersRequiredAlert').style.display = "none";
 
-    //get answer choices
-    for(var i = 0; i<inputs.length; i++) {
-      if(inputs[i].getAttribute('type')=='radio' && document.getElementById(inputs[i].id).checked) {
-        correct_option = inputs[i].id;
-        break;
-      }
+    //an answer is not selected as the correct answer
+    if(!(document.getElementById('radio1').checked || document.getElementById('radio2').checked
+    || document.getElementById('radio3').checked || document.getElementById('radio4').checked)) {
+      document.getElementById('correctAnswerAlert').style.display = "block";
     }
+    else { //an answer is selected as the correct answer
+      document.getElementById('correctAnswerAlert').style.display = "none";
 
-    //get answer
-    var answerString = "answer_choice";
-    answerString += correct_option.slice(-1);
-    // console.log("AnswerID: " + answerString);
-    answer = document.getElementById(answerString).value;
-    console.log("Answer chosen: " + answer);
+      //get answer choices
+      for(var i = 0; i<inputs.length; i++) {
+        if(inputs[i].getAttribute('type')=='radio' && document.getElementById(inputs[i].id).checked) {
+          correct_option = inputs[i].id;
+          break;
+        }
+      }
 
-    //get labels
-    var labelPos = 0;
-    for(var a = 0; a < labels.length; a++) {
-      if(labels.charAt(a) == ',') {
-        labelPos++;
-        challengeLabels[labelPos] = "";
-        continue;
+      //get answer
+      var answerString = "answer_choice";
+      answerString += correct_option.slice(-1);
+      // console.log("AnswerID: " + answerString);
+      answer = document.getElementById(answerString).value;
+      console.log("Answer chosen: " + answer);
+
+      //get labels
+      var labelPos = 0;
+      for(var a = 0; a < labels.length; a++) {
+        if(labels.charAt(a) == ',') {
+          labelPos++;
+          challengeLabels[labelPos] = "";
+          continue;
+        }
+        else if (labels.charAt(a) == ' ' && labels.charAt(a-1) == ',') {
+          continue;
+        }
+        else {
+          challengeLabels[labelPos] += labels.charAt(a);
+        }
       }
-      else if (labels.charAt(a) == ' ' && labels.charAt(a-1) == ',') {
-        continue;
-      }
-      else {
-        challengeLabels[labelPos] += labels.charAt(a);
-      }
+      console.log(challengeLabels);
+
+      $("#postChallengeModal").modal("show");
+      //setTimeout("location.href = 'feed.html'", 3000);
+      firebase.auth().onAuthStateChanged(function(user) {
+          if (user) {
+           //location.replace('feed.html');
+           console.log("User is signed in.")
+           // Add a new document with a generated id.
+           db.collection("challenges").add({
+              answer: answer,
+              creatorId: firebase.firestore().doc('/users/'+user.email),
+              labels: challengeLabels,
+              options: [option1, option2, option3, option4],
+              time: Date.now()
+            })
+            .then(function(docRef) {
+              console.log("Document written with ID: ", docRef.id);
+            })
+            .catch(function(error) {
+              console.error("Error adding document: ", error);
+            });
+          }
+          else{
+            console.log("User is signed out.")
+          }
+        });
     }
-    console.log(challengeLabels);
-
-    $("#postChallengeModal").modal("show");
-    //setTimeout("location.href = 'feed.html'", 3000);
-    firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-         //location.replace('feed.html');
-         console.log("User is signed in.")
-         // Add a new document with a generated id.
-         db.collection("challenges").add({
-            answer: answer,
-            creatorId: firebase.firestore().doc('/users/'+user.email),
-            labels: challengeLabels,
-            options: [option1, option2, option3, option4],
-            time: Date.now()
-          })
-          .then(function(docRef) {
-            console.log("Document written with ID: ", docRef.id);
-          })
-          .catch(function(error) {
-            console.error("Error adding document: ", error);
-          });
-        }
-        else{
-          console.log("User is signed out.")
-        }
-      });
   }
 }
 

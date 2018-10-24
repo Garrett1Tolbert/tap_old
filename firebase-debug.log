@@ -1,63 +1,24 @@
-[debug] [2018-10-24T17:20:06.744Z] ----------------------------------------------------------------------
-[debug] [2018-10-24T17:20:06.746Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
-[debug] [2018-10-24T17:20:06.746Z] CLI Version:   5.1.1
-[debug] [2018-10-24T17:20:06.746Z] Platform:      darwin
-[debug] [2018-10-24T17:20:06.746Z] Node Version:  v10.10.0
-[debug] [2018-10-24T17:20:06.747Z] Time:          Wed Oct 24 2018 10:20:06 GMT-0700 (Pacific Daylight Time)
-[debug] [2018-10-24T17:20:06.747Z] ----------------------------------------------------------------------
+[debug] [2018-10-24T18:24:12.868Z] ----------------------------------------------------------------------
+[debug] [2018-10-24T18:24:12.870Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2018-10-24T18:24:12.870Z] CLI Version:   4.2.1
+[debug] [2018-10-24T18:24:12.870Z] Platform:      darwin
+[debug] [2018-10-24T18:24:12.870Z] Node Version:  v10.10.0
+[debug] [2018-10-24T18:24:12.871Z] Time:          Wed Oct 24 2018 11:24:12 GMT-0700 (Pacific Daylight Time)
+[debug] [2018-10-24T18:24:12.871Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2018-10-24T17:20:06.758Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2018-10-24T17:20:06.759Z] > authorizing via signed-in user
-[debug] [2018-10-24T17:20:06.760Z] [iam] checking project alphabetter-tap-v1 for permissions ["firebase.projects.get"]
-[debug] [2018-10-24T17:20:06.762Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
-[debug] [2018-10-24T17:20:06.762Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
- <request body omitted>
-[debug] [2018-10-24T17:20:06.931Z] <<< HTTP RESPONSE 200
-[debug] [2018-10-24T17:20:06.949Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/alphabetter-tap-v1:testIamPermissions  
-
-[debug] [2018-10-24T17:20:07.144Z] <<< HTTP RESPONSE 200
-[debug] [2018-10-24T17:20:07.145Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/alphabetter-tap-v1  
+[debug] [2018-10-24T18:24:12.882Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-10-24T18:24:12.884Z] > authorizing via signed-in user
+[debug] [2018-10-24T18:24:12.886Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/alphabetter-tap-v1  
  
-[debug] [2018-10-24T17:20:07.706Z] <<< HTTP RESPONSE 200
-[info] 
-[info] === Serving from '/Users/liannes/Desktop/tap'...
-[info] 
-[debug] [2018-10-24T17:20:07.707Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/806333716389/clients/_:getWebAppConfig  
+[debug] [2018-10-24T18:24:13.642Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-24T18:24:13.643Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/alphabetter-tap-v1  
  
-<<<<<<< Updated upstream
-[debug] [2018-10-24T06:02:32.856Z] <<< HTTP RESPONSE 200
-[info] i  hosting[alphabetter-tap-v1]: Serving hosting files from: tap_project
-[info] ✔  hosting[alphabetter-tap-v1]: Local server: http://localhost:5000
-[debug] [2018-10-24T17:50:39.848Z] ----------------------------------------------------------------------
-[debug] [2018-10-24T17:50:39.850Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
-[debug] [2018-10-24T17:50:39.850Z] CLI Version:   4.2.1
-[debug] [2018-10-24T17:50:39.850Z] Platform:      darwin
-[debug] [2018-10-24T17:50:39.850Z] Node Version:  v10.10.0
-[debug] [2018-10-24T17:50:39.851Z] Time:          Wed Oct 24 2018 10:50:39 GMT-0700 (Pacific Daylight Time)
-[debug] [2018-10-24T17:50:39.851Z] ----------------------------------------------------------------------
-[debug] 
-[debug] [2018-10-24T17:50:39.868Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2018-10-24T17:50:39.869Z] > authorizing via signed-in user
-[debug] [2018-10-24T17:50:39.871Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
-[debug] [2018-10-24T17:50:39.872Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
-
-[debug] [2018-10-24T17:50:40.067Z] <<< HTTP RESPONSE 200
-[debug] [2018-10-24T17:50:40.082Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/alphabetter-tap-v1  
- 
-[debug] [2018-10-24T17:50:40.771Z] <<< HTTP RESPONSE 200
-[debug] [2018-10-24T17:50:40.772Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/alphabetter-tap-v1  
- 
-[debug] [2018-10-24T17:50:41.085Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-24T18:24:14.063Z] <<< HTTP RESPONSE 200
 [info] 
 [info] === Serving from '/Users/gtolbert/Desktop/tap'...
 [info] 
-[debug] [2018-10-24T17:50:41.088Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/806333716389/clients/_:getWebAppConfig  
+[debug] [2018-10-24T18:24:14.065Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/806333716389/clients/_:getWebAppConfig  
  
-[debug] [2018-10-24T17:50:41.343Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-24T18:24:14.369Z] <<< HTTP RESPONSE 200
 [info] i  hosting[alphabetter-tap-v1]: Serving hosting files from: tap_project
 [info] ✔  hosting[alphabetter-tap-v1]: Local server: http://localhost:5000
-=======
-[debug] [2018-10-24T17:20:08.169Z] <<< HTTP RESPONSE 200
-[info] i  hosting: Serving hosting files from: tap_project
-[info] ✔  hosting: Local server: http://localhost:5000
->>>>>>> Stashed changes

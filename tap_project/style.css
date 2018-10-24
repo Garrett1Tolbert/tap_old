@@ -190,7 +190,15 @@ form .input_field.bottom {
   padding-bottom: 20px;
   text-align: center;
 }
-
+.card {
+  border: 2px solid lightgray;
+  margin-top: 3%;
+  margin-left: 20%;
+  width: 40%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: center;
+}
 #hub {
   /* border: 5px solid red; */
   margin-right: 7%;
