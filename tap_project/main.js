@@ -22,7 +22,6 @@ $(function () {
   });
 
 
-
 function logout() {
   firebase.auth().signOut().then(function() {
     console.log("Logging out...");
@@ -103,7 +102,7 @@ function googleLogin() {
 
 function grabFollowers() {
   const db = firebase.firestore();
-  var docRef = db.collection("users").doc("liannes");
+  var docRef = db.collection("follows").doc("liannes");
 
   docRef.get()
     .then(function(doc) {
@@ -122,7 +121,9 @@ function grabFollowers() {
 
 
 
+
 function postChallenge() {
+
 
   var inputs = document.getElementsByTagName('input');
   var labels = document.getElementById('labels').value;
@@ -132,6 +133,9 @@ function postChallenge() {
   var option4 = document.getElementById("answer_choice4").value;
   var answer, correct_option;
   var challengeLabels = [""];
+
+  const db = firebase.firestore();
+  var chosen_option;
 
   //an answer is not selected as the correct answer
   if(!(document.getElementById('radio1').checked || document.getElementById('radio2').checked
@@ -172,9 +176,39 @@ function postChallenge() {
       }
     }
     console.log(challengeLabels);
+<<<<<<< Updated upstream
+=======
+    //reset challenge data
+    for(var i = 0; i<inputs.length; i++) {
+      inputs[i].value = '';
+    }
+>>>>>>> Stashed changes
 
     $("#postChallengeModal").modal("show");
-    setTimeout("location.href = 'feed.html'", 3000);
+    //setTimeout("location.href = 'feed.html'", 3000);
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+         //location.replace('feed.html');
+         console.log("User is signed in.")
+         // Add a new document with a generated id.
+         db.collection("challenges").add({
+            answer: answer,
+            creatorId: firebase.firestore().doc('/users/'+user.email),
+            labels: challengeLabels,
+            options: [option1, option2, option3, option4],
+            time: Date.now()
+          })
+          .then(function(docRef) {
+            console.log("Document written with ID: ", docRef.id);
+          })
+          .catch(function(error) {
+            console.error("Error adding document: ", error);
+          });
+        }
+        else{
+          console.log("User is signed out.")
+        }
+      });
   }
 }
 
@@ -271,6 +305,5 @@ function checkSetup() {
         'sure you are running the codelab using `firebase serve`');
   }
 }
-
 // Checks that Firebase has been imported.
 checkSetup();
