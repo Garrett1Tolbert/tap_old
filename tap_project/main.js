@@ -162,6 +162,7 @@ function postChallenge() {
         }
       }
 
+
       //get answer
       var answerString = "answer_choice";
       answerString += correct_option.slice(-1);
@@ -176,6 +177,32 @@ function postChallenge() {
           labelPos++;
           challengeLabels[labelPos] = "";
           continue;
+
+    }
+    console.log(challengeLabels);
+
+    $("#postChallengeModal").modal("show");
+    //setTimeout("location.href = 'feed.html'", 3000);
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+         //location.replace('feed.html');
+         console.log("User is signed in.")
+         // Add a new document with a generated id.
+         let date = Date.parse('01 Jan 2000 00:00:00 GMT');
+         db.collection("challenges").add({
+            answer: answer,
+            creatorId: firebase.firestore().doc('/users/'+user.email),
+            labels: challengeLabels,
+            options: [option1, option2, option3, option4],
+            time: firebase.firestore.FieldValue.serverTimestamp()
+          })
+          .then(function(docRef) {
+            console.log("Document written with ID: ", docRef.id);
+          })
+          .catch(function(error) {
+            console.error("Error adding document: ", error);
+          });
+
         }
         else if (labels.charAt(a) == ' ' && labels.charAt(a-1) == ',') {
           continue;
