@@ -123,6 +123,15 @@ function grabFollowers() {
 
 function postChallenge() {
 
+  var inputs = document.getElementsByTagName('input');
+  var labels = document.getElementById('labels').value;
+  var option1 = document.getElementById("answer_choice1").value;
+  var option2 = document.getElementById("answer_choice2").value;
+  var option3 = document.getElementById("answer_choice3").value;
+  var option4 = document.getElementById("answer_choice4").value;
+  var answer, correct_option;
+  var challengeLabels = [""];
+
   //an answer is not selected as the correct answer
   if(!(document.getElementById('radio1').checked || document.getElementById('radio2').checked
   || document.getElementById('radio3').checked || document.getElementById('radio4').checked)) {
@@ -130,6 +139,44 @@ function postChallenge() {
   }
   else { //an answer is selected as the correct answer
     document.getElementById('correctAnswerAlert').style.display = "none";
+
+    //get answer choices
+    for(var i = 0; i<inputs.length; i++) {
+      if(inputs[i].getAttribute('type')=='radio' && document.getElementById(inputs[i].id).checked) {
+        correct_option = inputs[i].id;
+        break;
+      }
+    }
+
+    //get answer
+    var answerString = "answer_choice";
+    answerString += correct_option.slice(-1);
+    // console.log("AnswerID: " + answerString);
+    answer = document.getElementById(answerString).value;
+    console.log("Answer chosen: " + answer);
+
+    //get labels
+    var labelPos = 0;
+    for(var a = 0; a < labels.length; a++) {
+      if(labels.charAt(a) == ',') {
+        labelPos++;
+        challengeLabels[labelPos] = "";
+        continue;
+      }
+      else if (labels.charAt(a) == ' ' && labels.charAt(a-1) == ',') {
+        continue;
+      }
+      else {
+        challengeLabels[labelPos] += labels.charAt(a);
+      }
+    }
+    console.log(challengeLabels);
+
+    //reset challenge data
+    for(var i = 0; i<inputs.length; i++) {
+      inputs[i].value = '';
+    }
+
     $("#postChallengeModal").modal("show");
     setTimeout("location.href = 'feed.html'", 3000);
   }
@@ -142,7 +189,12 @@ $(document).ready(function(){
   $("#recordBtn").click(function() {
     console.log("New Challenge Modal showing");
     $("#newChallengeModal").modal("show");
-    console.log("New Challenge Modal showing");
+    var inputs = document.getElementsByTagName('input');
+    for(var i = 0; i<inputs.length; i++) {
+      inputs[i].value = '';
+    }
+    document.getElementById('correctAnswerAlert').style.display = "none";
+    console.log("New Challenge Modal shown");
   });
   $("#view_FAQ").click(function() {
     console.log("FAQ Modal showing");
