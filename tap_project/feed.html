@@ -167,6 +167,32 @@
         </div>
       </div>
 
+      <!-- Profile Modal -->
+      <div id="profileModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header" style="padding: 0">
+              <div class="jumbotron jumbotron-fluid shadow" style="background-color: #537EA6; width: -webkit-fill-available; padding-top: 35px; padding-bottom: 25px; margin: 0">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <img id="profilePage_Photo" class="rounded-circle" src="images/default_profile_pic.png" style="border: 2px solid #FFC000; margin-left: 5px;" src="images/default_profile_pic.png" height="200px" width="200px"  alt="Profile_Pic">
+                    </div>
+                    <div class="col-lg-8">
+                      <h2 id="profilePage_Name" class="display-4" style="font-weight: bold; margin-top: 10%"></h2>
+                      <p id="profilePage_Email" class="lead" style="color: #4f5051">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-body" style="height:100px">
+
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- FAQ Modal -->
       <div class="modal fade" id="faqModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -222,7 +248,7 @@
           </div>
           <div id="hubBottom" class="rounded">
             <ul id="hubLinks" style="list-style:none; padding-top: 5px; margin-bottom: 0;padding-left: 3px;">
-              <li><a href="#">Profile</a> </li>
+              <li id="view_Profile"><a href="#">Profile</a> </li>
               <li><a href="#">My Challenges</a> </li>
               <li><a href="#">Liked Challenges</a> </li>
               <li id="view_FAQ"><a href="#">FAQ</a> </li>

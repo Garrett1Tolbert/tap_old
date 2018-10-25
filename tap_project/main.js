@@ -138,7 +138,7 @@ function postChallenge() {
   const db = firebase.firestore();
   var chosen_option;
 
-  //check to see if all answer choices have values
+  //check to see if any answer choices have no value
   if(option1 == "" || option2 == "" ||option3 == "" || option4 == ""
      || option1 == " " || option2 == " " ||option3 == " " || option4 == " ") {
     document.getElementById('allAnswersRequiredAlert').style.display = "block";
@@ -177,13 +177,20 @@ function postChallenge() {
           labelPos++;
           challengeLabels[labelPos] = "";
           continue;
+        }
+        else if (labels.charAt(a) == ' ' && labels.charAt(a-1) == ',') {
+          continue;
+        }
+        else {
+          challengeLabels[labelPos] += labels.charAt(a);
+        }
+      }
+      console.log(challengeLabels);
 
-    }
-    console.log(challengeLabels);
+      $("#postChallengeModal").modal("show");
 
-    $("#postChallengeModal").modal("show");
-    //setTimeout("location.href = 'feed.html'", 3000);
-    firebase.auth().onAuthStateChanged(function(user) {
+      //add challenge to firebase
+      firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
          //location.replace('feed.html');
          console.log("User is signed in.")
@@ -202,42 +209,9 @@ function postChallenge() {
           .catch(function(error) {
             console.error("Error adding document: ", error);
           });
-
         }
-        else if (labels.charAt(a) == ' ' && labels.charAt(a-1) == ',') {
-          continue;
-        }
-        else {
-          challengeLabels[labelPos] += labels.charAt(a);
-        }
-      }
-      console.log(challengeLabels);
-
-      $("#postChallengeModal").modal("show");
-      //setTimeout("location.href = 'feed.html'", 3000);
-      firebase.auth().onAuthStateChanged(function(user) {
-          if (user) {
-           //location.replace('feed.html');
-           console.log("User is signed in.")
-           // Add a new document with a generated id.
-           db.collection("challenges").add({
-              answer: answer,
-              creatorId: firebase.firestore().doc('/users/'+user.email),
-              labels: challengeLabels,
-              options: [option1, option2, option3, option4],
-              time: Date.now()
-            })
-            .then(function(docRef) {
-              console.log("Document written with ID: ", docRef.id);
-            })
-            .catch(function(error) {
-              console.error("Error adding document: ", error);
-            });
-          }
-          else{
-            console.log("User is signed out.")
-          }
-        });
+      });
+      setTimeout("location.href = 'feed.html'", 3000);
     }
   }
 }
@@ -247,7 +221,11 @@ $(document).ready(function(){
   firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
         document.getElementById('user_Name').innerHTML = user.displayName;
+        document.getElementById('profilePage_Name').innerHTML = user.displayName;
+        document.getElementById('profilePage_Email').innerHTML = user.email;
+
         document.getElementById('user_Photo').setAttribute("src",user.photoURL);
+        document.getElementById('profilePage_Photo').setAttribute("src",user.photoURL);
       } else {
         document.getElementById('feed_body').remove();
         document.getElementById('anonymousAlert').style.display = "block";
@@ -261,7 +239,7 @@ $(document).ready(function(){
     });
 
   //-----------------
-  // Create New Challenge
+  //      Modals
   //-----------------
   $("#recordBtn").click(function() {
     console.log("New Challenge Modal showing");
@@ -273,6 +251,13 @@ $(document).ready(function(){
     document.getElementById('correctAnswerAlert').style.display = "none";
     console.log("New Challenge Modal shown");
   });
+
+  $("#view_Profile").click(function() {
+    console.log("Profile Modal showing");
+    $("#profileModal").modal("show");
+    console.log("Profile Modal shown...");
+  });
+
   $("#view_FAQ").click(function() {
     console.log("FAQ Modal showing");
     $("#faqModal").modal("show");
