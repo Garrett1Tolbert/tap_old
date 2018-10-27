@@ -231,11 +231,7 @@ function grabFollowers() {
 }
 
 
-
-
-function postChallenge() {
-
-
+function getChallengeData() {
   var inputs = document.getElementsByTagName('input');
   var labels = document.getElementById('labels').value;
   var option1 = document.getElementById("answer_choice1").value;
@@ -297,33 +293,39 @@ function postChallenge() {
       }
       console.log(challengeLabels);
 
-      $("#postChallengeModal").modal("show");
-
-      //add challenge to firebase
-      firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-         //location.replace('feed.html');
-         console.log("User is signed in.")
-         // Add a new document with a generated id.
-         let date = Date.parse('01 Jan 2000 00:00:00 GMT');
-         db.collection("challenges").add({
-            answer: answer,
-            creatorId: firebase.firestore().doc('/users/'+user.email),
-            labels: challengeLabels,
-            options: [option1, option2, option3, option4],
-            time: firebase.firestore.FieldValue.serverTimestamp()
-          })
-          .then(function(docRef) {
-            console.log("Document written with ID: ", docRef.id);
-          })
-          .catch(function(error) {
-            console.error("Error adding document: ", error);
-          });
-        }
-      });
-      setTimeout("location.href = 'feed.html'", 3000);
+      postChallenge(answer,challengeLabels,option1,option2,option3,option4);
     }
   }
+}
+
+function postChallenge(answer,label, option_1,option_2,option_3,option_4) {
+
+  const db = firebase.firestore();
+  $("#postChallengeModal").modal("show");
+
+  //add challenge to firebase
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+     //location.replace('feed.html');
+     console.log("User is signed in.")
+     // Add a new document with a generated id.
+     let date = Date.parse('01 Jan 2000 00:00:00 GMT');
+     db.collection("challenges").add({
+        answer: answer,
+        creatorId: firebase.firestore().doc('/users/'+user.email),
+        labels: label,
+        options: [option_1, option_2, option_3, option_4],
+        time: firebase.firestore.FieldValue.serverTimestamp()
+      })
+      .then(function(docRef) {
+        console.log("Document written with ID: ", docRef.id);
+      })
+      .catch(function(error) {
+        console.error("Error adding document: ", error);
+      });
+    }
+  });
+  setTimeout("location.href = 'feed.html'", 3000);
 }
 
 
