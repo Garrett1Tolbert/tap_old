@@ -1,27 +1,98 @@
 console.log("App loaded");
 
-firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-      console.log(user);
-    }
-    else{
-      console.log("User is signed out.")
-      document.getElementById('anonymousAlert').style.display = "block";
-    }
+
+
+// Checks that the Firebase SDK has been correctly setup and configured.
+function checkSetup() {
+  if (!window.firebase || !(firebase.app instanceof Function) || !firebase.app().options) {
+    window.alert('You have not configured and imported the Firebase SDK. ' +
+        'Make sure you go through the codelab setup instructions and make ' +
+        'sure you are running the codelab using `firebase serve`');
+  }
+}
+
+// Initiate firebase auth.
+function initFirebaseAuth() {
+  // Listen to auth state changes.
+  firebase.auth().onAuthStateChanged(authStateObserver);
+}
+
+function authStateObserver(user){
+  if (user && currentPageName() === "feed.html"){
+    setProfileElements(user);
+    listenToEventsOnFeed();
+
+  }
+  else{
+
+  }
+}
+
+function initCloudFirestore(){
+  // Initialize Cloud Firestore through Firebase
+  var db = firebase.firestore();
+  // Disable deprecated features
+  db.settings({
+    timestampsInSnapshots: true
   });
+  db.enablePersistence()
+      .catch(function(err) {
+        if (err.code == 'failed-precondition') {
+            // Multiple tabs open, persistence can only be enabled
+            // in one tab at a a time.
+            // ...
+        } else if (err.code == 'unimplemented') {
+            // The current browser does not support all of the
+            // features required to enable persistence
+            // ...
+        }
+    });
+}
 
-// Initialize Cloud Firestore through Firebase
-var db = firebase.firestore();
-// Disable deprecated features
-db.settings({
-  timestampsInSnapshots: true
-});
 
-$(function () {
-    $('[data-toggle="tooltip"]').tooltip();
-    $('.collapse').collapse();
-  });
+// Returns the signed-in user's display name.
+function getUserName(user) {
+  if (user.displayName){
+    return {firstname : user.displayName.split(" ")[0],
+            lastname : user.displayName.split(" ")[1]}
+  }
+}
 
+function currentPageName(){
+  var path = window.location.pathname;
+  var page = path.split("/").pop();
+  return page;
+}
+
+
+
+function storeUserInfoByUID(uid, user, password=null){
+  console.log(user);
+  const db = firebase.firestore();
+  var usersRef = db.collection('users').doc(uid);
+  usersRef.set({
+        completedChallenges: [],
+        email: user.email,
+        firstname: user.displayName.split(" ")[0],
+        followers: [],
+        following: [],
+        lastname: user.displayName.split(" ")[1],
+        password: password,
+        points : -99,
+        unCompletedChallenges : []
+    })
+    .then(function() {
+        console.log("Document successfully written!");
+    })
+    .catch(function(error) {
+        console.error("Error writing document: ", error);
+    });
+}
+
+// Returns true if a user is signed-in.
+function isUserSignedIn() {
+  return !!firebase.auth().currentUser;
+}
 
 function logout() {
   firebase.auth().signOut().then(function() {
@@ -29,8 +100,10 @@ function logout() {
     location.replace('index.html');
     // Sign-out successful.
   }).catch(function(error) {
-    // An error happened.
-    console.log("Error occurerd");
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    // ...
+    window.alert("Error: " + errorMessage);
   });
 }
 
@@ -40,23 +113,16 @@ function login() {
   const loginPassword = document.getElementById('login_password').value;
 
 
-  firebase.auth().signInWithEmailAndPassword(loginEmail, loginPassword).catch(function(error) {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    // ...
-    window.alert("Error: " + errorMessage);
-  });
-
-
-  firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        console.log(user);
-        location.replace('feed.html');
-      }
-      else{
-        console.log("User is signed out.")
-      }
+  firebase.auth().signInWithEmailAndPassword(loginEmail, loginPassword)
+    .then(() => {
+       location.replace('feed.html');
+    })
+    .catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // ...
+      window.alert("Error: " + errorMessage);
     });
 
 }
@@ -66,40 +132,84 @@ function create() {
   const createEmail = document.getElementById('create_email').value;
   const createPassword = document.getElementById('create_password').value;
 
-  firebase.auth().createUserWithEmailAndPassword(createEmail, createPassword).catch(function(error) {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    // ...
-    window.alert("Error: " + errorMessage);
-  });
-
-  firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-       location.replace('feed.html');
-      }
-      else{
-        console.log("User is signed out.")
-      }
-    });
+  firebase.auth().createUserWithEmailAndPassword(createEmail, createPassword)
+      .then(() => {
+         //
+         const user  = firebase.auth().currentUser;
+         console.log(user);
+         storeUserInfoByUID(user.uid, user, createPassword);
+         location.replace('feed.html');
+      })
+      .catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ...
+        window.alert("Error: " + errorMessage);
+      });
 
 }
 
 function googleLogin() {
-  console.log("here");
+  console.log("Google login called...");
   const provider = new firebase.auth.GoogleAuthProvider();
 
   firebase.auth().signInWithPopup(provider)
+      .then(result => {
+        const user = result.user;
 
-          .then(result => {
-            const user = result.user;
+        storeUserInfoByUID(user.uid,user);
 
-            location.replace('feed.html');
-          })
-          .catch(console.log);
-
+        location.replace('feed.html');
+      })
+      .catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ...
+        window.alert("Error: " + errorMessage);
+      });
 
 }
+
+function listenToEventsOnFeed(){
+  $("#recordBtn").click(function() {
+    console.log("New Challenge Modal showing");
+    $("#newChallengeModal").modal("show");
+    var inputs = document.getElementsByTagName('input');
+    for(var i = 0; i<inputs.length; i++) {
+      inputs[i].value = '';
+    }
+    document.getElementById('correctAnswerAlert').style.display = "none";
+    console.log("New Challenge Modal shown");
+  });
+
+  $("#view_Profile").click(function() {
+    console.log("Profile Modal showing");
+    $("#profileModal").modal("show");
+    console.log("Profile Modal shown...");
+  });
+
+  $("#view_FAQ").click(function() {
+    console.log("FAQ Modal showing");
+    $("#faqModal").modal("show");
+    console.log("FAQ Modal shown...");
+  });
+}
+
+function setProfileElements(user){
+
+  console.log(user);
+  document.getElementById('user_Name').innerHTML = user.displayName;
+  document.getElementById('profilePage_Name').innerHTML = user.displayName;
+  document.getElementById('profilePage_Email').innerHTML = user.email;
+
+  document.getElementById('user_Photo').setAttribute("src",user.photoURL);
+  document.getElementById('profilePage_Photo').setAttribute("src",user.photoURL);
+
+}
+
+
 
 function grabFollowers() {
   const db = firebase.firestore();
@@ -216,55 +326,7 @@ function postChallenge() {
   }
 }
 
-$(document).ready(function(){
 
-  firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        document.getElementById('user_Name').innerHTML = user.displayName;
-        document.getElementById('profilePage_Name').innerHTML = user.displayName;
-        document.getElementById('profilePage_Email').innerHTML = user.email;
-
-        document.getElementById('user_Photo').setAttribute("src",user.photoURL);
-        document.getElementById('profilePage_Photo').setAttribute("src",user.photoURL);
-      } else {
-        document.getElementById('feed_body').remove();
-        document.getElementById('anonymousAlert').style.display = "block";
-
-        $("#anonymousFAQView").click(function() {
-          console.log("Anonymous FAQ Modal showing");
-          $("#anonfaqModal").modal("show");
-          console.log("Anonymous FAQ Modal shown...");
-        });
-      }
-    });
-
-  //-----------------
-  //      Modals
-  //-----------------
-  $("#recordBtn").click(function() {
-    console.log("New Challenge Modal showing");
-    $("#newChallengeModal").modal("show");
-    var inputs = document.getElementsByTagName('input');
-    for(var i = 0; i<inputs.length; i++) {
-      inputs[i].value = '';
-    }
-    document.getElementById('correctAnswerAlert').style.display = "none";
-    console.log("New Challenge Modal shown");
-  });
-
-  $("#view_Profile").click(function() {
-    console.log("Profile Modal showing");
-    $("#profileModal").modal("show");
-    console.log("Profile Modal shown...");
-  });
-
-  $("#view_FAQ").click(function() {
-    console.log("FAQ Modal showing");
-    $("#faqModal").modal("show");
-    console.log("FAQ Modal shown...");
-  });
-
-});
 
 //-----------------
 // Record Challenge
@@ -307,18 +369,28 @@ async function recordStop() {
   }
 };
 const playAudio = () => {
- if (audio && typeof audio.play === "function") {
-   audio.play();
- }
+   if (audio && typeof audio.play === "function") {
+     audio.play();
+   }
 };
 
-// Checks that the Firebase SDK has been correctly setup and configured.
-function checkSetup() {
-  if (!window.firebase || !(firebase.app instanceof Function) || !firebase.app().options) {
-    window.alert('You have not configured and imported the Firebase SDK. ' +
-        'Make sure you go through the codelab setup instructions and make ' +
-        'sure you are running the codelab using `firebase serve`');
-  }
-}
+
+
+
+//-----------------
+// Code that MUST be initlialized first when each HTML page loads
+//-----------------
+
 // Checks that Firebase has been imported.
 checkSetup();
+
+// initialize Firebase Auth
+initFirebaseAuth();
+
+// Initialise firestore and its necessary settings
+initCloudFirestore();
+
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+    $('.collapse').collapse();
+  });
