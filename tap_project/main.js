@@ -24,8 +24,13 @@ function authStateObserver(user){
 
   }
   else{
-
+    showAnonymous();
   }
+}
+
+function showAnonymous() {
+  document.getElementById('anonymousAlert').style.display = 'block';
+  document.getElementById('feed_body').remove();
 }
 
 function initCloudFirestore(){
