@@ -218,23 +218,75 @@ function setProfileElements(user){
 
 function grabFollowers() {
   const db = firebase.firestore();
-  var docRef = db.collection("follows").doc("liannes");
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      var doc = db.collection("users").doc(user.uid);
+     doc.get().then(function(doc) {
+           if (doc.exists){
+               console.log("Document data:", doc.data().followers);
+               return doc.data().followers;
+           } else {
+                 // doc.data() will be undefined in this case
+               console.log("No such document!");
+             }
 
-  docRef.get()
-    .then(function(doc) {
-        if (doc.exists) {
-            console.log("Document data:", doc.data());
-        } else {
-              // doc.data() will be undefined in this case
-            console.log("No such document!");
-          }
-
-        })
-    .catch(function(error) {
-    console.log("Error getting document:", error);
-    });
+           }).catch(function(error) {
+               console.log("Error getting document:", error);
+             });
+    }
+    else{
+      console.log("No user logged in");
+    }
+  });
 }
 
+function grabFollowing() {
+  const db = firebase.firestore();
+
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      var doc = db.collection("users").doc(user.uid);
+     doc.get().then(function(doc) {
+           if (doc.exists){
+              console.log("Document data:", doc.data().following);
+           } else {
+                 // doc.data() will be undefined in this case
+               console.log("No such document!");
+             }
+
+           }).catch(function(error) {
+               console.log("Error getting document:", error);
+             });
+    }
+    else{
+      console.log("No user logged in");
+    }
+  });
+}
+
+function grabChallenges(){
+  const db = firebase.firestore();
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        var docs = db.collection("challenges").where("creatorId", "==", "/users/"+user.uid)
+        .get()
+        .then(function(querySnapshot) {
+          console.log("SUP B: ", querySnapshot);
+          querySnapshot.forEach(function(doc) {
+            console.log("SUP B");
+            // doc.data() is never undefined for query doc snapshots
+          console.log(doc.id, " => ", doc.data());
+        });
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });
+    }
+    else{
+      console.log("No user logged in");
+    }
+  });
+}
 
 function getChallengeData() {
   var inputs = document.getElementsByTagName('input');
@@ -272,8 +324,6 @@ function getChallengeData() {
           break;
         }
       }
-
-
       //get answer
       var answerString = "answer_choice";
       answerString += correct_option.slice(-1);
@@ -317,7 +367,7 @@ function postChallenge(answer,label, option_1,option_2,option_3,option_4) {
      let date = Date.parse('01 Jan 2000 00:00:00 GMT');
      db.collection("challenges").add({
         answer: answer,
-        creatorId: firebase.firestore().doc('/users/'+user.email),
+        creatorId: user.uid,
         labels: label,
         options: [option_1, option_2, option_3, option_4],
         time: firebase.firestore.FieldValue.serverTimestamp()
