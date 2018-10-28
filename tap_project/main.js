@@ -268,12 +268,11 @@ function grabChallenges(){
   const db = firebase.firestore();
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
-        var docs = db.collection("challenges").where("creatorId", "==", "/users/"+user.uid)
+        var reference = db.collection("users").doc(user.uid);
+        var docs = db.collection("challenges").where("creatorId", "==", reference)
         .get()
         .then(function(querySnapshot) {
-          console.log("SUP B: ", querySnapshot);
           querySnapshot.forEach(function(doc) {
-            console.log("SUP B");
             // doc.data() is never undefined for query doc snapshots
           console.log(doc.id, " => ", doc.data());
         });
@@ -367,7 +366,7 @@ function postChallenge(answer,label, option_1,option_2,option_3,option_4) {
      let date = Date.parse('01 Jan 2000 00:00:00 GMT');
      db.collection("challenges").add({
         answer: answer,
-        creatorId: user.uid,
+        creatorId: firebase.firestore().doc('/users/'+user.uid),
         labels: label,
         options: [option_1, option_2, option_3, option_4],
         time: firebase.firestore.FieldValue.serverTimestamp()
