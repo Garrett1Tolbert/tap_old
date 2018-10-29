@@ -23,7 +23,7 @@ function authStateObserver(user){
     listenToEventsOnFeed();
     positionHub();
   }
-  else{
+  else if (!user && currentPageName() === "feed.html") {
     showAnonymous();
   }
 }
@@ -65,10 +65,15 @@ function initCloudFirestore(){
 
 
 // Returns the signed-in user's display name.
-function getUserName(user) {
+function getFirstNameLastName(user) {
   if (user.displayName){
     return {firstname : user.displayName.split(" ")[0],
             lastname : user.displayName.split(" ")[1]}
+  }
+  else{
+    // If the displayName is null
+    return {firstname :null,
+            lastname : null}
   }
 }
 
@@ -87,10 +92,10 @@ function storeUserInfoByUID(uid, user, password=null){
   usersRef.set({
         completedChallenges: [],
         email: user.email,
-        firstname: user.displayName.split(" ")[0],
+        firstname: getFirstNameLastName(user).firstname,
         followers: [],
         following: [],
-        lastname: user.displayName.split(" ")[1],
+        lastname: getFirstNameLastName(user).lastname,
         password: password,
         points : -99,
         unCompletedChallenges : []
@@ -145,10 +150,12 @@ function create() {
 
   const createEmail = document.getElementById('create_email').value;
   const createPassword = document.getElementById('create_password').value;
-
+  // TODO: When Garret adds functionality for getting the firstname and lastname
+  //      (currently those values are null for this function), modify this function to change the user.displayName to firstname + " " + lastname
+  //      You may or may not choose to to edit storeUserInfoByUID and getFirstNameLastName
   firebase.auth().createUserWithEmailAndPassword(createEmail, createPassword)
       .then(() => {
-         //
+
          const user  = firebase.auth().currentUser;
          console.log(user);
          storeUserInfoByUID(user.uid, user, createPassword);
@@ -214,12 +221,14 @@ function listenToEventsOnFeed(){
 function setProfileElements(user){
 
   console.log(user);
-  document.getElementById('user_Name').innerHTML = user.displayName;
+
   document.getElementById('profilePage_Name').innerHTML = user.displayName;
   document.getElementById('profilePage_Email').innerHTML = user.email;
-
-  document.getElementById('user_Photo').setAttribute("src",user.photoURL);
   document.getElementById('profilePage_Photo').setAttribute("src",user.photoURL);
+
+  document.getElementById('user_Name').innerHTML = user.displayName;
+  document.getElementById('user_Photo').setAttribute("src",user.photoURL);
+
 
 }
 
