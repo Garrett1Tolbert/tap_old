@@ -55,12 +55,12 @@
                   <div id="login_form">
                     <div class="row input_field top">
                       <div class="col">
-                        <input id="login_email" type="text" class="form-control" placeholder="Email">
+                        <input style="font-size: 1.25em" id="login_email" type="text" class="form-control" placeholder="Email">
                       </div>
                     </div>
-                    <div class="row input_field bottom">
+                    <div class="row input_field bottom" style="margin-top: 3%">
                       <div class="col">
-                        <input id="login_password" type="password" class="form-control" placeholder="Password">
+                        <input style="font-size: 1.25em" id="login_password" type="password" class="form-control" placeholder="Password">
                       </div>
                     </div>
                     <div class="login">
@@ -97,17 +97,24 @@
                   <!--FORM INFORMATION-->
                   <div id="create_account_form">
                     <div class="row input_field top">
-                      <div class="col">
-                        <input id="create_email" type="email" class="form-control" placeholder="Email">
+                      <div style="padding: 0; margin-left:0%" class="col">
+                        <input  style="font-size: 1.25em" id="create_fname" type="text" class="form-control" placeholder="First Name">
                       </div>
+                      <div style="padding: 0" class="col">
+                        <input style="font-size: 1.25em" id="create_lname" type="text" class="form-control" placeholder="Last Name">
+                      </div>
+
                     </div>
-                    <div class="row input_field bottom">
-                      <div class="col">
-                        <input id="create_password" type="password" class="form-control" placeholder="Password">
+                    <div class="row input_field bottom" style="margin-top: 3%">
+                      <div style="padding: 0; margin-left:0%" class="col">
+                        <input  style="font-size: 1.25em" id="create_email" type="email" class="form-control" placeholder="Email">
+                      </div>
+                      <div style="padding: 0" class="col">
+                        <input  style="font-size: 1.25em" id="create_password" type="password" class="form-control" placeholder="Password">
                       </div>
                     </div>
                     <div class="createAccount">
-                      <button id="btn_create_account" type="submit" onclick="create()">Create Account</button>
+                      <button  style="" id="btn_create_account" type="submit" onclick="create()">Create Account</button>
                     </div>
                     <a id="link_to_login">Already have an account? Click here</a>
                   </div>

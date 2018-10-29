@@ -1,5 +1,5 @@
 console.log("App loaded");
-
+var counter = 1;
 
 
 // Checks that the Firebase SDK has been correctly setup and configured.
@@ -18,10 +18,10 @@ function initFirebaseAuth() {
 }
 
 function authStateObserver(user){
-  if (user && currentPageName() === "feed.html"){
+  if (user && currentPageName() === "feed.html" || currentPageName() == "my-challenges.html"){
     setProfileElements(user);
     listenToEventsOnFeed();
-
+    positionHub();
   }
   else{
     showAnonymous();
@@ -31,6 +31,15 @@ function authStateObserver(user){
 function showAnonymous() {
   document.getElementById('anonymousAlert').style.display = 'block';
   document.getElementById('feed_body').remove();
+  document.getElementById('myChall_body').remove();
+}
+
+function positionHub() {
+  if(document.getElementById('challengeArea').childElementCount > 1) {
+    document.getElementById('hub').style.marginTop = "0";
+  } else {
+    document.getElementById('hub').style.marginTop = "3%";
+  }
 }
 
 function initCloudFirestore(){
@@ -264,7 +273,58 @@ function grabFollowing() {
   });
 }
 
-function grabChallenges(){
+function addElement (div, docID, docData) {
+  var newFavorite, newRepost, challengeID;
+  challengeID = "challenge";
+  challengeID += counter.toString();
+
+  // create a new div element
+  var newDiv = document.createElement("div");
+  newDiv.id = challengeID;
+  newDiv.className = "questions";
+  newDiv.classList.add("rounded");
+  newDiv.classList.add("shadow");
+
+
+  // create a new element
+  var newAnswer = document.createElement("h3");
+  var newPlay = document.createElement("img");
+  var newAudioLevel = document.createElement("img");
+  newFavorite = document.createElement("img");
+  newRepost = document.createElement("img");
+
+  // add each image node to the newly created div
+  newDiv.appendChild(newAnswer);
+  newAnswer.className = "test-head";
+  newAnswer.innerHTML = docID;
+
+  newDiv.appendChild(newPlay);
+  newPlay.className = "play-button";
+  newPlay.src = "images/play_challenge.png";
+
+  newDiv.appendChild(newAudioLevel);
+  newAudioLevel.className = "audio-levels";
+  newAudioLevel.src = "images/fake_audio_level.png";
+
+  newDiv.appendChild(newFavorite);
+  newFavorite.className = "favorite-button";
+  newFavorite.src = "images/unFavorite.png";
+  // newFavorite.setAttribute("onclick","likeChallenge(" + challengeID + ")");
+
+  newDiv.appendChild(newRepost);
+  newRepost.className = "repost-button";
+  newRepost.src = "images/repostFalse.png";
+  // newRepost.setAttribute("onclick","repostChallenge()");
+
+  // add the newly created div and its content into the DOM
+  var currentDiv = document.getElementById(div);
+  document.body.insertBefore(newDiv, currentDiv);
+
+  counter++;
+}
+
+function grabMyChallenges(){
+  var userChallenges = {};
   const db = firebase.firestore();
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
@@ -275,6 +335,7 @@ function grabChallenges(){
           querySnapshot.forEach(function(doc) {
             // doc.data() is never undefined for query doc snapshots
           console.log(doc.id, " => ", doc.data());
+          addElement("myChall_body",doc.id,doc.data());
         });
     })
     .catch(function(error) {

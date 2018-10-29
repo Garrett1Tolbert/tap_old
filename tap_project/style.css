@@ -9,6 +9,7 @@ body {
   margin: 0;
   position: relative;
 }
+
 button:hover, a:hover {
   cursor:  pointer;
 }
@@ -202,7 +203,6 @@ form .input_field.bottom {
 #hub {
   /* border: 5px solid red; */
   margin-right: 7%;
-  margin-top: 0;
   width: 200px;
   height: 250px;
   position: fixed;
@@ -212,7 +212,6 @@ form .input_field.bottom {
 #hubTop {
   /* border: 5px solid blue; */
   background-color: #FFC000;
-  margin-left: 0;
   height: 80px;
   width: inherit;
   display: flex;
@@ -293,4 +292,68 @@ form .input_field.bottom {
 }
 ::placeholder {
   color: lightgray;
+}
+
+/* My Challenges */
+#myChall_page {
+  background-color: #ffffff;
+  min-height: 100%;
+}
+
+#myChall_header {
+  /* border: 5px solid black; */
+  height: 100px;
+  margin-bottom: 3%;
+}
+
+#myChall_body {
+  /* border: 5px solid blue; */
+  height:675px;
+  margin-top: 0;
+  overflow: auto;
+  position: relative;
+}
+
+/* Grabbing challenges Dynamically */
+
+.questions {
+  border: 2px solid #FFC000;
+  margin-bottom: 2%;
+  margin-left: 25%;
+  margin-right: 0;
+  width: 35%;
+  padding: 1%;
+}
+
+.test-head {
+  color: red;
+}
+
+.rounded-circle {
+  height: 65px;
+  width: 65px;
+  border: 1px solid lightgray;
+}
+
+.play-button {
+  height: 35px;
+  width: 27px;
+  margin-left: 4%;
+}
+
+.audio-levels {
+  width: 225px;
+  height: 50px;
+  margin-left: 3%;
+  padding-right: 2%;
+}
+
+.favorite-button {
+  width: 35px;
+  height: 35px;
+  margin-left: 2%;
+}
+
+.repost-button {
+  margin-left: 3%;
 }
