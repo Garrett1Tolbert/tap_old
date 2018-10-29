@@ -333,7 +333,30 @@ function addElement (div, docID, docData) {
 }
 
 function grabMyChallenges(){
-  var userChallenges = {};
+  const db = firebase.firestore();
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        var reference = db.collection("users").doc(user.uid);
+        var docs = db.collection("challenges").where("creatorId", "==", reference)
+        .get()
+        .then(function(querySnapshot) {
+          querySnapshot.forEach(function(doc) {
+          // doc.data() is never undefined for query doc snapshots
+          console.log(doc.id, " => ", doc.data());
+        });
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });
+    }
+    else{
+      console.log("No user logged in");
+    }
+  });
+}
+
+function grabFeedChallenges(){
+
   const db = firebase.firestore();
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
@@ -354,6 +377,16 @@ function grabMyChallenges(){
     else{
       console.log("No user logged in");
     }
+  });
+}
+
+function deleteChallenge(challengeIdentifier){
+  //I want to check if the user logged in is the creator of the challenge!
+  const db = firebase.firestore();
+  db.collection("challenges").doc(challengeIdentifier).delete().then(function() {
+    console.log("Document successfully deleted!");
+  }).catch(function(error) {
+    console.error("Error removing document: ", error);
   });
 }
 
@@ -433,7 +466,6 @@ function postChallenge(answer,label, option_1,option_2,option_3,option_4) {
      //location.replace('feed.html');
      console.log("User is signed in.")
      // Add a new document with a generated id.
-     let date = Date.parse('01 Jan 2000 00:00:00 GMT');
      db.collection("challenges").add({
         answer: answer,
         creatorId: firebase.firestore().doc('/users/'+user.uid),
