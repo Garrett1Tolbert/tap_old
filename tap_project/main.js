@@ -94,7 +94,7 @@ function storeUserInfoByUIDIfExists(uid, user, password=null){
   const db = firebase.firestore();
   var usersRef = db.collection('users').doc(uid);
 
-    const doc = usersRef.get()
+    usersRef.get()
     .then(function(doc) {
             if (doc.exists) {
                 // Don't update database because the document is already there
