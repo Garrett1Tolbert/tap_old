@@ -19,9 +19,13 @@ function initFirebaseAuth() {
 
 function authStateObserver(user){
   if (user && currentPageName() === "feed.html" || currentPageName() == "my-challenges.html"){
-    setProfileElements(user);
+    setProfileAndHubElements(user);
     listenToEventsOnFeed();
     positionHub();
+  }
+  else if (user && currentPageName() === "index.html"){
+    // TODO: Maybe create function to listen to events on index.html page to encapsulate this
+    ("#btn_create_account").click(() =>{ create(user) });
   }
   else if (!user && currentPageName() === "feed.html") {
     showAnonymous();
@@ -85,27 +89,44 @@ function currentPageName(){
 
 
 
-function storeUserInfoByUID(uid, user, password=null){
+function storeUserInfoByUIDIfExists(uid, user, password=null){
   console.log(user);
   const db = firebase.firestore();
   var usersRef = db.collection('users').doc(uid);
-  usersRef.set({
-        completedChallenges: [],
-        email: user.email,
-        firstname: getFirstNameLastName(user).firstname,
-        followers: [],
-        following: [],
-        lastname: getFirstNameLastName(user).lastname,
-        password: password,
-        points : -99,
-        unCompletedChallenges : []
-    })
-    .then(function() {
-        console.log("Document successfully written!");
-    })
+
+    const doc = usersRef.get()
+    .then(function(doc) {
+            if (doc.exists) {
+                // Don't update database because the document is already there
+            }
+            else {
+                  usersRef.set({
+                    completedChallenges: [],
+                    email: user.email,
+                    firstname: getFirstNameLastName(user).firstname,
+                    followers: [],
+                    following: [],
+                    lastname: getFirstNameLastName(user).lastname,
+                    password: password,
+                    points : -99,
+                    unCompletedChallenges : []
+                  })
+                .then(function() {
+                    console.log("Document successfully written!");
+                })
+                .catch(function(error) {
+                    console.error("Error writing document: ", error);
+                });
+            }
+          })
     .catch(function(error) {
-        console.error("Error writing document: ", error);
+
+      var errorCode = error.code;
+      var errorMessage = error.message;
+
+      console.log("Error: " + errorMessage);
     });
+
 }
 
 // Returns true if a user is signed-in.
@@ -146,19 +167,30 @@ function login() {
 
 }
 
-function create() {
+function create(user) {
 
   const createEmail = document.getElementById('create_email').value;
   const createPassword = document.getElementById('create_password').value;
   // TODO: When Garret adds functionality for getting the firstname and lastname
   //      (currently those values are null for this function), modify this function to change the user.displayName to firstname + " " + lastname
   //      You may or may not choose to to edit storeUserInfoByUID and getFirstNameLastName
+  const firstname = document.getElementById('create_fname').value;
+  const lastname = document.getElementById('create_lname').value;
   firebase.auth().createUserWithEmailAndPassword(createEmail, createPassword)
       .then(() => {
 
-         const user  = firebase.auth().currentUser;
+         console.log("firstname: " + firstname + " " + "lastname: " + lastname);
+         user.updateProfile({
+                displayName: firstname + " " + lastname,
+                photoURL: "images/defualt_profile_pic.png"
+              }).catch(function(error) {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+
+                window.alert("Error: " + errorMessage);
+              });
          console.log(user);
-         storeUserInfoByUID(user.uid, user, createPassword);
+         storeUserInfoByUIDIfExists(user.uid, user, createPassword);
          location.replace('feed.html');
       })
       .catch(function(error) {
@@ -171,6 +203,8 @@ function create() {
 
 }
 
+
+
 function googleLogin() {
   console.log("Google login called...");
   const provider = new firebase.auth.GoogleAuthProvider();
@@ -179,7 +213,7 @@ function googleLogin() {
       .then(result => {
         const user = result.user;
 
-        storeUserInfoByUID(user.uid,user);
+        storeUserInfoByUIDIfExists(user.uid,user);
 
         location.replace('feed.html');
       })
@@ -218,7 +252,7 @@ function listenToEventsOnFeed(){
   });
 }
 
-function setProfileElements(user){
+function setProfileAndHubElements(user){
 
   console.log(user);
 
