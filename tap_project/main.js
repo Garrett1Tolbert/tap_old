@@ -343,6 +343,7 @@ function grabMyChallenges(){
           querySnapshot.forEach(function(doc) {
           // doc.data() is never undefined for query doc snapshots
           console.log(doc.id, " => ", doc.data());
+          addElement("myChall_body",doc.id,doc.data());
         });
     })
     .catch(function(error) {
@@ -356,18 +357,37 @@ function grabMyChallenges(){
 }
 
 function grabFeedChallenges(){
-
   const db = firebase.firestore();
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
-        var reference = db.collection("users").doc(user.uid);
-        var docs = db.collection("challenges").where("creatorId", "==", reference)
+      var doc = db.collection("users").doc(user.uid);
+      var listOfFollowing = 0;
+      var totalChallenges = [];
+      doc.get().then(function(doc) {
+        if (doc.exists){
+          listOfFollowing = doc.data().following;
+          listOfFollowing.forEach(getChallenges);
+          console.log("Challenges", totalChallenges);
+        }}).catch(function(error) {
+          console.log("Error getting document:", error);});
+    }
+    else{
+      console.log("No user logged in");
+    }
+  });
+}
+
+function getChallenges(value){
+  const db = firebase.firestore();
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        db.collection("challenges").where("creatorId", "==", value)
         .get()
         .then(function(querySnapshot) {
           querySnapshot.forEach(function(doc) {
-            // doc.data() is never undefined for query doc snapshots
+          // doc.data() is never undefined for query doc snapshots
           console.log(doc.id, " => ", doc.data());
-          addElement("myChall_body",doc.id,doc.data());
+          //addElement("myChall_body",doc.id,doc.data());
         });
     })
     .catch(function(error) {
