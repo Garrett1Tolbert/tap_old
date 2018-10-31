@@ -421,8 +421,7 @@ function getChallenges(value){
   firebase.auth().onAuthStateChanged(function(user) {
     console.log("GARRET: ", user);
     if (user) {
-
-        db.collection("challenges").where("creatorId", "==", value)
+        var doc = db.collection("challenges").where("creatorId", "==", value)
         .get()
         .then(function(querySnapshot) {
           querySnapshot.forEach(function(doc) {
