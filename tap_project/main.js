@@ -90,17 +90,18 @@ function currentPageName(){
 
 
 function storeUserInfoByUIDIfExists(uid, user, password=null){
-  console.log(user);
   const db = firebase.firestore();
-  var usersRef = db.collection('users').doc(uid);
-
-    usersRef.get()
-    .then(function(doc) {
+  var doc= db.collection("users").doc(uid);
+  console.log("DATA for creation:", doc);
+  doc.get().then(function(doc) {
+      console.log("Apparently I exist");
             if (doc.exists) {
                 // Don't update database because the document is already there
+                console.log("Apparently I exist");
             }
             else {
-                  usersRef.set({
+                  console.log("I dont e ist");
+                  db.collection("users").doc(user.uid).set({
                     completedChallenges: [],
                     email: user.email,
                     firstname: getFirstNameLastName(user).firstname,
@@ -212,9 +213,7 @@ function googleLogin() {
   firebase.auth().signInWithPopup(provider)
       .then(result => {
         const user = result.user;
-
         storeUserInfoByUIDIfExists(user.uid,user);
-
         location.replace('feed.html');
       })
       .catch(function(error) {
@@ -401,7 +400,7 @@ function grabFeedChallenges(){
         if (doc.exists){
           listOfFollowing = doc.data().following;
           listOfFollowing.forEach(getChallenges);
-          console.log("Challenges", totalChallenges);
+          //console.log("Challenges", totalChallenges);
         }}).catch(function(error) {
           console.log("Error getting document:", error);});
     }
@@ -442,6 +441,21 @@ function deleteChallenge(challengeIdentifier){
   }).catch(function(error) {
     console.error("Error removing document: ", error);
   });
+}
+
+function search(labelEntered){
+  const db = firebase.firestore();
+  db.collection("challenges").where("labels", "array-contains", labelEntered)
+  .get()
+  .then(function(querySnapshot) {
+    querySnapshot.forEach(function(doc) {
+  // doc.data() is never undefined for query doc snapshots
+    console.log(doc.id, " => ", doc.data());
+  //addElement("myChall_body",doc.id,doc.data());
+  });}).catch(function(error) {
+      console.log("Error getting documents: ", error);
+  });
+
 }
 
 function getChallengeData() {
@@ -582,11 +596,10 @@ async function recordStop() {
 };
 const playAudio = () => {
    if (audio && typeof audio.play === "function") {
+     console.log("HI");
      audio.play();
    }
 };
-
-
 
 
 //-----------------
