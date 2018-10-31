@@ -18,11 +18,10 @@
   </head>
   <body id="feed_page" onload="grabFeedChallenges();">
     <nav id="feed_header" class="navbar sticky-top navbar-light shadow-sm p-3" style="background-color: #FFC000">
-    <!-- <nav id="feed_header" class="navbar sticky-top navbar-light shadow-sm p-3" > -->
       <a class="navbar-brand" href="feed.html" style="margin-left:7%;">
         <img src="images/Tap(Light).png" width="60" height="60" alt="Logo">
       </a>
-      <a id="followersTab"><img src="images/followers.png" onclick="grabFeedChallenges()" height="40px" weight="40px" alt="Followers">Followers </a>
+      <a id="followersTab"><img src="images/followers.png" height="40px" weight="40px" alt="Followers">Followers </a>
       <div id="searchbar" class="box">
         <div class="searchbar">
           <span class="icon"><i class="fa fa-search"></i></span>
@@ -193,7 +192,7 @@
                     <h3 style="margin:auto; font-weight:bold; font-size: 2.25em; color: #537EA6">Following</h3>
                   </div>
                   <div id="section-followers-count" class="row">
-                    <h1 id="followersCount" style="margin: auto; text-align: center; font-size: 5em; color: #FFC000; font-weight:bold">1234</h1>
+                    <h1 id="followersCount" style="margin: auto; text-align: center; font-size: 5em; color: #FFC000; font-weight:bold"></h1>
                   </div>
                 </div>
                 <div id="section-following" class="col-lg-6">
@@ -201,7 +200,7 @@
                     <h3 style="margin:auto; font-weight:bold; font-size: 2.25em; color: #537EA6">Following</h3>
                   </div>
                   <div class="row">
-                    <h1 id="followingCount" style="margin: auto;text-align: center; font-size: 5em; color: #FFC000; font-weight:bold">1500</h1>
+                    <h1 id="followingCount" style="margin: auto;text-align: center; font-size: 5em; color: #FFC000; font-weight:bold"></h1>
                   </div>
                 </div>
               </div>
@@ -268,56 +267,57 @@
       </div>
 
       <div id="challengeArea">
-        <div id="hub" class="shadow rounded">
-          <div id="hubTop" class="rounded">
-            <img id="user_Photo" class="rounded-circle" style="border: 2px solid #537EA6; margin-left: 5px;" src="images/default_profile_pic.png" width="60" height="60" alt="Profile_Pic">
-            <span id="user_Name" style="text-align: center;vertical-align: middle;margin-left: 15px;font-weight: 700; padding-right: 5px;">Welcome!</span>
+        <div class="row" style="height: 675px">
+          <div id="challenges-section" class="col-md-8">
+            <div class="rounded shadow challenge">
+              Test Challenge
+            </div>
+            <div class="rounded shadow challenge">
+              Test Challenge
+            </div>
+            <div class="rounded shadow challenge">
+              Test Challenge
+            </div>
+            <div class="rounded shadow challenge">
+              Test Challenge
+            </div>
+            <div class="rounded shadow challenge">
+              Test Challenge
+            </div>
+            <div class="rounded shadow challenge">
+              Test Challenge
+            </div>
+            <div class="rounded shadow challenge">
+              Test Challenge
+            </div>
+            <div class="rounded shadow challenge">
+              Test Challenge
+            </div>
+            <div class="rounded shadow challenge">
+              Test Challenge
+            </div>
+
           </div>
-          <div id="hubBottom" class="rounded">
-            <ul id="hubLinks" style="list-style:none; padding-top: 5px; margin-bottom: 0;padding-left: 3px;">
-              <li id="view_Profile"><a href="#">Profile</a> </li>
-              <li><a href="my-challenges.html" onclick="grabMyChallenges()">My Challenges</a> </li>
-              <li><a href="#">Liked Challenges</a> </li>
-              <li id="view_FAQ"><a href="#">FAQ</a> </li>
-              <li id="logoutBtn" onclick="logout()"><a>Logout <img src="images/logout_icon.png" width="25px" height="25px" alt="logout_icon"> </a> </li>
-            </ul>
+          <div id="hub-section" class="col-md-4">
+            <div id="hub" class="shadow rounded">
+              <div id="hubTop" class="rounded">
+                <img id="user_Photo" class="rounded-circle" style="border: 2px solid #537EA6; margin-left: 5px;" src="images/default_profile_pic.png" width="60" height="60" alt="Profile_Pic">
+                <span id="user_Name" style="text-align: center;vertical-align: middle;margin-left: 15px;font-weight: 700; padding-right: 5px;">Welcome!</span>
+              </div>
+              <div id="hubBottom" class="rounded">
+                <ul id="hubLinks" style="list-style:none; padding-top: 5px; margin-bottom: 0;padding-left: 3px;">
+                  <li id="view_Profile"><a href="#">Profile</a> </li>
+                  <li><a href="my-challenges.html">My Challenges</a> </li>
+                  <li><a href="#">Liked Challenges</a> </li>
+                  <li id="view_FAQ"><a href="#">FAQ</a> </li>
+                  <li id="logoutBtn" onclick="logout()"><a>Logout <img src="images/logout_icon.png" width="25px" height="25px" alt="logout_icon"> </a> </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="rounded shadow challenge">
-          Test Challenge
-        </div>
-        <div class="rounded shadow challenge">
-          Test challenge
-        </div>
-        <div class="rounded shadow challenge">
-          Test challenge
-        </div>
-        <div class="rounded shadow challenge">
-          Test challenge
-        </div>
-        <div class="rounded shadow challenge">
-          Test challenge
-        </div>
-        <div class="rounded shadow challenge">
-          Test challenge
-        </div>
-        <div class="rounded shadow challenge">
-          Test challenge
-        </div>
-        <div class="rounded shadow challenge">
-          Test challenge
-        </div>
-        <div class="rounded shadow challenge">
-          Test challenge
-        </div>
-        <div class="rounded shadow challenge">
-          Test challenge
-        </div>
-        <div class="rounded shadow challenge">
-          Test challenge
-        </div>
-      </div>
-    </div>
+      </div> <!--Challenge Area-->
+    </div>  <!--Feed Body-->
     <nav id="feed_footer" class="navbar">
       <img id="recordBtn"  src="images/recordBtn.png" width="150" height="150" alt="record_button">
       <div id="anonymousAlert" class="alert alert-warning" role="alert" style="display: none">

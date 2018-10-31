@@ -21,7 +21,7 @@ function authStateObserver(user){
   if (user && currentPageName() === "feed.html" || currentPageName() == "my-challenges.html"){
     setProfileAndHubElements(user);
     listenToEventsOnFeed();
-    positionHub();
+    grabFollowers();
   }
   else if (user && currentPageName() === "index.html"){
     // TODO: Maybe create function to listen to events on index.html page to encapsulate this
@@ -32,18 +32,11 @@ function authStateObserver(user){
   }
 }
 
+
 function showAnonymous() {
   document.getElementById('anonymousAlert').style.display = 'block';
   document.getElementById('feed_body').remove();
   document.getElementById('myChall_body').remove();
-}
-
-function positionHub() {
-  if(document.getElementById('challengeArea').childElementCount > 1) {
-    document.getElementById('hub').style.marginTop = "0";
-  } else {
-    document.getElementById('hub').style.marginTop = "3%";
-  }
 }
 
 function initCloudFirestore(){
@@ -268,6 +261,7 @@ function setProfileAndHubElements(user){
 
 
 function grabFollowers() {
+  grabFollowing();
   const db = firebase.firestore();
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
@@ -275,6 +269,7 @@ function grabFollowers() {
      doc.get().then(function(doc) {
            if (doc.exists){
                console.log("Document data:", doc.data().followers);
+               document.getElementById('followersCount').innerHTML = doc.data().followers.length;
                return doc.data().followers;
            } else {
                  // doc.data() will be undefined in this case
@@ -300,6 +295,8 @@ function grabFollowing() {
      doc.get().then(function(doc) {
            if (doc.exists){
               console.log("Document data:", doc.data().following);
+              document.getElementById('followingCount').innerHTML = doc.data().following.length;
+              return doc.data().following;
            } else {
                  // doc.data() will be undefined in this case
                console.log("No such document!");
@@ -330,6 +327,7 @@ function addElement (div, docID, docData) {
 
   // create a new element
   var newAnswer = document.createElement("h3");
+  var newPhoto = document.createElement("img");
   var newPlay = document.createElement("img");
   var newAudioLevel = document.createElement("img");
   newFavorite = document.createElement("img");
@@ -339,6 +337,10 @@ function addElement (div, docID, docData) {
   newDiv.appendChild(newAnswer);
   newAnswer.className = "test-head";
   newAnswer.innerHTML = docID;
+
+  newDiv.appendChild(newPhoto);
+  newPhoto.className = "rounded-circle";
+  newPhoto.src = "images/default_profile_pic.png";
 
   newDiv.appendChild(newPlay);
   newPlay.className = "play-button";
@@ -360,7 +362,9 @@ function addElement (div, docID, docData) {
 
   // add the newly created div and its content into the DOM
   var currentDiv = document.getElementById(div);
-  document.body.insertBefore(newDiv, currentDiv);
+  currentDiv.appendChild(newDiv);
+  // $(newDiv).insertAfter(currentDiv);
+  // document.body.insertBefore(newDiv, currentDiv);
 
   counter++;
 }
@@ -376,7 +380,7 @@ function grabMyChallenges(){
           querySnapshot.forEach(function(doc) {
           // doc.data() is never undefined for query doc snapshots
           console.log(doc.id, " => ", doc.data());
-          addElement("myChall_body",doc.id,doc.data());
+          addElement("myChallenges-section",doc.id,doc.data());
         });
     })
     .catch(function(error) {
@@ -390,6 +394,7 @@ function grabMyChallenges(){
 }
 
 function grabFeedChallenges(){
+  console.log("lianne");
   const db = firebase.firestore();
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
@@ -411,9 +416,12 @@ function grabFeedChallenges(){
 }
 
 function getChallenges(value){
+  console.log("success ANOTHER TIME");
   const db = firebase.firestore();
   firebase.auth().onAuthStateChanged(function(user) {
+    console.log("GARRET: ", user);
     if (user) {
+
         db.collection("challenges").where("creatorId", "==", value)
         .get()
         .then(function(querySnapshot) {
