@@ -187,7 +187,7 @@ function googleLogin() {
     var ref = firebase.firestore().collection('users').doc(user.uid);
     console.log(ref);
     ref.get()
-    .then(doc => {if (doc.exists){}else{
+    .then(doc => {if (doc.exists){location.replace('feed.html');}else{
       ref.set({
             completedChallenges: [],
             email: user.email,
@@ -197,7 +197,8 @@ function googleLogin() {
             lastname: getFirstNameLastName(user).lastname,
             password: null,
             points : -99,
-            unCompletedChallenges : []
+            unCompletedChallenges : [],
+            likedChallenges: []
         })
         .then(function() {
             console.log("Document successfully written!");
@@ -338,7 +339,7 @@ function addElement (div,userPhoto, docID, docData, didCreate) {
   newAnswer.className = "test-head";
   // newAnswer.innerHTML = docID;
 
-  newDiv.appendChild(newPhoto);
+  newDiv.appendChild(userPhoto);
   newPhoto.className = "rounded-circle";
   // newPhoto.src = user.photoURL;
   newPhoto.src = userPhoto;
@@ -493,13 +494,80 @@ function search(labelEntered){
   .get()
   .then(function(querySnapshot) {
     querySnapshot.forEach(function(doc) {
-  // doc.data() is never undefined for query doc snapshots
     console.log(doc.id, " => ", doc.data());
-  //addElement("myChall_body",doc.id,doc.data());
   });}).catch(function(error) {
       console.log("Error getting documents: ", error);
   });
+}
 
+function likeChallenge(challengeIdentifier){
+  const db = firebase.firestore();
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      var doc = db.collection("challenges").doc(challengeIdentifier);
+      doc.get().then(function(doc){
+        var doc2 = db.collection("users").doc(user.uid);
+        doc2.get().then(function(doc2){
+          var likedChallenge = doc2.data().likedChallenges;
+          var likedby = doc.data().likedBy;
+          if (likedChallenge.some(value => value.id === doc.id)) {
+            var filtered = likedChallenge.filter(function(value, index, arr){
+              return value.id != doc.id;});
+              var filteredLikedBy = likedby.filter(function(value, index, arr){
+                return value.id != user.uid;});
+              console.log("FILTERED LIKED BY: ", filteredLikedBy);
+            var doc3 = db.collection("users").doc(user.uid).update({
+              likedChallenges: filtered
+            }).catch(function(error){console.log("Error updating document: ", error);});
+            var docLike = db.collection("challenges").doc(challengeIdentifier).update({
+              likedBy: filteredLikedBy
+            }).catch(function(error){console.log("Error updating document: ", error);});
+          }else{
+            var doc5 = db.collection("challenges").doc(challengeIdentifier);
+            doc5.get().then(function(doc){
+              likedChallenge.push(doc5);
+              var doc4 = db.collection("users").doc(user.uid);
+              doc4.update({
+                likedChallenges: likedChallenge
+              }).catch(function(error){console.log("Error updating documents: ", error);});
+              likedby.push(doc4);
+              var docLike2 = db.collection("challenges").doc(challengeIdentifier).update({
+                likedBy: likedby
+              }).catch(function(error){console.log("Error getting documents: ", error);});
+            }).catch(function(error){console.log("Error getting documents: ", error);});
+          } //CLOSES ELSE
+        }).catch(function(error){console.log("Error getting documents: ", error);});//CLOSES DOC 2 QUERY
+    }).catch(function(error){console.log("Error getting documents: ", error);});//CLOSES DOC QUERY
+  } //CLOSES IF USER EXISTS
+}); //CLOSES ON AUTH
+}
+
+//TASKS DELETE FROM LIKEDBY IN CHALLENGES
+function getLikedChallenges(){
+  const db = firebase.firestore();
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      var doc = db.collection("users").doc(user.uid);
+      doc.get().then(function(doc) {
+        if (doc.exists){
+          //make inside query that gets each challenge
+          var likedChallenges = doc.data().likedChallenges;
+          likedChallenges.forEach(challengesLikedSearch);
+        }}).catch(function(error) {
+          console.log("Error getting document:", error);});
+    }
+    else{
+      console.log("No user logged in");
+    }
+  });
+}
+
+function challengesLikedSearch(value){
+  const db1 = firebase.firestore();
+  var challenges = db1.collection("challenges").doc(value.id);
+  challenges.get().then(function(challenges){
+    console.log("Challenges", challenges.data());
+  }).catch(function(error) {console.log("Error getting document:", error);});
 }
 
 function getChallengeData() {
@@ -578,13 +646,14 @@ function postChallenge(answer,label, option_1,option_2,option_3,option_4) {
      //location.replace('feed.html');
      console.log("User is signed in.")
      // Add a new document with a generated id.
-     let date = Date.parse('01 Jan 2000 00:00:00 GMT');
+     //let date = Date.parse('01 Jan 2000 00:00:00 GMT');
      db.collection("challenges").add({
         answer: answer,
         creatorId: firebase.firestore().doc('/users/'+user.uid),
         labels: label,
         options: [option_1, option_2, option_3, option_4],
-        time: firebase.firestore.FieldValue.serverTimestamp()
+        time: firebase.firestore.FieldValue.serverTimestamp(),
+        likedBy: []
       })
       .then(function(docRef) {
         console.log("Document written with ID: ", docRef.id);
