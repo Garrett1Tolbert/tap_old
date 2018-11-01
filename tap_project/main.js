@@ -187,7 +187,7 @@ function googleLogin() {
     var ref = firebase.firestore().collection('users').doc(user.uid);
     console.log(ref);
     ref.get()
-    .then(doc => {if (doc.exists){}else{
+    .then(doc => {if (doc.exists){location.replace('feed.html');}else{
       ref.set({
             completedChallenges: [],
             email: user.email,
