@@ -18,25 +18,29 @@ function initFirebaseAuth() {
 }
 
 function authStateObserver(user){
+  console.log("Observer called.");
   if (user && currentPageName() === "feed.html" || currentPageName() == "my-challenges.html"){
-    setProfileAndHubElements(user);
+    setProfileElements(user);
     listenToEventsOnFeed();
-    grabFollowers();
-  }
-  else if (user && currentPageName() === "index.html"){
-    // TODO: Maybe create function to listen to events on index.html page to encapsulate this
-    ("#btn_create_account").click(() =>{ create(user) });
+    positionHub();
   }
   else if (!user && currentPageName() === "feed.html") {
     showAnonymous();
   }
 }
 
-
 function showAnonymous() {
   document.getElementById('anonymousAlert').style.display = 'block';
   document.getElementById('feed_body').remove();
   document.getElementById('myChall_body').remove();
+}
+
+function positionHub() {
+  if(document.getElementById('challengeArea').childElementCount > 1) {
+    document.getElementById('hub').style.marginTop = "0";
+  } else {
+    document.getElementById('hub').style.marginTop = "3%";
+  }
 }
 
 function initCloudFirestore(){
@@ -52,10 +56,12 @@ function initCloudFirestore(){
             // Multiple tabs open, persistence can only be enabled
             // in one tab at a a time.
             // ...
+            console.log(err.code);
         } else if (err.code == 'unimplemented') {
             // The current browser does not support all of the
             // features required to enable persistence
             // ...
+            console.log(err.code);
         }
     });
 }
@@ -82,46 +88,27 @@ function currentPageName(){
 
 
 
-function storeUserInfoByUIDIfExists(uid, user, password=null){
+function storeUserInfoByUID(uid, user, password=null){
+  console.log(user);
   const db = firebase.firestore();
-  var doc= db.collection("users").doc(uid);
-  console.log("DATA for creation:", doc);
-  doc.get().then(function(doc) {
-      console.log("Apparently I exist");
-            if (doc.exists) {
-                // Don't update database because the document is already there
-                console.log("Apparently I exist");
-            }
-            else {
-                  console.log("I dont e ist");
-                  db.collection("users").doc(user.uid).set({
-                    completedChallenges: [],
-                    email: user.email,
-                    firstname: getFirstNameLastName(user).firstname,
-                    followers: [],
-                    following: [],
-                    lastname: getFirstNameLastName(user).lastname,
-                    password: password,
-                    profilePhoto: user.photoURL,
-                    points : -99,
-                    unCompletedChallenges : []
-                  })
-                .then(function() {
-                    console.log("Document successfully written!");
-                })
-                .catch(function(error) {
-                    console.error("Error writing document: ", error);
-                });
-            }
-          })
+  var usersRef = db.collection('users').doc(uid);
+  usersRef.set({
+        completedChallenges: [],
+        email: user.email,
+        firstname: getFirstNameLastName(user).firstname,
+        followers: [],
+        following: [],
+        lastname: getFirstNameLastName(user).lastname,
+        password: password,
+        points : -99,
+        unCompletedChallenges : []
+    })
+    .then(function() {
+        console.log("Document successfully written!");
+    })
     .catch(function(error) {
-
-      var errorCode = error.code;
-      var errorMessage = error.message;
-
-      console.log("Error: " + errorMessage);
+        console.error("Error writing document: ", error);
     });
-
 }
 
 // Returns true if a user is signed-in.
@@ -162,30 +149,19 @@ function login() {
 
 }
 
-function create(user) {
+function create() {
 
   const createEmail = document.getElementById('create_email').value;
   const createPassword = document.getElementById('create_password').value;
   // TODO: When Garret adds functionality for getting the firstname and lastname
   //      (currently those values are null for this function), modify this function to change the user.displayName to firstname + " " + lastname
   //      You may or may not choose to to edit storeUserInfoByUID and getFirstNameLastName
-  const firstname = document.getElementById('create_fname').value;
-  const lastname = document.getElementById('create_lname').value;
   firebase.auth().createUserWithEmailAndPassword(createEmail, createPassword)
       .then(() => {
 
-         console.log("firstname: " + firstname + " " + "lastname: " + lastname);
-         user.updateProfile({
-                displayName: firstname + " " + lastname,
-                photoURL: "images/defualt_profile_pic.png"
-              }).catch(function(error) {
-                var errorCode = error.code;
-                var errorMessage = error.message;
-
-                window.alert("Error: " + errorMessage);
-              });
+         const user  = firebase.auth().currentUser;
          console.log(user);
-         storeUserInfoByUIDIfExists(user.uid, user, createPassword);
+         storeUserInfoByUID(user.uid, user, createPassword);
          location.replace('feed.html');
       })
       .catch(function(error) {
@@ -198,26 +174,55 @@ function create(user) {
 
 }
 
-
-
 function googleLogin() {
   console.log("Google login called...");
   const provider = new firebase.auth.GoogleAuthProvider();
 
-  firebase.auth().signInWithPopup(provider)
-      .then(result => {
-        const user = result.user;
-        storeUserInfoByUIDIfExists(user.uid,user);
-        location.replace('feed.html');
-      })
-      .catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // ...
-        window.alert("Error: " + errorMessage);
-      });
+  const db = firebase.firestore();
+  // var usersRef = db.collection('users').doc(uid);
 
+  firebase.auth().signInWithPopup(provider).then(result => {
+    const user  = result.user;
+
+    var ref = firebase.firestore().collection('users').doc(user.uid);
+    console.log(ref);
+    ref.get()
+    .then(doc => {if (doc.exists){}else{
+      ref.set({
+            completedChallenges: [],
+            email: user.email,
+            firstname: getFirstNameLastName(user).firstname,
+            followers: [],
+            following: [],
+            lastname: getFirstNameLastName(user).lastname,
+            password: null,
+            points : -99,
+            unCompletedChallenges : []
+        })
+        .then(function() {
+            console.log("Document successfully written!");
+            location.replace('feed.html');
+        })
+        .catch(function(error) {
+            console.error("Error writing document: ", error);
+        });
+      }
+    }).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // ...
+      window.alert("Error: " + errorMessage);
+    });
+
+
+  }).catch(function(error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    // ...
+    window.alert("Error: " + errorMessage);
+  });
 }
 
 function listenToEventsOnFeed(){
@@ -245,7 +250,7 @@ function listenToEventsOnFeed(){
   });
 }
 
-function setProfileAndHubElements(user){
+function setProfileElements(user){
 
   console.log(user);
 
@@ -262,7 +267,6 @@ function setProfileAndHubElements(user){
 
 
 function grabFollowers() {
-  grabFollowing();
   const db = firebase.firestore();
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
@@ -270,7 +274,6 @@ function grabFollowers() {
      doc.get().then(function(doc) {
            if (doc.exists){
                console.log("Document data:", doc.data().followers);
-               document.getElementById('followersCount').innerHTML = doc.data().followers.length;
                return doc.data().followers;
            } else {
                  // doc.data() will be undefined in this case
@@ -296,8 +299,6 @@ function grabFollowing() {
      doc.get().then(function(doc) {
            if (doc.exists){
               console.log("Document data:", doc.data().following);
-              document.getElementById('followingCount').innerHTML = doc.data().following.length;
-              return doc.data().following;
            } else {
                  // doc.data() will be undefined in this case
                console.log("No such document!");
@@ -327,7 +328,6 @@ function addElement (div,userPhoto, docID, docData, didCreate) {
 
   // create a new element
   var newAnswer = document.createElement("h3");
-  var newPhoto = document.createElement("img");
   var newPlay = document.createElement("img");
   var newAudioLevel = document.createElement("img");
   newFavorite = document.createElement("img");
@@ -373,14 +373,13 @@ function addElement (div,userPhoto, docID, docData, didCreate) {
   }
   // add the newly created div and its content into the DOM
   var currentDiv = document.getElementById(div);
-  currentDiv.appendChild(newDiv);
-  // $(newDiv).insertAfter(currentDiv);
-  // document.body.insertBefore(newDiv, currentDiv);
+  document.body.insertBefore(newDiv, currentDiv);
 
   counter++;
 }
 
 function grabMyChallenges(){
+  var userChallenges = {};
   const db = firebase.firestore();
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
@@ -389,7 +388,7 @@ function grabMyChallenges(){
         .get()
         .then(function(querySnapshot) {
           querySnapshot.forEach(function(doc) {
-          // doc.data() is never undefined for query doc snapshots
+            // doc.data() is never undefined for query doc snapshots
           console.log(doc.id, " => ", doc.data());
           addElement("myChallenges-section",user.photoURL,doc.id,doc.data(), true);
         });
@@ -579,6 +578,7 @@ function postChallenge(answer,label, option_1,option_2,option_3,option_4) {
      //location.replace('feed.html');
      console.log("User is signed in.")
      // Add a new document with a generated id.
+     let date = Date.parse('01 Jan 2000 00:00:00 GMT');
      db.collection("challenges").add({
         answer: answer,
         creatorId: firebase.firestore().doc('/users/'+user.uid),
@@ -641,10 +641,11 @@ async function recordStop() {
 };
 const playAudio = () => {
    if (audio && typeof audio.play === "function") {
-     console.log("HI");
      audio.play();
    }
 };
+
+
 
 
 //-----------------
