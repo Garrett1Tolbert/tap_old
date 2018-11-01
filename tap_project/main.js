@@ -570,6 +570,69 @@ function challengesLikedSearch(value){
   }).catch(function(error) {console.log("Error getting document:", error);});
 }
 
+function follow(userToFollowIdentifier){
+  const db = firebase.firestore();
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      var myself = db.collection("users").doc(user.uid);
+      var toFollow = db.collection("users").doc(userToFollowIdentifier);
+      console.log("TO FOLLOW: ", toFollow);
+      myself.get().then(function(myself) {
+        if (myself.exists){
+          var following = myself.data().following;
+          console.log("FOLLOWING ARRAY", following);
+          if(following.some(value => value.id === userToFollowIdentifier)){
+
+            var filtered = following.filter(function(value, index, arr){return value.id != userToFollowIdentifier;});
+
+            var filteredUpdate = db.collection("users").doc(user.uid).update({
+              following: filtered }).catch(function(error){console.log("Error updating document: ", error);});
+
+            toFollow.get().then(function(toFollow){
+              if(toFollow.exists){
+                var followersOf = toFollow.data().followers;
+                console.log("Followers: ", followersOf);
+                var filteredFollowers = followersOf.filter(function(valueFollow, indexF, arrF){
+                  return valueFollow.id != user.uid;});
+                var followerUpdate = db.collection("users").doc(userToFollowIdentifier).update({
+                  followers: filteredFollowers
+                }).catch(function(error){console.log("Error updating document: ", error);});
+              }
+              }).catch(function(error){console.log("Error getting person to follow doc: ", error);});
+
+              }
+            else{
+              console.log("PLACE AT:", following);
+              following.push(toFollow); //Push to the array the person you want to follow!
+              var pushUpdate = db.collection("users").doc(user.uid).update({
+                following: following }).catch(function(error){console.log("Error updating document: ", error);});
+              var toFollow2 = db.collection("users").doc(userToFollowIdentifier);
+              toFollow2.get().then(function(doc){
+                if(doc.exists){
+                  var followersOf2 = doc.data().followers;
+                  var myself2 = db.collection("users").doc(user.uid);
+                  myself2.get().then(function(doc2){
+                    if(doc2.exists){
+                      followersOf2.push(myself2);
+                      var pushFollowerUpdate = db.collection("users").doc(toFollow.id);
+                      pushFollowerUpdate.update({
+                        followers: followersOf2
+                      }).catch(function(error){console.log("Error updating documentsss: ", error);});
+                    }
+                  }).catch(function(error){console.log("Error updating document2: ", error);});
+                }
+              }).catch(function(error){console.log("Error getting toFollow user: ", error);});//good
+            }//close else
+          }
+      }).catch(function(error) {console.log("Error getting document:", error);});
+    }
+    else{
+      console.log("No user logged in");
+    }
+
+  });
+}
+
 function getChallengeData() {
   var inputs = document.getElementsByTagName('input');
   var labels = document.getElementById('labels').value;
