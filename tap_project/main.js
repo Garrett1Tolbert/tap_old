@@ -102,6 +102,7 @@ function storeUserInfoByUIDIfExists(uid, user, password=null){
                     following: [],
                     lastname: getFirstNameLastName(user).lastname,
                     password: password,
+                    profilePhoto: user.photoURL,
                     points : -99,
                     unCompletedChallenges : []
                   })
@@ -312,14 +313,13 @@ function grabFollowing() {
   });
 }
 
-function addElement (div, docID, docData) {
-  var newFavorite, newRepost, challengeID;
-  challengeID = "challenge";
-  challengeID += counter.toString();
+function addElement (div,userPhoto, docID, docData, didCreate) {
+ console.log("Challenge Id:::",docID);
+  var newFavorite, newRepost;
 
   // create a new div element
   var newDiv = document.createElement("div");
-  newDiv.id = challengeID;
+  newDiv.id = docID;
   newDiv.className = "questions";
   newDiv.classList.add("rounded");
   newDiv.classList.add("shadow");
@@ -336,11 +336,12 @@ function addElement (div, docID, docData) {
   // add each image node to the newly created div
   newDiv.appendChild(newAnswer);
   newAnswer.className = "test-head";
-  newAnswer.innerHTML = docID;
+  // newAnswer.innerHTML = docID;
 
   newDiv.appendChild(newPhoto);
   newPhoto.className = "rounded-circle";
-  newPhoto.src = "images/default_profile_pic.png";
+  // newPhoto.src = user.photoURL;
+  newPhoto.src = userPhoto;
 
   newDiv.appendChild(newPlay);
   newPlay.className = "play-button";
@@ -360,6 +361,16 @@ function addElement (div, docID, docData) {
   newRepost.src = "images/repostFalse.png";
   // newRepost.setAttribute("onclick","repostChallenge()");
 
+  if(didCreate == true) {
+    var newDelete = document.createElement("img");
+    newDiv.appendChild(newDelete);
+    newDelete.className = "delete-button";
+    newDelete.src = "images/delete.png";
+    var concatString = "deleteChallenge('"+ newDiv.id+"')";
+    console.log("NEW STRING ",concatString);
+    newDelete.setAttribute("onclick",concatString+"");
+    newDiv.style.width = "60%";
+  }
   // add the newly created div and its content into the DOM
   var currentDiv = document.getElementById(div);
   currentDiv.appendChild(newDiv);
@@ -380,7 +391,7 @@ function grabMyChallenges(){
           querySnapshot.forEach(function(doc) {
           // doc.data() is never undefined for query doc snapshots
           console.log(doc.id, " => ", doc.data());
-          addElement("myChallenges-section",doc.id,doc.data());
+          addElement("myChallenges-section",user.photoURL,doc.id,doc.data(), true);
         });
     })
     .catch(function(error) {
@@ -394,7 +405,6 @@ function grabMyChallenges(){
 }
 
 function grabFeedChallenges(){
-  console.log("lianne");
   const db = firebase.firestore();
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
@@ -404,6 +414,7 @@ function grabFeedChallenges(){
       doc.get().then(function(doc) {
         if (doc.exists){
           listOfFollowing = doc.data().following;
+          console.log("List of following; ", listOfFollowing);
           listOfFollowing.forEach(getChallenges);
           //console.log("Challenges", totalChallenges);
         }}).catch(function(error) {
@@ -416,19 +427,33 @@ function grabFeedChallenges(){
 }
 
 function getChallenges(value){
-  console.log("success ANOTHER TIME");
+  console.log("Uder im following: ",value.id);
   const db = firebase.firestore();
   firebase.auth().onAuthStateChanged(function(user) {
-    console.log("GARRET: ", user);
+    //console.log("GARRET: ", user);
     if (user) {
-
-        db.collection("challenges").where("creatorId", "==", value)
+        var doc = db.collection("challenges").where("creatorId", "==", value)
         .get()
         .then(function(querySnapshot) {
           querySnapshot.forEach(function(doc) {
-          // doc.data() is never undefined for query doc snapshots
-          console.log(doc.id, " => ", doc.data());
-          //addElement("myChall_body",doc.id,doc.data());
+            console.log("Challenge::",doc.id, " => ", doc.data());
+          // doc.data() is never undefined for query doc snapshotsn
+          var profileUserPhoto = null;
+          var doc2 = db.collection("users").doc(value.id).get()
+          .then(function(doc2){
+            if(doc2.exists){
+              profileUserPhoto = doc2.data().profilePhoto;
+              addElement("challenges-section",profileUserPhoto,doc.id,doc.data(), false);
+              console.log(doc2.data().profilePhoto);
+            }
+            else{
+              console.log("User not found");
+            }
+          }).catch(function(error) {
+                console.log("Error getting document:", error);});
+
+          // console.log(doc.id, " => ", doc.data());
+          // addElement("challenges-section",profileUserPhoto,doc.id,doc.data(), false);
         });
     })
     .catch(function(error) {
@@ -441,7 +466,18 @@ function getChallenges(value){
   });
 }
 
+// function removeMyChallenge() {
+//   firebase.auth().onAuthStateChanged(function(user) {
+//     if(user) {
+//       console.log("signed in");
+//     } else {
+//       console.log("signed out");
+//     }
+//   }
+// }
+
 function deleteChallenge(challengeIdentifier){
+  // window.alert("Youre deleting: ", challengeIdentifier);
   //I want to check if the user logged in is the creator of the challenge!
   const db = firebase.firestore();
   db.collection("challenges").doc(challengeIdentifier).delete().then(function() {
@@ -449,6 +485,7 @@ function deleteChallenge(challengeIdentifier){
   }).catch(function(error) {
     console.error("Error removing document: ", error);
   });
+  setTimeout("location.href = 'my-challenges.html'", 500);
 }
 
 function search(labelEntered){
