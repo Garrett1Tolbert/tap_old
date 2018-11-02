@@ -197,8 +197,7 @@ function googleLogin() {
             lastname: getFirstNameLastName(user).lastname,
             password: null,
             points : -99,
-            unCompletedChallenges : [],
-            likedChallenges: []
+            unCompletedChallenges : []
         })
         .then(function() {
             console.log("Document successfully written!");
@@ -339,7 +338,7 @@ function addElement (div,userPhoto, docID, docData, didCreate) {
   newAnswer.className = "test-head";
   // newAnswer.innerHTML = docID;
 
-  newDiv.appendChild(userPhoto);
+  newDiv.appendChild(newPhoto);
   newPhoto.className = "rounded-circle";
   // newPhoto.src = user.photoURL;
   newPhoto.src = userPhoto;
@@ -494,146 +493,16 @@ function search(labelEntered){
   .get()
   .then(function(querySnapshot) {
     querySnapshot.forEach(function(doc) {
+  // doc.data() is never undefined for query doc snapshots
     console.log(doc.id, " => ", doc.data());
+  //addElement("myChall_body",doc.id,doc.data());
   });}).catch(function(error) {
       console.log("Error getting documents: ", error);
   });
+
 }
 
-function likeChallenge(challengeIdentifier){
-  const db = firebase.firestore();
-  firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-      var doc = db.collection("challenges").doc(challengeIdentifier);
-      doc.get().then(function(doc){
-        var doc2 = db.collection("users").doc(user.uid);
-        doc2.get().then(function(doc2){
-          var likedChallenge = doc2.data().likedChallenges;
-          var likedby = doc.data().likedBy;
-          if (likedChallenge.some(value => value.id === doc.id)) {
-            var filtered = likedChallenge.filter(function(value, index, arr){
-              return value.id != doc.id;});
-              var filteredLikedBy = likedby.filter(function(value, index, arr){
-                return value.id != user.uid;});
-              console.log("FILTERED LIKED BY: ", filteredLikedBy);
-            var doc3 = db.collection("users").doc(user.uid).update({
-              likedChallenges: filtered
-            }).catch(function(error){console.log("Error updating document: ", error);});
-            var docLike = db.collection("challenges").doc(challengeIdentifier).update({
-              likedBy: filteredLikedBy
-            }).catch(function(error){console.log("Error updating document: ", error);});
-          }else{
-            var doc5 = db.collection("challenges").doc(challengeIdentifier);
-            doc5.get().then(function(doc){
-              likedChallenge.push(doc5);
-              var doc4 = db.collection("users").doc(user.uid);
-              doc4.update({
-                likedChallenges: likedChallenge
-              }).catch(function(error){console.log("Error updating documents: ", error);});
-              likedby.push(doc4);
-              var docLike2 = db.collection("challenges").doc(challengeIdentifier).update({
-                likedBy: likedby
-              }).catch(function(error){console.log("Error getting documents: ", error);});
-            }).catch(function(error){console.log("Error getting documents: ", error);});
-          } //CLOSES ELSE
-        }).catch(function(error){console.log("Error getting documents: ", error);});//CLOSES DOC 2 QUERY
-    }).catch(function(error){console.log("Error getting documents: ", error);});//CLOSES DOC QUERY
-  } //CLOSES IF USER EXISTS
-}); //CLOSES ON AUTH
-}
-
-//TASKS DELETE FROM LIKEDBY IN CHALLENGES
-function getLikedChallenges(){
-  const db = firebase.firestore();
-  firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-      var doc = db.collection("users").doc(user.uid);
-      doc.get().then(function(doc) {
-        if (doc.exists){
-          //make inside query that gets each challenge
-          var likedChallenges = doc.data().likedChallenges;
-          likedChallenges.forEach(challengesLikedSearch);
-        }}).catch(function(error) {
-          console.log("Error getting document:", error);});
-    }
-    else{
-      console.log("No user logged in");
-    }
-  });
-}
-
-function challengesLikedSearch(value){
-  const db1 = firebase.firestore();
-  var challenges = db1.collection("challenges").doc(value.id);
-  challenges.get().then(function(challenges){
-    console.log("Challenges", challenges.data());
-  }).catch(function(error) {console.log("Error getting document:", error);});
-}
-
-function follow(userToFollowIdentifier){
-  const db = firebase.firestore();
-  firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-      var myself = db.collection("users").doc(user.uid);
-      var toFollow = db.collection("users").doc(userToFollowIdentifier);
-      console.log("TO FOLLOW: ", toFollow);
-      myself.get().then(function(myself) {
-        if (myself.exists){
-          var following = myself.data().following;
-          console.log("FOLLOWING ARRAY", following);
-          if(following.some(value => value.id === userToFollowIdentifier)){
-
-            var filtered = following.filter(function(value, index, arr){return value.id != userToFollowIdentifier;});
-
-            var filteredUpdate = db.collection("users").doc(user.uid).update({
-              following: filtered }).catch(function(error){console.log("Error updating document: ", error);});
-
-            toFollow.get().then(function(toFollow){
-              if(toFollow.exists){
-                var followersOf = toFollow.data().followers;
-                console.log("Followers: ", followersOf);
-                var filteredFollowers = followersOf.filter(function(valueFollow, indexF, arrF){
-                  return valueFollow.id != user.uid;});
-                var followerUpdate = db.collection("users").doc(userToFollowIdentifier).update({
-                  followers: filteredFollowers
-                }).catch(function(error){console.log("Error updating document: ", error);});
-              }
-              }).catch(function(error){console.log("Error getting person to follow doc: ", error);});
-
-              }
-            else{
-              console.log("PLACE AT:", following);
-              following.push(toFollow); //Push to the array the person you want to follow!
-              var pushUpdate = db.collection("users").doc(user.uid).update({
-                following: following }).catch(function(error){console.log("Error updating document: ", error);});
-              var toFollow2 = db.collection("users").doc(userToFollowIdentifier);
-              toFollow2.get().then(function(doc){
-                if(doc.exists){
-                  var followersOf2 = doc.data().followers;
-                  var myself2 = db.collection("users").doc(user.uid);
-                  myself2.get().then(function(doc2){
-                    if(doc2.exists){
-                      followersOf2.push(myself2);
-                      var pushFollowerUpdate = db.collection("users").doc(toFollow.id);
-                      pushFollowerUpdate.update({
-                        followers: followersOf2
-                      }).catch(function(error){console.log("Error updating documentsss: ", error);});
-                    }
-                  }).catch(function(error){console.log("Error updating document2: ", error);});
-                }
-              }).catch(function(error){console.log("Error getting toFollow user: ", error);});//good
-            }//close else
-          }
-      }).catch(function(error) {console.log("Error getting document:", error);});
-    }
-    else{
-      console.log("No user logged in");
-    }
-
-  });
-}
-
-function getChallengeData() {
+function getChallengeData(audioString) {
   var inputs = document.getElementsByTagName('input');
   var labels = document.getElementById('labels').value;
   var option1 = document.getElementById("answer_choice1").value;
@@ -693,12 +562,12 @@ function getChallengeData() {
       }
       console.log(challengeLabels);
 
-      postChallenge(answer,challengeLabels,option1,option2,option3,option4);
+      postChallenge(answer,challengeLabels,option1,option2,option3,option4,audioString);
     }
   }
 }
 
-function postChallenge(answer,label, option_1,option_2,option_3,option_4) {
+function postChallenge(answer,label, option_1,option_2,option_3,option_4,audioString) {
 
   const db = firebase.firestore();
   $("#postChallengeModal").modal("show");
@@ -709,14 +578,14 @@ function postChallenge(answer,label, option_1,option_2,option_3,option_4) {
      //location.replace('feed.html');
      console.log("User is signed in.")
      // Add a new document with a generated id.
-     //let date = Date.parse('01 Jan 2000 00:00:00 GMT');
+     let date = Date.parse('01 Jan 2000 00:00:00 GMT');
      db.collection("challenges").add({
         answer: answer,
         creatorId: firebase.firestore().doc('/users/'+user.uid),
         labels: label,
         options: [option_1, option_2, option_3, option_4],
-        time: firebase.firestore.FieldValue.serverTimestamp(),
-        likedBy: []
+        audio : audioString,
+        time: firebase.firestore.FieldValue.serverTimestamp()
       })
       .then(function(docRef) {
         console.log("Document written with ID: ", docRef.id);
@@ -748,17 +617,6 @@ const recordAudio = () =>
        mediaRecorder.addEventListener("stop", () => {
          const audioBlob = new Blob(audioChunks);
          const audioUrl = URL.createObjectURL(audioBlob);
-         /*
-         const reader = new FileReader();
-         // This fires after the blob has been read/loaded.
-         reader.addEventListener('loadend', (e) => {
-           const text = e.srcElement.result;
-           console.log(text);
-         });
-
-         // Start reading the blob as text.
-         reader.readAsText(blb);
-         */
          const audio = new Audio(audioUrl);
          const play = () => audio.play();
          resolve({ audioBlob, audioUrl, play });
@@ -773,6 +631,19 @@ async function recordStop() {
   console.log("Anurag");
   if (recorder) {
    audio = await recorder.stop();
+    var blob = audio.audioBlob
+
+   const reader = new FileReader();
+   // This fires after the blob has been read/loaded.
+   reader.addEventListener('loadend', (e) => {
+     const text = e.srcElement.result;
+     console.log(text);
+     $("#postModal").click(function(){
+       getChallengeData(text);
+     });
+   });
+   // Start reading the blob as text.
+   reader.readAsText(blob);
    recorder = null;
    document.querySelector("#record_stopBtn").setAttribute("src", "images/record_audio.png");
    document.querySelector("#playbackAudioBtn").removeAttribute("disabled");
