@@ -18,6 +18,7 @@ function initFirebaseAuth() {
 }
 
 function authStateObserver(user){
+  console.log(currentPageName());
   console.log("Observer called.");
   if (user && currentPageName() === "feed.html" || currentPageName() == "my-challenges.html"){
     setProfileElements(user);
@@ -27,6 +28,7 @@ function authStateObserver(user){
   else if (!user && currentPageName() === "feed.html") {
     showAnonymous();
   }
+
 }
 
 function showAnonymous() {
@@ -153,16 +155,53 @@ function create() {
 
   const createEmail = document.getElementById('create_email').value;
   const createPassword = document.getElementById('create_password').value;
-  // TODO: When Garret adds functionality for getting the firstname and lastname
-  //      (currently those values are null for this function), modify this function to change the user.displayName to firstname + " " + lastname
-  //      You may or may not choose to to edit storeUserInfoByUID and getFirstNameLastName
+  const createFirstname = $("#create_fname").val();
+  const createLastname = $("#create_lname").val();
   firebase.auth().createUserWithEmailAndPassword(createEmail, createPassword)
       .then(() => {
+        if (isUserSignedIn()){
+          var user = firebase.auth().currentUser;
+          user.updateProfile({
+              displayName: createFirstname + " " + createLastname,
+              photoURL: "images/default_profile_pic.png"
+            }).then(function() {
+              // Update successful.
+              console.log("Update successful.");
+              var ref = firebase.firestore().collection('users').doc(user.uid);
+              console.log(ref);
+              ref.get()
+              .then(doc => {if (doc.exists){}else{
+                ref.set({
+                      completedChallenges: [],
+                      email: createEmail,
+                      firstname: createFirstname,
+                      followers: [],
+                      following: [],
+                      lastname: createLastname,
+                      password: createPassword,
+                      points : -99,
+                      unCompletedChallenges : []
+                  })
+                  .then(function() {
+                      console.log("Document successfully written!");
+                      location.replace('feed.html');
+                  })
+                  .catch(function(error) {
+                      console.error("Error writing document: ", error);
+                  });
+                }
+              }).catch(function(error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // ...
+                window.alert("Error: " + errorMessage);
+              });
+            }).catch(function(error) {
+              console.error("Error updating user: ", error);
+            });
 
-         const user  = firebase.auth().currentUser;
-         console.log(user);
-         storeUserInfoByUID(user.uid, user, createPassword);
-         location.replace('feed.html');
+        }
       })
       .catch(function(error) {
         // Handle Errors here.
