@@ -222,28 +222,38 @@ form .input_field.bottom {
 #hubTop {
   /* border: 5px solid blue; */
   background-color: #FFC000;
-  height: 100px;
-  width: 225px;
+  height: inherit;
+  width: inherit;
   display: flex;
   align-items: center;
   font-size: 1.25em;
+  /* box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2); */
 }
 #hubBottom {
   /* border: 5px solid green; */
 
 }
 #hubLinks li {
+  height: 50px;
+  padding-top: 5%;
+  padding-left: 5%;
   padding-bottom: 10px;
+  transition-property: background-color;
+  transition-duration: .75s;
+}
+#hubLinks li:hover {
+  background-color: #537EA6;
+}
+#hubLinks li:hover a{
+  color: white;
 }
 #hubLinks li a{
+  text-decoration: none;
   padding-left:3px;
   padding-right:3px;
-  color: #537EA6;
+  color: #5F6368;
 }
-#hubLinks li  a:hover{
-  text-decoration: none;
-  font-weight: bold;
-}
+
 
 #feed_footer, #myChallenges_footer {
   /* border: 5px solid purple; */
@@ -255,7 +265,7 @@ form .input_field.bottom {
 }
 #recordBtn {
   top: 0;
-  margin-left: 35%;
+  margin: auto;
 }
 #recordBtn:hover {
   cursor: pointer;
@@ -309,6 +319,13 @@ form .input_field.bottom {
   color: #5F6368;
 }
 
+.modal-footer {
+  justify-content: space-between;
+}
+
+.sticky-top {
+  z-index: 990;
+}
 /* My Challenges */
 #myChall_page {
   background-color: #ffffff;
@@ -323,7 +340,7 @@ form .input_field.bottom {
 
 #myChall_body {
   /* border: 5px solid blue; */
-  height:675px;
+  height:100%;
   margin-top: 0;
   overflow: auto;
   position: relative;
@@ -334,7 +351,7 @@ form .input_field.bottom {
 .questions {
   border: 1px solid lightgray;
   margin-top: 3%;
-  margin-left: 30%;
+  margin: auto;
   width: 50%;
   padding: 1%;
 }
@@ -344,7 +361,10 @@ form .input_field.bottom {
   width: 80px;
   border: 1px solid lightgray;
 }
-
+#theTeam .rounded-circle {
+  height: 50px;
+  width: 50px;
+}
 .play-button {
   height: 35px;
   width: 27px;
@@ -379,4 +399,98 @@ form .input_field.bottom {
 }
 .delete-button:hover{
   cursor: pointer;
+}
+/* --------------
+
+TESTING SIDEBAR
+
+---------------*/
+#sidebarCollapse {
+  color: white;
+  background-color: transparent;
+  border: 0;
+}
+#sidebarCollapse:hover {
+  color: #537EA6;
+  background-color: transparent;
+}
+#sidebar.active ~ #content #sidebarCollapse{
+  display: none;
+}
+
+#sidebar {
+    width: 350px;
+    position: absolute;
+    top: 0;
+    left: -350px;
+    height: 100vh;
+    z-index: 999;
+    background: white;
+    color: #fff;
+    transition: all 0.3s;
+    overflow-y: hidden;
+    /* box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2); */
+}
+
+#sidebar.active {
+    left: 0;
+}
+
+#dismiss {
+    position: relative;
+    background: transparent;
+    color: #537EA6;
+    cursor: pointer;
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+#dismiss:hover {
+  color: #ffc000;
+}
+
+
+.overlay {
+    display: none;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+    opacity: 0;
+    transition: all 0.5s ease-in-out;
+}
+.overlay.active {
+    display: block;
+    opacity: 1;
+}
+
+#sidebar .sidebar-header {
+    border-bottom: 2px solid lightgray;
+    margin-top: 7%;
+    padding: 10px;
+    background: white;
+    color: #5F6368;
+}
+
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+.dropdown-toggle::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+}
+
+#content {
+    width: 100%;
+    min-height: 100vh;
+    transition: all 0.3s;
+    position: absolute;
+    top: 0;
+    right: 0;
 }
