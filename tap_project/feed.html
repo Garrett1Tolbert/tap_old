@@ -3,11 +3,16 @@
 <head>
   <link rel="icon" href="images/Tap(Dark).png">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Arvo:400,400i,700,700i" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -17,6 +22,16 @@
   <title>Feed</title>
   </head>
   <body id="feed_page" onload="grabFeedChallenges();">
+<<<<<<< HEAD
+
+    <div class="wrapper">
+      <nav id="sidebar" class="shadow-lg" active>
+        <div class="sidebar-header shadow-sm">
+          <div id="dismiss">
+            <i  style="float:right;margin-top:5%" class="fas fa-arrow-left"></i>
+          </div>
+          <h3 style="width: 150px; margin:0; padding-left:3px">My Hub</h3>
+=======
     <nav id="feed_header" class="navbar sticky-top navbar-light shadow-sm p-3" style="background-color: #FFC000">
       <a class="navbar-brand" href="feed.html" style="margin-left:7%;">
         <img src="images/Tap(Light).png" width="60" height="60" alt="Logo">
@@ -27,131 +42,194 @@
         <div class="searchbar">
           <span class="icon"><i class="fa fa-search"></i></span>
           <input type="text" id= "search" placeholder="Search for a username, genre, or artist" name="search">
+>>>>>>> sandbox
         </div>
-      </div>
-    </nav>
-    <!-- Anonymous FAQ Modal -->
-    <div class="modal fade" id="anonfaqModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="anonfaqModalTitle" style="color: #537EA6; margin-left: 45%; font-size: 1.5em;font-weight:bold">FAQ</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
+        <ul id="hubLinks" style="list-style:none; margin-top: 10%; padding-top: 5px; margin-bottom: 0;padding-left: 3px;">
+          <li id="view_Profile"><a href="#">Profile</a> </li>
+          <li><a href="my-challenges.html">My Challenges</a> </li>
+          <li><a href="#">Liked Challenges</a> </li>
+          <li id="view_FAQ"><a href="#">FAQ</a> </li>
+          <li id="logoutBtn" onclick="logout()"><a>Logout <img src="images/logout_icon.png" width="25px" height="25px" alt="logout_icon"> </a> </li>
+        </ul>
+        <div class="sidebar-footer sticky-bottom" style="height: 142px; margin-top: 125%">
+          <div id="hubTop" class="rounded">
+            <div class="col-lg-3">
+              <img id="user_Photo" class="rounded-circle" style="border: 2px solid #537EA6; margin-left: 5px;" src="images/default_profile_pic.png" width="70" height="70" alt="Profile_Pic">
+            </div>
+            <div class="col-lg-9">
+              <span id="user_Name" style="text-align: center;vertical-align: middle;margin-left: 15px;font-weight: 700; padding-right: 5px;">Welcome!</span>
+              <p id="user_Email" style="vertical-align: middle;margin-left: 15px; padding-right: 5px;">anonymous-email</p>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <div id="content">
+        <nav id="feed_header" class="navbar sticky-top navbar-light shadow-sm p-3" style="background-color:#ffc000">
+          <div class="col-lg-1">
+            <button type="button" id="sidebarCollapse" class="btn btn-info">
+                <i id="backBtn" class="fas fa-bars fa-2x"></i>
             </button>
           </div>
-          <div class="modal-body">
-            <h1 class="faq_questions" style="font-size:1.25em;color: #FFC000;text-transform:uppercase;">How do I earn more points?</h1>
-            <p class="faq_answers" style="text-align: justify; background-color:#efefef; border-radius: 10px; padding: 5px">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-              pharetra tortor tortor, a rutrum eros porta eget. Proin diam neque,
-              interdum venenatis nulla nec, interdum sollicitudin risus. Quisque
-              mattis semper gravida. Fusce dictum purus in pulvinar elementum.
-              Vestibulum eget ipsum id lorem vestibulum consequat. Donec convallis
-              risus id sodales feugiat. Donec rhoncus finibus tincidunt. Donec feugiat
-              cursus arcu, sit amet faucibus lorem vulputate eget.</p>
-            <h1 class="faq_questions" style="font-size:1.25em;color: #FFC000;text-transform:uppercase; ">How do I create a challenge?</h1>
-            <p class="faq_answers" style="text-align: justify; background-color:#efefef; border-radius: 10px; padding: 5px">Nulla rutrum congue eros sed vestibulum. Cras tristique interdum magna
-              eu ornare. Vivamus sem leo, tincidunt nec ipsum congue, consequat lacinia
-              purus. Quisque vitae pellentesque diam. Proin eu metus eu lorem maximus molestie.
-              Nullam bibendum mauris et dui blandit ultricies tincidunt vel dolor. Suspendisse
-              non commodo felis.</p>
-            <h1 class="faq_questions" style="font-size:1.25em;color: #FFC000;text-transform:uppercase; ">What is Tap?</h1>
-            <p class="faq_answers" style="text-align: justify; background-color:#efefef; border-radius: 10px; padding: 5px">Maecenas vitae facilisis arcu, sit amet auctor augue. Maecenas blandit,
-              est nec tincidunt euismod, sem ipsum rhoncus nisl, nec efficitur diam magna eget purus. Cras
-              et vehicula felis. Nulla pulvinar at elit fringilla mattis. Integer sit amet nunc quis nulla
-              mollis finibus quis non eros. Nam nec lectus non mi malesuada tristique non non massa. Integer
-              mollis posuere tempus. Aliquam vestibulum augue vitae diam ultrices, sed fringilla lectus viverra.
-              Aenean vitae laoreet lacus. Nulla tempus porttitor sem ac pretium. In hac habitasse platea dictumst.
-              Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
-            <h1 class="faq_questions" style="font-size:1.25em;color: #FFC000;text-transform:uppercase;">How can I see my challenges?</h1>
-            <p class="faq_answers" style="text-align: justify; background-color:#efefef; border-radius: 10px; padding: 5px">Phasellus feugiat, justo quis scelerisque
-              pharetra, enim sem iaculis libero, vel auctor arcu ipsum eget turpis. Fusce facilisis at ex id euismod. Sed feugiat leo urna, vel
-              luctus leo tincidunt et. Aenean at tincidunt nibh. Donec ante felis, rhoncus vel ipsum et, dictum dictum libero. Maecenas eget augue
-              aliquet, vestibulum quam aliquam, aliquet nisi. Nullam felis ex, rutrum eget sapien nec, bibendum pharetra ipsum. Maecenas
-              semper egestas est. Aenean pharetra, dui nec mollis elementum, tortor risus ultricies nulla, nec tristique massa ligula
-              non ante. Nulla dapibus turpis eget tempus dictum. Praesent massa mauris, porta quis elit eget, condimentum cursus erat.
-              Nunc elit justo, eleifend ac imperdiet ac, fringilla nec nisi. Praesent scelerisque, lectus in imperdiet finibus, augue magna
-              dignissim velit, in porta nisl diam sed nunc.</p>
+          <div class="col-lg-3">
+            <div id="theTeam" style="width: inherit;">
+              <img src="images/TheTeam/anurag.jpg" data-toggle="tooltip" data-placement="left" title="Anurag Yadav" class="rounded-circle theteam shadow-lg" width="40" height="40" style="margin:0; padding: 0" alt="tem_member">
+              <img src="images/TheTeam/candace.jpg" data-toggle="tooltip" data-placement="bottom" title="Candace Williams" class="rounded-circle theteam shadow-lg" width="40" height="40" style="margin:0; padding: 0" alt="tem_member">
+              <img src="images/TheTeam/daniel.jpg" data-toggle="tooltip" data-placement="bottom" title="Daniel Erhabor" class="rounded-circle theteam shadow-lg" width="40" height="40" style="margin:0; padding: 0; transform:rotate(90deg)" alt="Logo">
+              <img src="images/TheTeam/lianné.jpg" data-toggle="tooltip" data-placement="bottom" title="Lianne Sánchez" class="rounded-circle theteam shadow-lg" width="40" height="40" style="margin:0; padding: 0" alt="tem_member">
+              <img src="images/TheTeam/garrett.jpg" data-toggle="tooltip" data-placement="right" title="Garrett Tolbert" class="rounded-circle theteam shadow-lg" width="40" height="40" style="margin:0; padding: 0" alt="tem_member">
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- <div id="anonymousAlert" class="alert alert-warning" role="alert" style="margin-top: 20%; width: 50%; margin-left: auto; margin-right: auto">
-      This is a warning alert. For security purposes, user data will be hidden <a href="index.html" class="alert-link">until you Login</a>!
-      <br> You can check out our FAQs <a id="anonymousFAQView"><span style="text-decoration: underline">here</span></a> for more details.
-    </div> -->
-
-    <div id="feed_body">
-      <div id="postChallengeModal" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-          <div class="modal-content">
-            <div class="modal-body" style="margin-top:5%; padding-bottom: 0">
-              Adding challenge to feed 👍
-              <p style="font-size: 0.75em; margin-top: 5%">Refreshing...</p>
+          <div class="col-lg-1">
+            <a class="navbar-brand" href="feed.html" style="margin-left:7%;">
+              <img src="images/Tap(Light).png" width="80" height="80" alt="Logo">
+            </a>
+          </div>
+          <div class="col-lg-5">
+            <div id="searchbar" class="box" style="float:right">
+              <div class="searchbar">
+                <span class="icon"><i class="fa fa-search"></i></span>
+                <input type="text" id= "search" placeholder="Search for a username, genre, or artist" name="search">
+              </div>
+            </div>
+          </div>
+        </nav>
+        <!-- Anonymous FAQ Modal -->
+        <div class="modal fade" id="anonfaqModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="anonfaqModalTitle" style="color: #537EA6; margin-left: 45%; font-size: 1.5em;font-weight:bold">FAQ</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <h1 class="faq_questions" style="font-size:1.25em;color: #FFC000;text-transform:uppercase;">How do I earn more points?</h1>
+                <p class="faq_answers" style="text-align: justify; background-color:#efefef; border-radius: 10px; padding: 5px">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
+                  pharetra tortor tortor, a rutrum eros porta eget. Proin diam neque,
+                  interdum venenatis nulla nec, interdum sollicitudin risus. Quisque
+                  mattis semper gravida. Fusce dictum purus in pulvinar elementum.
+                  Vestibulum eget ipsum id lorem vestibulum consequat. Donec convallis
+                  risus id sodales feugiat. Donec rhoncus finibus tincidunt. Donec feugiat
+                  cursus arcu, sit amet faucibus lorem vulputate eget.</p>
+                <h1 class="faq_questions" style="font-size:1.25em;color: #FFC000;text-transform:uppercase; ">How do I create a challenge?</h1>
+                <p class="faq_answers" style="text-align: justify; background-color:#efefef; border-radius: 10px; padding: 5px">Nulla rutrum congue eros sed vestibulum. Cras tristique interdum magna
+                  eu ornare. Vivamus sem leo, tincidunt nec ipsum congue, consequat lacinia
+                  purus. Quisque vitae pellentesque diam. Proin eu metus eu lorem maximus molestie.
+                  Nullam bibendum mauris et dui blandit ultricies tincidunt vel dolor. Suspendisse
+                  non commodo felis.</p>
+                <h1 class="faq_questions" style="font-size:1.25em;color: #FFC000;text-transform:uppercase; ">What is Tap?</h1>
+                <p class="faq_answers" style="text-align: justify; background-color:#efefef; border-radius: 10px; padding: 5px">Maecenas vitae facilisis arcu, sit amet auctor augue. Maecenas blandit,
+                  est nec tincidunt euismod, sem ipsum rhoncus nisl, nec efficitur diam magna eget purus. Cras
+                  et vehicula felis. Nulla pulvinar at elit fringilla mattis. Integer sit amet nunc quis nulla
+                  mollis finibus quis non eros. Nam nec lectus non mi malesuada tristique non non massa. Integer
+                  mollis posuere tempus. Aliquam vestibulum augue vitae diam ultrices, sed fringilla lectus viverra.
+                  Aenean vitae laoreet lacus. Nulla tempus porttitor sem ac pretium. In hac habitasse platea dictumst.
+                  Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
+                <h1 class="faq_questions" style="font-size:1.25em;color: #FFC000;text-transform:uppercase;">How can I see my challenges?</h1>
+                <p class="faq_answers" style="text-align: justify; background-color:#efefef; border-radius: 10px; padding: 5px">Phasellus feugiat, justo quis scelerisque
+                  pharetra, enim sem iaculis libero, vel auctor arcu ipsum eget turpis. Fusce facilisis at ex id euismod. Sed feugiat leo urna, vel
+                  luctus leo tincidunt et. Aenean at tincidunt nibh. Donec ante felis, rhoncus vel ipsum et, dictum dictum libero. Maecenas eget augue
+                  aliquet, vestibulum quam aliquam, aliquet nisi. Nullam felis ex, rutrum eget sapien nec, bibendum pharetra ipsum. Maecenas
+                  semper egestas est. Aenean pharetra, dui nec mollis elementum, tortor risus ultricies nulla, nec tristique massa ligula
+                  non ante. Nulla dapibus turpis eget tempus dictum. Praesent massa mauris, porta quis elit eget, condimentum cursus erat.
+                  Nunc elit justo, eleifend ac imperdiet ac, fringilla nec nisi. Praesent scelerisque, lectus in imperdiet finibus, augue magna
+                  dignissim velit, in porta nisl diam sed nunc.</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- New Challenge Modal -->
-      <div id="newChallengeModal" class="modal fade bd-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="newChallengeModalLabel" style="color: #537EA6; font-weight: bold;margin-left: 40%">New Challenge</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+        <!-- <div id="anonymousAlert" class="alert alert-warning" role="alert" style="margin-top: 20%; width: 50%; margin-left: auto; margin-right: auto">
+          This is a warning alert. For security purposes, user data will be hidden <a href="index.html" class="alert-link">until you Login</a>!
+          <br> You can check out our FAQs <a id="anonymousFAQView"><span style="text-decoration: underline">here</span></a> for more details.
+        </div> -->
+
+        <div id="feed_body">
+          <div id="postChallengeModal" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+              <div class="modal-content">
+                <div class="modal-body" style="margin-top:5%; padding-bottom: 0">
+                  Adding challenge to feed 👍
+                  <p style="font-size: 0.75em; margin-top: 5%">Refreshing...</p>
+                </div>
+              </div>
             </div>
-            <div class="modal-body" style="margin-top:5%; padding-bottom: 2%">
-              <div class="row">
-                <img id="record_stopBtn" data-toggle="tooltip" data-placement="top" title="Record Audio" onclick="recordStop()" src="images/record_audio.png" alt="record_audio" style="margin-left: 10%; margin-right: 5%">
-                <img src="images/fake_audio_level.png" style="margin-left: 5%; margin-right: 5%" alt="audio_level">
-                <img id="playbackAudioBtn" data-toggle="tooltip" data-placement="right" title="Playback" onclick="playAudio()" src="images/playback.png" style="margin-left: 5%; margin-right: 5%; margin-top: 15px;" height="35px" width="35px" alt="playback">
+          </div>
+
+          <!-- New Challenge Modal -->
+          <div id="newChallengeModal" class="modal fade bd-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="newChallengeModalLabel" style="color: #537EA6; font-weight: bold;margin-left: 40%">New Challenge</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body" style="margin-top:5%; padding-bottom: 2%">
+                  <div class="row">
+                    <img id="record_stopBtn" data-toggle="tooltip" data-placement="top" title="Record Audio" onclick="recordStop()" src="images/record_audio.png" alt="record_audio" style="margin-left: 10%; margin-right: 5%">
+                    <img src="images/fake_audio_level.png" style="margin-left: 5%; margin-right: 5%" alt="audio_level">
+                    <img id="playbackAudioBtn" data-toggle="tooltip" data-placement="right" title="Playback" onclick="playAudio()" src="images/playback.png" style="margin-left: 5%; margin-right: 5%; margin-top: 15px;" height="35px" width="35px" alt="playback">
+                  </div>
+                  <div class="row" style="margin-top: 10%; height: 40px">
+                    <div id="option1" class="input-group input-group-sm mb-3" style="width: inherit; margin-left: 5%">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <input id="radio1" type="radio" name="correct_answer" aria-label="Radio button for following text input">
+                        </div>
+                      </div>
+                      <input id="answer_choice1" type="text" class="form-control challengeAnswers" placeholder="Answer Choice 1" style="margin-left: 0;" aria-label="Text input with radio button">
+                    </div>
+                    <div id="option2" class="input-group input-group-sm mb-3" style="width: inherit; margin-left: 5%">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <input id="radio2" type="radio" name="correct_answer" aria-label="Radio button for following text input">
+                        </div>
+                      </div>
+                      <input id="answer_choice2" type="text" class="form-control challengeAnswers" placeholder="Answer Choice 2" style="margin-left: 0;" aria-label="Text input with radio button">
+                    </div>
+                    <div id="label" class="input-group input-group-sm mb-3" style="width: 275px; margin-left: 5%">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">Labels</span>
+                      </div>
+                      <input id="labels" type="text" class="form-control" style="margin-left: 0;" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="separate labels by comma(,)">
+                    </div>
+                  </div>
+                  <div class="row" style="height: 40px">
+                    <div id="option3" class="input-group input-group-sm mb-3" style="width: inherit; margin-left: 5%">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <input id="radio3" type="radio" name="correct_answer" aria-label="Radio button for following text input">
+                        </div>
+                      </div>
+                      <input id="answer_choice3" type="text" class="form-control challengeAnswers" placeholder="Answer Choice 3" style="margin-left: 0;" aria-label="Text input with radio button">
+                    </div>
+                    <div id="option4" class="input-group input-group-sm mb-3" style="width: inherit; margin-left: 5%">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <input id="radio4" type="radio" name="correct_answer" aria-label="Radio button for following text input">
+                        </div>
+                      </div>
+                      <input id="answer_choice4" type="text" class="form-control challengeAnswers" placeholder="Answer Choice 4" style="margin-left: 0;" aria-label="Text input with radio button">
+                    </div>
+                  </div>
+                  <div id="correctAnswerAlert" class="alert alert-danger fade show" role="alert" style=" display: none; width: 50%; margin-top: 2%; margin-bottom: 0; margin-left: 3.5%; font-size: 1em; color:#537EA6">
+                     Don't forget to select the correct answer!
+                  </div>
+                  <div id="allAnswersRequiredAlert" class="alert alert-warning fade show" role="alert" style=" display: none; width: 60%; margin-top: 2%; margin-bottom: 0; margin-left: 3.5%; font-size: 1em; color:#537EA6">
+                     You need to fill in all answer choices! Please try again.
+                  </div>
+                </div>
+                <div class="modal-footer" style="justify-content: flex-end">
+                  <button id="cancelModal" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                  <button id="postModal" type="button" class="btn btn-primary" onclick="getChallengeData()">POST</button>
+                </div>
               </div>
-              <div class="row" style="margin-top: 10%; height: 40px">
-                <div id="option1" class="input-group input-group-sm mb-3" style="width: inherit; margin-left: 5%">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">
-                      <input id="radio1" type="radio" name="correct_answer" aria-label="Radio button for following text input">
-                    </div>
-                  </div>
-                  <input id="answer_choice1" type="text" class="form-control challengeAnswers" placeholder="Answer Choice 1" style="margin-left: 0;" aria-label="Text input with radio button">
-                </div>
-                <div id="option2" class="input-group input-group-sm mb-3" style="width: inherit; margin-left: 5%">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">
-                      <input id="radio2" type="radio" name="correct_answer" aria-label="Radio button for following text input">
-                    </div>
-                  </div>
-                  <input id="answer_choice2" type="text" class="form-control challengeAnswers" placeholder="Answer Choice 2" style="margin-left: 0;" aria-label="Text input with radio button">
-                </div>
-                <div id="label" class="input-group input-group-sm mb-3" style="width: 275px; margin-left: 5%">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-sm">Labels</span>
-                  </div>
-                  <input id="labels" type="text" class="form-control" style="margin-left: 0;" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="separate labels by comma(.)">
-                </div>
-              </div>
-              <div class="row" style="height: 40px">
-                <div id="option3" class="input-group input-group-sm mb-3" style="width: inherit; margin-left: 5%">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">
-                      <input id="radio3" type="radio" name="correct_answer" aria-label="Radio button for following text input">
-                    </div>
-                  </div>
-                  <input id="answer_choice3" type="text" class="form-control challengeAnswers" placeholder="Answer Choice 3" style="margin-left: 0;" aria-label="Text input with radio button">
-                </div>
-                <div id="option4" class="input-group input-group-sm mb-3" style="width: inherit; margin-left: 5%">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">
-                      <input id="radio4" type="radio" name="correct_answer" aria-label="Radio button for following text input">
-                    </div>
-                  </div>
-                  <input id="answer_choice4" type="text" class="form-control challengeAnswers" placeholder="Answer Choice 4" style="margin-left: 0;" aria-label="Text input with radio button">
-                </div>
-              </div>
+<<<<<<< HEAD
+=======
               <div id="correctAnswerAlert" class="alert alert-danger fade show" role="alert" style=" display: none; width: 45%; margin-top: 2%; margin-bottom: 0; margin-left: 3.5%; font-size: 1em; color:#537EA6">
                  Don't forget to select the correct answer!
               </div>
@@ -163,147 +241,147 @@
               <button id="cancelModal" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
               <button id="postModal" type="button" class="btn btn-primary" >POST</button>
               <!-- onclick="getChallengeData()" -->
+>>>>>>> sandbox
             </div>
           </div>
-        </div>
-      </div>
 
-      <!-- Profile Modal -->
-      <div id="profileModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header" style="padding: 0;">
-              <div class="jumbotron jumbotron-fluid shadow" style="background-color: #ffffff; width: -webkit-fill-available; padding-top: 35px; padding-bottom: 25px; margin: 0">
-                <div class="container">
-                  <div class="row">
-                    <div class="col-lg-4">
-                      <img id="profilePage_Photo" class="rounded-circle shadow" src="images/default_profile_pic.png" style="border: 2px solid #FFC000; margin-left: 5px;" src="images/default_profile_pic.png" height="200px" width="200px"  alt="Profile_Pic">
+          <!-- Profile Modal -->
+          <div id="profileModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header" style="padding: 0;">
+                  <div class="jumbotron jumbotron-fluid shadow" style="background-color: #ffffff; width: -webkit-fill-available; padding-top: 35px; padding-bottom: 25px; margin: 0">
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-lg-4">
+                          <img id="profilePage_Photo" class="rounded-circle shadow" src="images/default_profile_pic.png" style="border: 2px solid #FFC000; margin-left: 5px;" src="images/default_profile_pic.png" height="200px" width="200px"  alt="Profile_Pic">
+                        </div>
+                        <div class="col-lg-8">
+                          <h2 id="profilePage_Name" class="display-4" style="font-weight: bold; margin-top: 10%"></h2>
+                          <p id="profilePage_Email" class="lead" style="color: #4f5051"></p>
+                        </div>
+                      </div>
                     </div>
-                    <div class="col-lg-8">
-                      <h2 id="profilePage_Name" class="display-4" style="font-weight: bold; margin-top: 10%"></h2>
-                      <p id="profilePage_Email" class="lead" style="color: #4f5051"></p>
+                  </div>
+                </div>
+                <div class="modal-body" style="margin: 0">
+                  <div id="followers_following_view" class="row" style="margin-top: 5%; margin-bottom: 5%;">
+                    <div id="section-followers" class="col-lg-6">
+                      <div id="section-followers-title" class="row">
+                        <h3 style="margin:auto; font-weight:bold; font-size: 2.25em; color: #537EA6">Following</h3>
+                      </div>
+                      <div id="section-followers-count" class="row">
+                        <h1 id="followersCount" style="margin: auto; text-align: center; font-size: 5em; color: #FFC000; font-weight:bold"></h1>
+                      </div>
+                    </div>
+                    <div id="section-following" class="col-lg-6">
+                      <div class="row">
+                        <h3 style="margin:auto; font-weight:bold; font-size: 2.25em; color: #537EA6">Following</h3>
+                      </div>
+                      <div class="row">
+                        <h1 id="followingCount" style="margin: auto;text-align: center; font-size: 5em; color: #FFC000; font-weight:bold"></h1>
+                      </div>
                     </div>
                   </div>
+                  <!-- <div class="row" style="height: 100px">
+
+                  </div>
+                  <div class="row" style="height: 100px">
+
+                  </div> -->
+                </div>
+                <!-- <div class="modal-footer" >
+                  <button id="cancelModal" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                  <button id="postModal" type="button" class="btn btn-primary" onclick="getChallengeData()">POST</button>
+                </div> -->
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ Modal -->
+          <div class="modal fade" id="faqModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="faqModalTitle" style="color: #537EA6; margin-left: 45%; font-size: 1.5em;font-weight:bold">FAQ</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <h1 class="faq_questions" style="font-size:1.25em;color: #FFC000;text-transform:uppercase;">How do I earn more points?</h1>
+                  <p class="faq_answers" style="text-align: justify; background-color:#efefef; border-radius: 10px; padding: 5px">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
+                    pharetra tortor tortor, a rutrum eros porta eget. Proin diam neque,
+                    interdum venenatis nulla nec, interdum sollicitudin risus. Quisque
+                    mattis semper gravida. Fusce dictum purus in pulvinar elementum.
+                    Vestibulum eget ipsum id lorem vestibulum consequat. Donec convallis
+                    risus id sodales feugiat. Donec rhoncus finibus tincidunt. Donec feugiat
+                    cursus arcu, sit amet faucibus lorem vulputate eget.</p>
+                  <h1 class="faq_questions" style="font-size:1.25em;color: #FFC000;text-transform:uppercase; ">How do I create a challenge?</h1>
+                  <p class="faq_answers" style="text-align: justify; background-color:#efefef; border-radius: 10px; padding: 5px">Nulla rutrum congue eros sed vestibulum. Cras tristique interdum magna
+                    eu ornare. Vivamus sem leo, tincidunt nec ipsum congue, consequat lacinia
+                    purus. Quisque vitae pellentesque diam. Proin eu metus eu lorem maximus molestie.
+                    Nullam bibendum mauris et dui blandit ultricies tincidunt vel dolor. Suspendisse
+                    non commodo felis.</p>
+                  <h1 class="faq_questions" style="font-size:1.25em;color: #FFC000;text-transform:uppercase; ">What is Tap?</h1>
+                  <p class="faq_answers" style="text-align: justify; background-color:#efefef; border-radius: 10px; padding: 5px">Maecenas vitae facilisis arcu, sit amet auctor augue. Maecenas blandit,
+                    est nec tincidunt euismod, sem ipsum rhoncus nisl, nec efficitur diam magna eget purus. Cras
+                    et vehicula felis. Nulla pulvinar at elit fringilla mattis. Integer sit amet nunc quis nulla
+                    mollis finibus quis non eros. Nam nec lectus non mi malesuada tristique non non massa. Integer
+                    mollis posuere tempus. Aliquam vestibulum augue vitae diam ultrices, sed fringilla lectus viverra.
+                    Aenean vitae laoreet lacus. Nulla tempus porttitor sem ac pretium. In hac habitasse platea dictumst.
+                    Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
+                  <h1 class="faq_questions" style="font-size:1.25em;color: #FFC000;text-transform:uppercase;">How can I see my challenges?</h1>
+                  <p class="faq_answers" style="text-align: justify; background-color:#efefef; border-radius: 10px; padding: 5px">Phasellus feugiat, justo quis scelerisque
+                    pharetra, enim sem iaculis libero, vel auctor arcu ipsum eget turpis. Fusce facilisis at ex id euismod. Sed feugiat leo urna, vel
+                    luctus leo tincidunt et. Aenean at tincidunt nibh. Donec ante felis, rhoncus vel ipsum et, dictum dictum libero. Maecenas eget augue
+                    aliquet, vestibulum quam aliquam, aliquet nisi. Nullam felis ex, rutrum eget sapien nec, bibendum pharetra ipsum. Maecenas
+                    semper egestas est. Aenean pharetra, dui nec mollis elementum, tortor risus ultricies nulla, nec tristique massa ligula
+                    non ante. Nulla dapibus turpis eget tempus dictum. Praesent massa mauris, porta quis elit eget, condimentum cursus erat.
+                    Nunc elit justo, eleifend ac imperdiet ac, fringilla nec nisi. Praesent scelerisque, lectus in imperdiet finibus, augue magna
+                    dignissim velit, in porta nisl diam sed nunc.</p>
+                </div>
+                <div class="modal-footer">
+                  <div id="theTeam" style="width: inherit;">
+                    <span style="color: #5F6368; font-size: 1.25em;font-weight: 400; padding-left: 0; margin-right: 30px; letter-spacing: 2px">alphabetter ©</span>
+                    <img src="images/TheTeam/anurag.jpg" data-toggle="tooltip" data-placement="left" title="Anurag Yadav" class="rounded-circle theteam shadow-lg" width="40" height="40" style="margin: 0; padding: 0" alt="tem_member">
+                    <img src="images/TheTeam/candace.jpg" data-toggle="tooltip" data-placement="bottom" title="Candace Williams" class="rounded-circle theteam shadow-lg" width="40" height="40" style="margin:0; padding: 0" alt="tem_member">
+                    <img src="images/TheTeam/daniel.jpg" data-toggle="tooltip" data-placement="bottom" title="Daniel Erhabor" class="rounded-circle theteam shadow-lg" width="40" height="40" style="margin:0; padding: 0; transform:rotate(90deg)" alt="Logo">
+                    <img src="images/TheTeam/lianné.jpg" data-toggle="tooltip" data-placement="bottom" title="Lianne Sánchez" class="rounded-circle theteam shadow-lg" width="40" height="40" style="margin:0; padding: 0" alt="tem_member">
+                    <img src="images/TheTeam/garrett.jpg" data-toggle="tooltip" data-placement="right" title="Garrett Tolbert" class="rounded-circle theteam shadow-lg" width="40" height="40" style="margin:0; padding: 0" alt="tem_member">
+                  </div>
+
                 </div>
               </div>
             </div>
-            <div class="modal-body" style="margin: 0">
-              <div id="followers_following_view" class="row" style="margin-top: 5%; margin-bottom: 5%;">
-                <div id="section-followers" class="col-lg-6">
-                  <div id="section-followers-title" class="row">
-                    <h3 style="margin:auto; font-weight:bold; font-size: 2.25em; color: #537EA6">Following</h3>
-                  </div>
-                  <div id="section-followers-count" class="row">
-                    <h1 id="followersCount" style="margin: auto; text-align: center; font-size: 5em; color: #FFC000; font-weight:bold"></h1>
-                  </div>
-                </div>
-                <div id="section-following" class="col-lg-6">
-                  <div class="row">
-                    <h3 style="margin:auto; font-weight:bold; font-size: 2.25em; color: #537EA6">Following</h3>
-                  </div>
-                  <div class="row">
-                    <h1 id="followingCount" style="margin: auto;text-align: center; font-size: 5em; color: #FFC000; font-weight:bold"></h1>
-                  </div>
-                </div>
-              </div>
-              <!-- <div class="row" style="height: 100px">
-
-              </div>
-              <div class="row" style="height: 100px">
-
-              </div> -->
-            </div>
-            <!-- <div class="modal-footer" >
-              <button id="cancelModal" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-              <button id="postModal" type="button" class="btn btn-primary" onclick="getChallengeData()">POST</button>
-            </div> -->
           </div>
-        </div>
+
+          <div id="challengeArea">
+              <div id="challenges-section" class="">
+              </div>
+          </div> <!--Challenge Area-->
+        </div>  <!--Feed Body-->
+        <nav id="feed_footer" class="navbar">
+          <img id="recordBtn"  src="images/recordBtn.png" width="150" height="150" alt="record_button">
+          <div id="anonymousAlert" class="alert alert-warning" role="alert" style="display: none">
+            This is a warning alert. For security purposes, user data will be hidden <a href="index.html" class="alert-link">until you Login</a>!
+            <br> You can check out our FAQs <a id="anonymousFAQView"><span style="text-decoration: underline">here</span></a> for more details.
+          </div>
+        </nav>
       </div>
 
-      <!-- FAQ Modal -->
-      <div class="modal fade" id="faqModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="faqModalTitle" style="color: #537EA6; margin-left: 45%; font-size: 1.5em;font-weight:bold">FAQ</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <h1 class="faq_questions" style="font-size:1.25em;color: #FFC000;text-transform:uppercase;">How do I earn more points?</h1>
-              <p class="faq_answers" style="text-align: justify; background-color:#efefef; border-radius: 10px; padding: 5px">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-                pharetra tortor tortor, a rutrum eros porta eget. Proin diam neque,
-                interdum venenatis nulla nec, interdum sollicitudin risus. Quisque
-                mattis semper gravida. Fusce dictum purus in pulvinar elementum.
-                Vestibulum eget ipsum id lorem vestibulum consequat. Donec convallis
-                risus id sodales feugiat. Donec rhoncus finibus tincidunt. Donec feugiat
-                cursus arcu, sit amet faucibus lorem vulputate eget.</p>
-              <h1 class="faq_questions" style="font-size:1.25em;color: #FFC000;text-transform:uppercase; ">How do I create a challenge?</h1>
-              <p class="faq_answers" style="text-align: justify; background-color:#efefef; border-radius: 10px; padding: 5px">Nulla rutrum congue eros sed vestibulum. Cras tristique interdum magna
-                eu ornare. Vivamus sem leo, tincidunt nec ipsum congue, consequat lacinia
-                purus. Quisque vitae pellentesque diam. Proin eu metus eu lorem maximus molestie.
-                Nullam bibendum mauris et dui blandit ultricies tincidunt vel dolor. Suspendisse
-                non commodo felis.</p>
-              <h1 class="faq_questions" style="font-size:1.25em;color: #FFC000;text-transform:uppercase; ">What is Tap?</h1>
-              <p class="faq_answers" style="text-align: justify; background-color:#efefef; border-radius: 10px; padding: 5px">Maecenas vitae facilisis arcu, sit amet auctor augue. Maecenas blandit,
-                est nec tincidunt euismod, sem ipsum rhoncus nisl, nec efficitur diam magna eget purus. Cras
-                et vehicula felis. Nulla pulvinar at elit fringilla mattis. Integer sit amet nunc quis nulla
-                mollis finibus quis non eros. Nam nec lectus non mi malesuada tristique non non massa. Integer
-                mollis posuere tempus. Aliquam vestibulum augue vitae diam ultrices, sed fringilla lectus viverra.
-                Aenean vitae laoreet lacus. Nulla tempus porttitor sem ac pretium. In hac habitasse platea dictumst.
-                Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
-              <h1 class="faq_questions" style="font-size:1.25em;color: #FFC000;text-transform:uppercase;">How can I see my challenges?</h1>
-              <p class="faq_answers" style="text-align: justify; background-color:#efefef; border-radius: 10px; padding: 5px">Phasellus feugiat, justo quis scelerisque
-                pharetra, enim sem iaculis libero, vel auctor arcu ipsum eget turpis. Fusce facilisis at ex id euismod. Sed feugiat leo urna, vel
-                luctus leo tincidunt et. Aenean at tincidunt nibh. Donec ante felis, rhoncus vel ipsum et, dictum dictum libero. Maecenas eget augue
-                aliquet, vestibulum quam aliquam, aliquet nisi. Nullam felis ex, rutrum eget sapien nec, bibendum pharetra ipsum. Maecenas
-                semper egestas est. Aenean pharetra, dui nec mollis elementum, tortor risus ultricies nulla, nec tristique massa ligula
-                non ante. Nulla dapibus turpis eget tempus dictum. Praesent massa mauris, porta quis elit eget, condimentum cursus erat.
-                Nunc elit justo, eleifend ac imperdiet ac, fringilla nec nisi. Praesent scelerisque, lectus in imperdiet finibus, augue magna
-                dignissim velit, in porta nisl diam sed nunc.</p>
-            </div>
-          </div>
-        </div>
-      </div>
+<<<<<<< HEAD
+    </div>
 
-      <div id="challengeArea">
-        <div class="row" style="height: 675px">
-          <div id="challenges-section" class="col-md-8">
+    <div class="overlay"></div>
 
-          </div>
-          <div id="hub-section" class="col-md-4">
-            <div id="hub" class="shadow rounded">
-              <div id="hubTop" class="rounded">
-                <img id="user_Photo" class="rounded-circle" style="border: 2px solid #537EA6; margin-left: 5px;" src="images/default_profile_pic.png" width="60" height="60" alt="Profile_Pic">
-                <span id="user_Name" style="text-align: center;vertical-align: middle;margin-left: 15px;font-weight: 700; padding-right: 5px;">Welcome!</span>
-              </div>
-              <div id="hubBottom" class="rounded">
-                <ul id="hubLinks" style="list-style:none; padding-top: 5px; margin-bottom: 0;padding-left: 3px;">
-                  <li id="view_Profile"><a href="#">Profile</a> </li>
-                  <li><a href="my-challenges.html">My Challenges</a> </li>
-                  <li><a href="#">Liked Challenges</a> </li>
-                  <li id="view_FAQ"><a href="#">FAQ</a> </li>
-                  <li id="logoutBtn" onclick="logout()"><a>Logout <img src="images/logout_icon.png" width="25px" height="25px" alt="logout_icon"> </a> </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> <!--Challenge Area-->
-    </div>  <!--Feed Body-->
-    <nav id="feed_footer" class="navbar">
-      <img id="recordBtn"  src="images/recordBtn.png" width="150" height="150" alt="record_button">
-      <div id="anonymousAlert" class="alert alert-warning" role="alert" style="display: none">
-        This is a warning alert. For security purposes, user data will be hidden <a href="index.html" class="alert-link">until you Login</a>!
-        <br> You can check out our FAQs <a id="anonymousFAQView"><span style="text-decoration: underline">here</span></a> for more details.
-      </div>
-    </nav>
-
+    <!-- <script src="/_/firebase/init.js"></script> -->
+    <script src="/__/firebase/5.5.4/firebase-app.js"></script>
+=======
     <!-- Firebase App is always required and must be first -->
     <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase-app.js"></script>
 
+>>>>>>> sandbox
     <!-- Add additional services that you want to use -->
     <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase-auth.js"></script>
     <!-- <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase-database.js"></script> -->
@@ -326,6 +404,23 @@
     firebase.initializeApp(config);
 </script>
     <script src="main.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#sidebar").mCustomScrollbar({
+                theme: "minimal"
+            });
 
+            $('#dismiss, .overlay').on('click', function () {
+                $('#sidebar').removeClass('active');
+                $('.overlay').removeClass('active');
+            });
+
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').addClass('active');
+                $('.overlay').addClass('active');
+                $('.collapse.in').toggleClass('in');
+            });
+        });
+    </script>
   </body>
 </html>

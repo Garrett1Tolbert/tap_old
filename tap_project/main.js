@@ -298,6 +298,7 @@ function setProfileElements(user){
   document.getElementById('profilePage_Photo').setAttribute("src",user.photoURL);
 
   document.getElementById('user_Name').innerHTML = user.displayName;
+  document.getElementById('user_Email').innerHTML = user.email;
   document.getElementById('user_Photo').setAttribute("src",user.photoURL);
 
 
@@ -363,6 +364,7 @@ function addElement (div,userPhoto, docID, docData, didCreate) {
   newDiv.className = "questions";
   newDiv.classList.add("rounded");
   newDiv.classList.add("shadow");
+  newDiv.style.marginTop = "3%";
 
 
   // create a new element
@@ -378,7 +380,7 @@ function addElement (div,userPhoto, docID, docData, didCreate) {
   // newAnswer.innerHTML = docID;
 
   newDiv.appendChild(newPhoto);
-  newPhoto.className = "rounded-circle";
+  newPhoto.className = "rounded-circle shadow";
   // newPhoto.src = user.photoURL;
   newPhoto.src = userPhoto;
 
