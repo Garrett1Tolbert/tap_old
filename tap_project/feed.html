@@ -22,7 +22,6 @@
   <title>Feed</title>
   </head>
   <body id="feed_page" onload="grabFeedChallenges();">
-<<<<<<< HEAD
 
     <div class="wrapper">
       <nav id="sidebar" class="shadow-lg" active>
@@ -31,18 +30,6 @@
             <i  style="float:right;margin-top:5%" class="fas fa-arrow-left"></i>
           </div>
           <h3 style="width: 150px; margin:0; padding-left:3px">My Hub</h3>
-=======
-    <nav id="feed_header" class="navbar sticky-top navbar-light shadow-sm p-3" style="background-color: #FFC000">
-      <a class="navbar-brand" href="feed.html" style="margin-left:7%;">
-        <img src="images/Tap(Light).png" width="60" height="60" alt="Logo">
-      </a>
-      <!-- likeChallenge('6RW7MAPyUqraRIikizyj') -->
-      <a id="followersTab"><img src="images/followers.png" onClick = "getLikedChallenges()" height="40px" weight="40px" alt="Followers">Followers </a>
-      <div id="searchbar" class="box">
-        <div class="searchbar">
-          <span class="icon"><i class="fa fa-search"></i></span>
-          <input type="text" id= "search" placeholder="Search for a username, genre, or artist" name="search">
->>>>>>> sandbox
         </div>
         <ul id="hubLinks" style="list-style:none; margin-top: 10%; padding-top: 5px; margin-bottom: 0;padding-left: 3px;">
           <li id="view_Profile"><a href="#">Profile</a> </li>
@@ -51,7 +38,7 @@
           <li id="view_FAQ"><a href="#">FAQ</a> </li>
           <li id="logoutBtn" onclick="logout()"><a>Logout <img src="images/logout_icon.png" width="25px" height="25px" alt="logout_icon"> </a> </li>
         </ul>
-        <div class="sidebar-footer sticky-bottom" style="height: 142px; margin-top: 125%">
+        <div class="sidebar-footer sticky-bottom" style="height: 142px; margin-top: 130%">
           <div id="hubTop" class="rounded">
             <div class="col-lg-3">
               <img id="user_Photo" class="rounded-circle" style="border: 2px solid #537EA6; margin-left: 5px;" src="images/default_profile_pic.png" width="70" height="70" alt="Profile_Pic">
@@ -228,20 +215,6 @@
                   <button id="postModal" type="button" class="btn btn-primary" onclick="getChallengeData()">POST</button>
                 </div>
               </div>
-<<<<<<< HEAD
-=======
-              <div id="correctAnswerAlert" class="alert alert-danger fade show" role="alert" style=" display: none; width: 45%; margin-top: 2%; margin-bottom: 0; margin-left: 3.5%; font-size: 1em; color:#537EA6">
-                 Don't forget to select the correct answer!
-              </div>
-              <div id="allAnswersRequiredAlert" class="alert alert-warning fade show" role="alert" style=" display: none; width: 60%; margin-top: 2%; margin-bottom: 0; margin-left: 3.5%; font-size: 1em; color:#537EA6">
-                 You need to fill in all answer choices! Please try again.
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button id="cancelModal" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-              <button id="postModal" type="button" class="btn btn-primary" >POST</button>
-              <!-- onclick="getChallengeData()" -->
->>>>>>> sandbox
             </div>
           </div>
 
@@ -370,18 +343,12 @@
         </nav>
       </div>
 
-<<<<<<< HEAD
     </div>
 
     <div class="overlay"></div>
 
     <!-- <script src="/_/firebase/init.js"></script> -->
-    <script src="/__/firebase/5.5.4/firebase-app.js"></script>
-=======
-    <!-- Firebase App is always required and must be first -->
     <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase-app.js"></script>
-
->>>>>>> sandbox
     <!-- Add additional services that you want to use -->
     <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase-auth.js"></script>
     <!-- <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase-database.js"></script> -->
@@ -402,7 +369,7 @@
       // messagingSenderId: "806333716389"
     };
     firebase.initializeApp(config);
-</script>
+  </script>
     <script src="main.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {

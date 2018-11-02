@@ -23,7 +23,10 @@ function authStateObserver(user){
   if (user && currentPageName() === "feed.html" || currentPageName() == "my-challenges.html"){
     setProfileElements(user);
     listenToEventsOnFeed();
+<<<<<<< Updated upstream
   //  positionHub();
+=======
+>>>>>>> Stashed changes
   }
   else if (!user && currentPageName() === "feed.html") {
     showAnonymous();
@@ -35,14 +38,6 @@ function showAnonymous() {
   document.getElementById('anonymousAlert').style.display = 'block';
   document.getElementById('feed_body').remove();
   document.getElementById('myChall_body').remove();
-}
-
-function positionHub() {
-  if(document.getElementById('challengeArea').childElementCount > 1) {
-    document.getElementById('hub').style.marginTop = "0";
-  } else {
-    document.getElementById('hub').style.marginTop = "3%";
-  }
 }
 
 function initCloudFirestore(){
@@ -370,6 +365,7 @@ function addElement (div,userPhoto, docID, docData, didCreate) {
   // create a new element
   var newAnswer = document.createElement("h3");
   var newPlay = document.createElement("img");
+  var newPhoto = document.createElement("img");
   var newAudioLevel = document.createElement("img");
   newFavorite = document.createElement("img");
   newRepost = document.createElement("img");
