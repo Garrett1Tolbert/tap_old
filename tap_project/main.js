@@ -23,10 +23,6 @@ function authStateObserver(user){
   if (user && currentPageName() === "feed.html" || currentPageName() == "my-challenges.html"){
     setProfileElements(user);
     listenToEventsOnFeed();
-<<<<<<< Updated upstream
-  //  positionHub();
-=======
->>>>>>> Stashed changes
   }
   else if (!user && currentPageName() === "feed.html") {
     showAnonymous();
