@@ -22,3 +22,143 @@
 [debug] [2018-11-02T21:22:17.156Z] <<< HTTP RESPONSE 200
 [info] i  hosting[alphabetter-tap-v1]: Serving hosting files from: tap_project
 [info] ✔  hosting[alphabetter-tap-v1]: Local server: http://localhost:5000
+[debug] [2018-11-05T16:04:04.430Z] ----------------------------------------------------------------------
+[debug] [2018-11-05T16:04:04.432Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2018-11-05T16:04:04.432Z] CLI Version:   4.2.1
+[debug] [2018-11-05T16:04:04.432Z] Platform:      darwin
+[debug] [2018-11-05T16:04:04.432Z] Node Version:  v10.10.0
+[debug] [2018-11-05T16:04:04.434Z] Time:          Mon Nov 05 2018 08:04:04 GMT-0800 (Pacific Standard Time)
+[debug] [2018-11-05T16:04:04.434Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-11-05T16:04:04.452Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-11-05T16:04:04.453Z] > authorizing via signed-in user
+[debug] [2018-11-05T16:04:04.455Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-11-05T16:04:04.455Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+
+[debug] [2018-11-05T16:04:04.900Z] <<< HTTP RESPONSE 200
+[debug] [2018-11-05T16:04:04.917Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/alphabetter-tap-v1  
+ 
+[debug] [2018-11-05T16:04:05.516Z] <<< HTTP RESPONSE 200
+[debug] [2018-11-05T16:04:05.518Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/alphabetter-tap-v1  
+ 
+[debug] [2018-11-05T16:04:06.419Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/gtolbert/Desktop/tap'...
+[info] 
+[debug] [2018-11-05T16:04:06.422Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/806333716389/clients/_:getWebAppConfig  
+ 
+[debug] [2018-11-05T16:04:07.435Z] <<< HTTP RESPONSE 200
+[info] i  hosting[alphabetter-tap-v1]: Serving hosting files from: tap_project
+[info] ✔  hosting[alphabetter-tap-v1]: Local server: http://localhost:5000
+[debug] [2018-11-05T17:49:54.891Z] ----------------------------------------------------------------------
+[debug] [2018-11-05T17:49:54.892Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2018-11-05T17:49:54.893Z] CLI Version:   4.2.1
+[debug] [2018-11-05T17:49:54.893Z] Platform:      darwin
+[debug] [2018-11-05T17:49:54.893Z] Node Version:  v10.10.0
+[debug] [2018-11-05T17:49:54.894Z] Time:          Mon Nov 05 2018 09:49:54 GMT-0800 (Pacific Standard Time)
+[debug] [2018-11-05T17:49:54.894Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-11-05T17:49:54.907Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-11-05T17:49:54.908Z] > authorizing via signed-in user
+[debug] [2018-11-05T17:49:54.911Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-11-05T17:49:54.911Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+
+[debug] [2018-11-05T17:49:55.095Z] <<< HTTP RESPONSE 200
+[debug] [2018-11-05T17:49:55.115Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/alphabetter-tap-v1  
+ 
+[debug] [2018-11-05T17:49:56.000Z] <<< HTTP RESPONSE 200
+[debug] [2018-11-05T17:49:56.001Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/alphabetter-tap-v1  
+ 
+[debug] [2018-11-05T17:49:56.330Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/gtolbert/Desktop/tap'...
+[info] 
+[debug] [2018-11-05T17:49:56.332Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/806333716389/clients/_:getWebAppConfig  
+ 
+[debug] [2018-11-05T17:49:56.772Z] <<< HTTP RESPONSE 200
+[info] i  hosting[alphabetter-tap-v1]: Serving hosting files from: tap_project
+[info] ✔  hosting[alphabetter-tap-v1]: Local server: http://localhost:5000
+[debug] [2018-11-06T01:27:49.864Z] ----------------------------------------------------------------------
+[debug] [2018-11-06T01:27:49.865Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2018-11-06T01:27:49.866Z] CLI Version:   4.2.1
+[debug] [2018-11-06T01:27:49.866Z] Platform:      darwin
+[debug] [2018-11-06T01:27:49.866Z] Node Version:  v10.10.0
+[debug] [2018-11-06T01:27:49.867Z] Time:          Mon Nov 05 2018 17:27:49 GMT-0800 (Pacific Standard Time)
+[debug] [2018-11-06T01:27:49.867Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-11-06T01:27:49.881Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-11-06T01:27:49.882Z] > authorizing via signed-in user
+[debug] [2018-11-06T01:27:49.884Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-11-06T01:27:49.884Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+
+[debug] [2018-11-06T01:27:50.010Z] <<< HTTP RESPONSE 200
+[debug] [2018-11-06T01:27:50.025Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/alphabetter-tap-v1  
+ 
+[debug] [2018-11-06T01:27:50.779Z] <<< HTTP RESPONSE 200
+[debug] [2018-11-06T01:27:50.781Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/alphabetter-tap-v1  
+ 
+[debug] [2018-11-06T01:27:51.198Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/gtolbert/Desktop/tap'...
+[info] 
+[debug] [2018-11-06T01:27:51.201Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/806333716389/clients/_:getWebAppConfig  
+ 
+[debug] [2018-11-06T01:27:51.524Z] <<< HTTP RESPONSE 200
+[info] i  hosting[alphabetter-tap-v1]: Serving hosting files from: tap_project
+[info] ✔  hosting[alphabetter-tap-v1]: Local server: http://localhost:5000
+[debug] [2018-11-07T04:36:39.549Z] ----------------------------------------------------------------------
+[debug] [2018-11-07T04:36:39.551Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2018-11-07T04:36:39.552Z] CLI Version:   4.2.1
+[debug] [2018-11-07T04:36:39.552Z] Platform:      darwin
+[debug] [2018-11-07T04:36:39.552Z] Node Version:  v10.10.0
+[debug] [2018-11-07T04:36:39.554Z] Time:          Tue Nov 06 2018 20:36:39 GMT-0800 (Pacific Standard Time)
+[debug] [2018-11-07T04:36:39.554Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-11-07T04:36:39.571Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-11-07T04:36:39.571Z] > authorizing via signed-in user
+[debug] [2018-11-07T04:36:39.573Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-11-07T04:36:39.573Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+
+[debug] [2018-11-07T04:36:39.762Z] <<< HTTP RESPONSE 200
+[debug] [2018-11-07T04:36:39.783Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/alphabetter-tap-v1  
+ 
+[debug] [2018-11-07T04:36:40.305Z] <<< HTTP RESPONSE 200
+[debug] [2018-11-07T04:36:40.307Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/alphabetter-tap-v1  
+ 
+[debug] [2018-11-07T04:36:40.639Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/gtolbert/Desktop/tap'...
+[info] 
+[debug] [2018-11-07T04:36:40.641Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/806333716389/clients/_:getWebAppConfig  
+ 
+[debug] [2018-11-07T04:36:41.176Z] <<< HTTP RESPONSE 200
+[info] i  hosting[alphabetter-tap-v1]: Serving hosting files from: tap_project
+[info] ✔  hosting[alphabetter-tap-v1]: Local server: http://localhost:5000
+[debug] [2018-11-07T19:05:55.934Z] ----------------------------------------------------------------------
+[debug] [2018-11-07T19:05:55.936Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2018-11-07T19:05:55.936Z] CLI Version:   4.2.1
+[debug] [2018-11-07T19:05:55.936Z] Platform:      darwin
+[debug] [2018-11-07T19:05:55.937Z] Node Version:  v10.10.0
+[debug] [2018-11-07T19:05:55.938Z] Time:          Wed Nov 07 2018 11:05:55 GMT-0800 (Pacific Standard Time)
+[debug] [2018-11-07T19:05:55.938Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-11-07T19:05:55.952Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-11-07T19:05:55.953Z] > authorizing via signed-in user
+[debug] [2018-11-07T19:05:55.955Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-11-07T19:05:55.955Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+
+[debug] [2018-11-07T19:05:56.132Z] <<< HTTP RESPONSE 200
+[debug] [2018-11-07T19:05:56.145Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/alphabetter-tap-v1  
+ 
+[debug] [2018-11-07T19:05:56.967Z] <<< HTTP RESPONSE 200
+[debug] [2018-11-07T19:05:56.967Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/alphabetter-tap-v1  
+ 
+[debug] [2018-11-07T19:05:57.325Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/gtolbert/Desktop/tap'...
+[info] 
+[debug] [2018-11-07T19:05:57.326Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/806333716389/clients/_:getWebAppConfig  
+ 
+[debug] [2018-11-07T19:05:57.626Z] <<< HTTP RESPONSE 200
+[info] i  hosting[alphabetter-tap-v1]: Serving hosting files from: tap_project
+[info] ✔  hosting[alphabetter-tap-v1]: Local server: http://localhost:5000

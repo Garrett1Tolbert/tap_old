@@ -21,7 +21,7 @@
 
   <title>My Challenges</title>
   </head>
-  <body id="feed_page" onload="grabMyChallenges()">
+  <body id="myChall_page" onload="grabMyChallenges();grabFollowers();">
 
     <div class="wrapper">
       <nav id="sidebar" class="shadow-lg" active>
@@ -41,30 +41,30 @@
         <div class="sidebar-footer sticky-bottom" style="height: 125px; margin-top: 136%">
           <div id="hubTop" class="rounded">
             <div class="col-lg-3">
-              <img id="user_Photo" class="rounded-circle" style="border: 2px solid #537EA6; margin-left: 5px;" src="images/default_profile_pic.png" width="70" height="70" alt="Profile_Pic">
+              <img id="user_Photo" class="rounded-circle" style="border: 2px solid #537EA6; margin-left: 5px;" src="images/default_profile_pic.png" width="70" height="70" alt="Your_Profile_Pic">
             </div>
             <div class="col-lg-9">
-              <span id="user_Name" style="text-align: center;vertical-align: middle;margin-left: 15px;font-weight: 700; padding-right: 5px;">Welcome!</span>
-              <p id="user_Email" style="vertical-align: middle;margin-left: 15px; padding-right: 5px;">anonymous-email</p>
+              <span id="user_Name" style="color:#525456;text-align: center;vertical-align: middle;margin-left: 15px;font-weight: 700; padding-right: 5px;">Welcome!</span>
+              <p id="user_Email" style="color:#525456;vertical-align: middle;margin-left: 15px; padding-right: 5px;">anonymous-email</p>
             </div>
           </div>
         </div>
       </nav>
 
       <div id="content">
-        <nav id="feed_header" class="navbar sticky-top navbar-light shadow-sm p-3" style="background-color:#ffc000">
+        <nav id="myChall_header" class="navbar sticky-top navbar-light shadow-sm p-3" style="background-color:#ffc000">
           <div class="col-lg-1">
-            <button type="button" id="sidebarCollapse" class="btn btn-info">
+            <button type="button" id="sidebarCollapse" class="btn btn-info" aria-label="Open Sidebar">
                 <i id="backBtn" class="fas fa-bars fa-2x"></i>
             </button>
           </div>
           <div class="col-lg-3">
             <div id="theTeam" style="width: inherit;">
-              <img src="images/TheTeam/anurag.jpg" data-toggle="tooltip" data-placement="left" title="Anurag Yadav" class="rounded-circle theteam shadow-lg" width="40" height="40" style="margin:0; padding: 0" alt="tem_member">
-              <img src="images/TheTeam/candace.jpg" data-toggle="tooltip" data-placement="bottom" title="Candace Williams" class="rounded-circle theteam shadow-lg" width="40" height="40" style="margin:0; padding: 0" alt="tem_member">
-              <img src="images/TheTeam/daniel.jpg" data-toggle="tooltip" data-placement="bottom" title="Daniel Erhabor" class="rounded-circle theteam shadow-lg" width="40" height="40" style="margin:0; padding: 0; transform:rotate(90deg)" alt="Logo">
-              <img src="images/TheTeam/lianné.jpg" data-toggle="tooltip" data-placement="bottom" title="Lianne Sánchez" class="rounded-circle theteam shadow-lg" width="40" height="40" style="margin:0; padding: 0" alt="tem_member">
-              <img src="images/TheTeam/garrett.jpg" data-toggle="tooltip" data-placement="right" title="Garrett Tolbert" class="rounded-circle theteam shadow-lg" width="40" height="40" style="margin:0; padding: 0" alt="tem_member">
+              <img src="images/TheTeam/anurag.jpg" data-toggle="tooltip" data-placement="left" title="Anurag Yadav" class="rounded-circle theteam shadow-lg" width="40" height="40" style="margin:0; padding: 0" alt="team_member">
+              <img src="images/TheTeam/candace.jpg" data-toggle="tooltip" data-placement="bottom" title="Candace Williams" class="rounded-circle theteam shadow-lg" width="40" height="40" style="margin:0; padding: 0" alt="team_member">
+              <img src="images/TheTeam/daniel.jpg" data-toggle="tooltip" data-placement="bottom" title="Daniel Erhabor" class="rounded-circle theteam shadow-lg" width="40" height="40" style="margin:0; padding: 0; transform:rotate(90deg)" alt="team_member">
+              <img src="images/TheTeam/lianné.jpg" data-toggle="tooltip" data-placement="bottom" title="Lianne Sánchez" class="rounded-circle theteam shadow-lg" width="40" height="40" style="margin:0; padding: 0" alt="team_member">
+              <img src="images/TheTeam/garrett.jpg" data-toggle="tooltip" data-placement="right" title="Garrett Tolbert" class="rounded-circle theteam shadow-lg" width="40" height="40" style="margin:0; padding: 0" alt="team_member">
             </div>
           </div>
           <div class="col-lg-1">
@@ -76,7 +76,7 @@
             <div id="searchbar" class="box" style="float:right">
               <div class="searchbar">
                 <span class="icon"><i class="fa fa-search"></i></span>
-                <input type="text" id= "search" placeholder="Search for a username, genre, or artist" name="search">
+                <input type="text" id= "search" placeholder="Search for a username, genre, or artist" name="search" aria-label="Search bar">
               </div>
             </div>
           </div>
@@ -157,7 +157,7 @@
                   <div id="followers_following_view" class="row" style="margin-top: 5%; margin-bottom: 5%;">
                     <div id="section-followers" class="col-lg-6">
                       <div id="section-followers-title" class="row">
-                        <h3 style="margin:auto; font-weight:bold; font-size: 2.25em; color: #537EA6">Following</h3>
+                        <h3 style="margin:auto; font-weight:bold; font-size: 2.25em; color: #537EA6">Followers</h3>
                       </div>
                       <div id="section-followers-count" class="row">
                         <h1 id="followersCount" style="margin: auto; text-align: center; font-size: 5em; color: #FFC000; font-weight:bold"></h1>
@@ -192,13 +192,13 @@
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="faqModalTitle" style="color: #537EA6; margin-left: 45%; font-size: 1.5em;font-weight:bold">FAQ</h5>
+                  <h5 class="modal-title" id="faqModalTitle" style="color: #525456; margin-left: 45%; font-size: 1.5em;font-weight:bold">FAQ</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body">
-                  <h1 class="faq_questions" style="font-size:1.25em;color: #FFC000;text-transform:uppercase;">How do I earn more points?</h1>
+                  <h1 class="faq_questions" style="font-size:1.25em;color: #537EA6;text-transform:uppercase;">How do I earn more points?</h1>
                   <p class="faq_answers" style="text-align: justify; background-color:#efefef; border-radius: 10px; padding: 5px">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
                     pharetra tortor tortor, a rutrum eros porta eget. Proin diam neque,
                     interdum venenatis nulla nec, interdum sollicitudin risus. Quisque
@@ -206,13 +206,15 @@
                     Vestibulum eget ipsum id lorem vestibulum consequat. Donec convallis
                     risus id sodales feugiat. Donec rhoncus finibus tincidunt. Donec feugiat
                     cursus arcu, sit amet faucibus lorem vulputate eget.</p>
-                  <h1 class="faq_questions" style="font-size:1.25em;color: #FFC000;text-transform:uppercase; ">How do I create a challenge?</h1>
+                    <br>
+                  <h1 class="faq_questions" style="font-size:1.25em;color: #537EA6;text-transform:uppercase; ">How do I create a challenge?</h1>
                   <p class="faq_answers" style="text-align: justify; background-color:#efefef; border-radius: 10px; padding: 5px">Nulla rutrum congue eros sed vestibulum. Cras tristique interdum magna
                     eu ornare. Vivamus sem leo, tincidunt nec ipsum congue, consequat lacinia
                     purus. Quisque vitae pellentesque diam. Proin eu metus eu lorem maximus molestie.
                     Nullam bibendum mauris et dui blandit ultricies tincidunt vel dolor. Suspendisse
                     non commodo felis.</p>
-                  <h1 class="faq_questions" style="font-size:1.25em;color: #FFC000;text-transform:uppercase; ">What is Tap?</h1>
+                    <br>
+                  <h1 class="faq_questions" style="font-size:1.25em;color: #537EA6;text-transform:uppercase; ">What is Tap?</h1>
                   <p class="faq_answers" style="text-align: justify; background-color:#efefef; border-radius: 10px; padding: 5px">Maecenas vitae facilisis arcu, sit amet auctor augue. Maecenas blandit,
                     est nec tincidunt euismod, sem ipsum rhoncus nisl, nec efficitur diam magna eget purus. Cras
                     et vehicula felis. Nulla pulvinar at elit fringilla mattis. Integer sit amet nunc quis nulla
@@ -220,7 +222,8 @@
                     mollis posuere tempus. Aliquam vestibulum augue vitae diam ultrices, sed fringilla lectus viverra.
                     Aenean vitae laoreet lacus. Nulla tempus porttitor sem ac pretium. In hac habitasse platea dictumst.
                     Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
-                  <h1 class="faq_questions" style="font-size:1.25em;color: #FFC000;text-transform:uppercase;">How can I see my challenges?</h1>
+                    <br>
+                  <h1 class="faq_questions" style="font-size:1.25em;color: #537EA6;text-transform:uppercase;">How can I see my challenges?</h1>
                   <p class="faq_answers" style="text-align: justify; background-color:#efefef; border-radius: 10px; padding: 5px">Phasellus feugiat, justo quis scelerisque
                     pharetra, enim sem iaculis libero, vel auctor arcu ipsum eget turpis. Fusce facilisis at ex id euismod. Sed feugiat leo urna, vel
                     luctus leo tincidunt et. Aenean at tincidunt nibh. Donec ante felis, rhoncus vel ipsum et, dictum dictum libero. Maecenas eget augue
@@ -233,11 +236,11 @@
                 <div class="modal-footer">
                   <div id="theTeam" style="width: inherit;">
                     <span style="color: #5F6368; font-size: 1.25em;font-weight: 400; padding-left: 0; margin-right: 30px; letter-spacing: 2px">alphabetter ©</span>
-                    <img src="images/TheTeam/anurag.jpg" data-toggle="tooltip" data-placement="left" title="Anurag Yadav" class="rounded-circle theteam shadow-lg" width="40" height="40" style="margin: 0; padding: 0" alt="tem_member">
-                    <img src="images/TheTeam/candace.jpg" data-toggle="tooltip" data-placement="bottom" title="Candace Williams" class="rounded-circle theteam shadow-lg" width="40" height="40" style="margin:0; padding: 0" alt="tem_member">
-                    <img src="images/TheTeam/daniel.jpg" data-toggle="tooltip" data-placement="bottom" title="Daniel Erhabor" class="rounded-circle theteam shadow-lg" width="40" height="40" style="margin:0; padding: 0; transform:rotate(90deg)" alt="Logo">
-                    <img src="images/TheTeam/lianné.jpg" data-toggle="tooltip" data-placement="bottom" title="Lianne Sánchez" class="rounded-circle theteam shadow-lg" width="40" height="40" style="margin:0; padding: 0" alt="tem_member">
-                    <img src="images/TheTeam/garrett.jpg" data-toggle="tooltip" data-placement="right" title="Garrett Tolbert" class="rounded-circle theteam shadow-lg" width="40" height="40" style="margin:0; padding: 0" alt="tem_member">
+                    <img src="images/TheTeam/anurag.jpg" data-toggle="tooltip" data-placement="left" title="Anurag Yadav" class="rounded-circle theteam shadow-lg" width="40" height="40" style="margin: 0; padding: 0" alt="team_member">
+                    <img src="images/TheTeam/candace.jpg" data-toggle="tooltip" data-placement="bottom" title="Candace Williams" class="rounded-circle theteam shadow-lg" width="40" height="40" style="margin:0; padding: 0" alt="team_member">
+                    <img src="images/TheTeam/daniel.jpg" data-toggle="tooltip" data-placement="bottom" title="Daniel Erhabor" class="rounded-circle theteam shadow-lg" width="40" height="40" style="margin:0; padding: 0; transform:rotate(90deg)" alt="team_member">
+                    <img src="images/TheTeam/lianné.jpg" data-toggle="tooltip" data-placement="bottom" title="Lianne Sánchez" class="rounded-circle theteam shadow-lg" width="40" height="40" style="margin:0; padding: 0" alt="team_member">
+                    <img src="images/TheTeam/garrett.jpg" data-toggle="tooltip" data-placement="right" title="Garrett Tolbert" class="rounded-circle theteam shadow-lg" width="40" height="40" style="margin:0; padding: 0" alt="team_member">
                   </div>
 
                 </div>
@@ -250,23 +253,19 @@
               </div>
           </div> <!--Challenge Area-->
         </div>  <!--Feed Body-->
-        <nav id="myChallenges_footer" class="navbar" style="height:5px">
-          <div id="anonymousAlert" class="alert alert-warning" role="alert" style="display: none; margin-left:30%">
+        <nav id="myChallenges_footer" class="navbar">
+          <div id="anonymousAlert" class="alert alert-warning" role="alert" style="display: none; margin-left: 25%">
             This is a warning alert. For security purposes, user data will be hidden <a href="index.html" class="alert-link">until you Login</a>!
-            <br> You can check out our FAQs <a id="anonymousFAQView"><span style="text-decoration: underline">here</span></a> for more details.
+            <br> You can check out our FAQs <a id="anonymousFAQView" onclick="anonymousFAQ()"><span style="text-decoration: underline">here</span></a> for more details.
           </div>
         </nav>
-
       </div>
     </div>
 
     <div class="overlay"></div>
 
-<<<<<<< HEAD
-=======
     <!-- Firebase App is always required and must be first -->
     <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase-app.js"></script>
->>>>>>> sandbox
 
     <!-- Add additional services that you want to use -->
     <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase-auth.js"></script>
@@ -288,26 +287,26 @@
       // messagingSenderId: "806333716389"
     };
     firebase.initializeApp(config);
-</script>
-    <script src="main.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#sidebar").mCustomScrollbar({
-                theme: "minimal"
-            });
+  </script>
+  <script src="main.js"></script>
+  <script type="text/javascript">
+      $(document).ready(function () {
+          $("#sidebar").mCustomScrollbar({
+              theme: "minimal"
+          });
 
-            $('#dismiss, .overlay').on('click', function () {
-                $('#sidebar').removeClass('active');
-                $('.overlay').removeClass('active');
-            });
+          $('#dismiss, .overlay').on('click', function () {
+              $('#sidebar').removeClass('active');
+              $('.overlay').removeClass('active');
+          });
 
-            $('#sidebarCollapse').on('click', function () {
-                $('#sidebar').addClass('active');
-                $('.overlay').addClass('active');
-                $('.collapse.in').toggleClass('in');
-            });
-        });
-    </script>
+          $('#sidebarCollapse').on('click', function () {
+              $('#sidebar').addClass('active');
+              $('.overlay').addClass('active');
+              $('.collapse.in').toggleClass('in');
+          });
+      });
+  </script>
 
   </body>
 </html>

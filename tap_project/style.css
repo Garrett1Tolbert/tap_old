@@ -179,7 +179,11 @@ form .input_field.bottom {
   position: relative;
 }
 
-#challenges-section, #myChallenges-section {
+#challenges-section {
+  height: 700px;
+  overflow: auto;
+}
+#myChallenges-section {
   overflow: auto;
 }
 
@@ -245,13 +249,13 @@ form .input_field.bottom {
   background-color: #537EA6;
 }
 #hubLinks li:hover a{
-  color: white;
+  color: black;
 }
 #hubLinks li a{
   text-decoration: none;
   padding-left:3px;
   padding-right:3px;
-  color: #5F6368;
+  color: #525456;
 }
 
 
@@ -265,7 +269,7 @@ form .input_field.bottom {
 }
 #recordBtn {
   top: 0;
-  margin: auto;
+  margin-left: 45%;
 }
 #recordBtn:hover {
   cursor: pointer;
@@ -290,7 +294,7 @@ form .input_field.bottom {
   height: 50px;
   background: ;
   border: none;
-  color: #5F6368;
+  color: #525456;
   text-align: left;
   float: left;
   padding-left: 45px;
@@ -307,7 +311,7 @@ form .input_field.bottom {
   padding-bottom: 7px;
   margin-top: 13px;
   z-index: 1;
-  color: #5F6368;
+  color: #525456;
 }
 .searchbar input#search:focus, .searchbar input#search:active{
   outline:none;
@@ -354,6 +358,7 @@ form .input_field.bottom {
   margin: auto;
   width: 50%;
   padding: 1%;
+  padding-bottom: 0;
 }
 
 .rounded-circle {
@@ -471,7 +476,7 @@ TESTING SIDEBAR
     margin-top: 7%;
     padding: 10px;
     background: white;
-    color: #5F6368;
+    color: #525456;
 }
 
 a[data-toggle="collapse"] {
