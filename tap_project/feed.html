@@ -32,11 +32,12 @@
           <h3 style="width: 150px; margin:0; padding-left:3px">My Hub</h3>
         </div>
         <ul id="hubLinks" style="list-style:none; margin-top: 10%; padding-top: 5px; margin-bottom: 0;padding-left: 3px;">
-          <li id="view_Profile"><a href="#">Profile<i class="fas fa-user-circle fa-3x"></i></a> </li>
-          <li><a href="my-challenges.html">My Challenges</a> </li>
-          <li><a href="#">Liked Challenges</a> </li>
-          <li id="view_FAQ"><a href="#">FAQ</a> </li>
-          <li id="logoutBtn" onclick="logout()"><a>Logout <img src="images/logout_icon.png" width="25px" height="25px" alt="logout_icon"> </a> </li>
+          <li id="home"><a href="feed.html">Home<i class="fas fa-home sidebarIcons" style="margin-left: 70%;width: 23px; height: 23px"></i></a> </li>
+          <li id="view_Profile"><a href="#">Profile<i class="fas fa-user-circle sidebarIcons" style="margin-left: 70%;width: 23px; height: 23px"></i></a> </li>
+          <li><a href="my-challenges.html">My Challenges<i class="fas fa-th-list sidebarIcons" style="margin-left: 50%;width: 23px; height: 23px"></i></a> </li>
+          <li><a href="#">Liked Challenges<i class="fas fa-thumbs-up sidebarIcons" style="margin-left: 45%;width: 23px; height: 23px"></i></a> </li>
+          <li id="view_FAQ"><a href="#">FAQ<i class="fas fa-question sidebarIcons" style="margin-left: 75%;width: 23px; height: 23px"></i></a> </li>
+          <li id="logoutBtn" onclick="logout()"><a>Logout<i class="fas fa-sign-out-alt sidebarIcons" style="margin-left: 70%;width: 23px; height: 23px"></i></a> </li>
         </ul>
         <div class="sidebar-footer sticky-bottom" style="height: 142px; margin-top: 130%">
           <div id="hubTop" class="rounded">
@@ -203,16 +204,81 @@
                       <input id="answer_choice4" type="text" class="form-control challengeAnswers" placeholder="Answer Choice 4" style="margin-left: 0;" aria-label="Text input with radio button">
                     </div>
                   </div>
-                  <div id="correctAnswerAlert" class="alert alert-danger fade show" role="alert" style=" display: none; width: 50%; margin-top: 2%; margin-bottom: 0; margin-left: 3.5%; font-size: 1em; color:#537EA6">
-                     Don't forget to select the correct answer!
+                  <div id="correctAnswerAlert" class="alert alert-danger fade show" role="alert" style=" display: none; width: 60%; margin-top: 2%; margin-bottom: 0; margin-left: 3.5%; font-size: 1em; color:#537EA6">
+                     <i class="fas fa-info-circle"></i> Don't forget to select the correct answer!
                   </div>
                   <div id="allAnswersRequiredAlert" class="alert alert-warning fade show" role="alert" style=" display: none; width: 60%; margin-top: 2%; margin-bottom: 0; margin-left: 3.5%; font-size: 1em; color:#537EA6">
-                     You need to fill in all answer choices! Please try again.
+                     <i class="fas fa-info-circle"></i> You need to fill in all answer choices! Please try again.
                   </div>
                 </div>
                 <div class="modal-footer" style="justify-content: flex-end">
                   <button id="cancelModal" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                   <button id="postModal" type="button" class="btn btn-primary" onclick="getChallengeData()">POST</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Play Challenge Modal -->
+          <div id="playChallengeModal" class="modal fade bd-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h3 class="modal-title" id="playChallengeModalLabel" style="color: #537EA6; font-weight: 700;margin-left: 40%"></h3>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body" style="margin-top:5%; padding-bottom: 2%">
+                  <div class="row">
+                    <i id="play_stopBtn" data-toggle="tooltip" data-placement="top" title="Play Audio" class="fas fa-play fa-3x" style="color:#537EA6;margin-left: 10%; margin-right: 5%"></i>
+                    <!-- <img id="record_stopBtn" data-toggle="tooltip" data-placement="top" title="Play Audio"  src="images/play_challenge.png" alt="record_audio" style="margin-left: 10%; margin-right: 5%"> -->
+                    <img src="images/fake_audio_level.png" style="margin-left: 5%; margin-right: 5%" alt="audio_level">
+                    <img id="playbackAudioBtn" data-toggle="tooltip" data-placement="right" title="Playback" onclick="playAudio()" src="images/playback.png" style="margin-left: 5%; margin-right: 5%; margin-top: 15px;" height="35px" width="35px" alt="playback">
+                  </div>
+                  <div class="row" style="margin-top: 10%;margin-left: 15%; height: 40px">
+                    <div id="option1" class="input-group input-group-sm mb-3" style="width: inherit; margin-left: 5%">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <input id="answer_radio1" type="radio" name="correct_answer" aria-label="Radio button for following text input">
+                        </div>
+                      </div>
+                      <input id="answer_choice1" type="button" class="form-control challengeAnswers" value="Answer Choice 1" style="width: 200px;margin-left: 0;" aria-label="Challenge Answer choice">
+                    </div>
+                    <div id="option2" class="input-group input-group-sm mb-3" style="width: inherit; margin-left: 5%">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <input id="answer_radio2" type="radio" name="correct_answer" aria-label="Radio button for following text input">
+                        </div>
+                      </div>
+                      <input id="answer_choice2" type="button" class="form-control challengeAnswers" value="Answer Choice 2" style="width: 200px;margin-left: 0;" aria-label="Challenge Answer choice">
+                    </div>
+                  </div>
+                  <div class="row" style="height: 40px; margin-top: 2%;margin-left: 15%">
+                    <div id="option3" class="input-group input-group-sm mb-3" style="width: inherit; margin-left: 5%">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <input id="answer_radio3" type="radio" name="correct_answer" aria-label="Radio button for following text input">
+                        </div>
+                      </div>
+                      <input id="answer_choice3" type="button" class="form-control challengeAnswers" value="Answer Choice 3" style="width: 200px;margin-left: 0;" aria-label="Challenge Answer choice">
+                    </div>
+                    <div id="option4" class="input-group input-group-sm mb-3" style="width: inherit; margin-left: 5%">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <input id="answer_radio4" type="radio" name="correct_answer" aria-label="Radio button for following text input">
+                        </div>
+                      </div>
+                      <input id="answer_choice4" type="button" class="form-control challengeAnswers" value="Answer Choice 4" style="width: 200px;margin-left: 0;" aria-label="Challenge Answer choice">
+                    </div>
+                  </div>
+                  <div id="noAnswerAlert" class="alert alert-danger fade show" role="alert" style=" display: none; width: 65%; margin-top: 2%; margin-bottom: 0; margin-left: 3.5%; font-size: 1em; color:#537EA6">
+                     <i class="fas fa-info-circle"></i> You need to select an answer before checking!
+                  </div>
+                </div>
+                <div id="challengeFooter" class="modal-footer" style="justify-content: center; border:none; margin-top:3%">
+                  <!-- <button id="cancelModal" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button> -->
+                  <button id="checkAnswer" type="button" class="btn btn-primary" onclick="checkAnswers()" style="background-color:#ffc000;border-color:#ffc000;color:#525456;width:150px">CHECK</button>
                 </div>
               </div>
             </div>

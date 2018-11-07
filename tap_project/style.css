@@ -245,8 +245,8 @@ form .input_field.bottom {
   transition-property: background-color;
   transition-duration: .75s;
 }
-#hubLinks li:hover {
-  background-color: #537EA6;
+#hubLinks li:hover a > .sidebarIcons{
+  color: #ffc000;
 }
 #hubLinks li:hover a{
   color: black;
@@ -258,6 +258,9 @@ form .input_field.bottom {
   color: #525456;
 }
 
+i:hover {
+  color: #ffc000;
+}
 
 #feed_footer, #myChallenges_footer {
   /* border: 5px solid purple; */
@@ -265,7 +268,7 @@ form .input_field.bottom {
   height: 175px;
   width: 100%;
   position: fixed;
-  /* box-shadow: 1px -2px 5px lightgray; */
+  /* box-shadow: 1px -2px 5px red; */
 }
 #recordBtn {
   top: 0;

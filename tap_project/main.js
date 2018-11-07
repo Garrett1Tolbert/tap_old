@@ -280,6 +280,30 @@ function listenToEventsOnFeed(){
   });
 
 }
+function playChallenge(challengeIdentifier) {
+  $("#playChallengeModal").modal("show");
+  creator_fname = "Lianne"
+
+  //-----------------------------------------------------------------------------------
+  //Get challenge answers and other doc info from firebase from the challengeIdentifier
+  //-----------------------------------------------------------------------------------
+
+  document.getElementById('playChallengeModalLabel').innerHTML = creator_fname + "\'s Challenge";
+  document.getElementById('playChallengeModalLabel').style.letterSpacing = "3px";
+  document.getElementById('playChallengeModalLabel').style.marginLeft = "30%";
+}
+
+function checkAnswers() {
+  //an answer is not selected as the correct answer
+  if(!(document.getElementById('answer_radio1').checked || document.getElementById('answer_radio2').checked
+  || document.getElementById('answer_radio3').checked || document.getElementById('answer_radio4').checked)) {
+    document.getElementById('challengeFooter').style.marginTop = "0";
+    document.getElementById('noAnswerAlert').style.display = "block";
+  } else {
+    document.getElementById('noAnswerAlert').style.display = "none";
+  }
+}
+
 function anonymousFAQ() {
   $("#anonfaqModal").modal("show");
 }
@@ -393,7 +417,7 @@ function addElement (div,userPhoto, docID, docData, didCreate) {
 
   // create a new element
   var newAnswer = document.createElement("h3");
-  var newPlay = document.createElement("img");
+  var newPlay = document.createElement("i");
   var newPhoto = document.createElement("img");
   var newAudioLevel = document.createElement("img");
   newFavorite = document.createElement("img");
@@ -435,8 +459,14 @@ function addElement (div,userPhoto, docID, docData, didCreate) {
   newPhoto.src = userPhoto;
 
   contentDiv.appendChild(newPlay);
-  newPlay.className = "play-button";
-  newPlay.src = "images/play_challenge.png";
+  newPlay.className = "fas fa-play";
+  newPlay.style.color = "#537EA6";
+  newPlay.style.marginLeft = "5%";
+  newPlay.style.height = "30px";
+  newPlay.style.width = "30px";
+  newPlay.style.marginTop = "1%";
+  newPlay.style.paddingTop = "0.5%";
+  newPlay.setAttribute("onclick","playChallenge('" + docID + "')");
 
   contentDiv.appendChild(newAudioLevel);
   newAudioLevel.className = "audio-levels";
@@ -444,7 +474,7 @@ function addElement (div,userPhoto, docID, docData, didCreate) {
 
   contentDiv.appendChild(newFavorite);
   newFavorite.className = "favorite-button";
-  
+
   if(status)
     newFavorite.src = "images/Favorite.png";
   else
@@ -620,15 +650,6 @@ function follow(userToFollowIdentifier){
     }
   });
 }
-// function removeMyChallenge() {
-//   firebase.auth().onAuthStateChanged(function(user) {
-//     if(user) {
-//       console.log("signed in");
-//     } else {
-//       console.log("signed out");
-//     }
-//   }
-// }
 
 function deleteChallenge(challengeIdentifier){
   const db = firebase.firestore();
