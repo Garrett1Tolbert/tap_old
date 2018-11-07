@@ -403,7 +403,8 @@ function populateLabels(div,labelsArray) {
   }
 }
 
-function addElement (div,userPhoto, docID, docData, didCreate) {
+function addElement (div,userPhoto, docID, docData, didCreate, status) {
+ //console.log("Challenge Id:::",docID);
   var newFavorite, newRepost;
 
   // create a new div element
@@ -540,13 +541,17 @@ function grabFeedChallenges(){
     if (user) {
       var doc = db.collection("users").doc(user.uid);
       var listOfFollowing = 0;
-      var totalChallenges = [];
       doc.get().then(function(doc) {
         if (doc.exists){
           listOfFollowing = doc.data().following;
-          console.log("List of following; ", listOfFollowing);
-          listOfFollowing.forEach(getChallenges);
-          //console.log("Challenges", totalChallenges);
+          listOfFollowingPath = [];
+          var i=0;
+          for(i=0;i<listOfFollowing.length;i++){
+            listOfFollowingPath.push(listOfFollowing[i].path);
+          }
+          getChallenges(listOfFollowingPath, user.uid);
+          ///console.log("Arrived List: ", challengesList);
+
         }}).catch(function(error) {
           console.log("Error getting document:", error);});
     }
@@ -555,43 +560,78 @@ function grabFeedChallenges(){
     }
   });
 }
-
-function getChallenges(value){
-  console.log("Uder im following: ",value.id);
+function getChallenges(listOfFollowingPath, currentUser){
   const db = firebase.firestore();
-  firebase.auth().onAuthStateChanged(function(user) {
-    //console.log("GARRET: ", user);
-    if (user) {
-        var doc = db.collection("challenges").where("creatorId", "==", value)
-        .get()
-        .then(function(querySnapshot) {
-          querySnapshot.forEach(function(doc) {
-            console.log("Challenge::",doc.id, " => ", doc.data());
-          // doc.data() is never undefined for query doc snapshotsn
-          var profileUserPhoto = null;
-          var doc2 = db.collection("users").doc(value.id).get()
-          .then(function(doc2){
-            if(doc2.exists){
-              profileUserPhoto = doc2.data().profilePhoto;
-              addElement("challenges-section",profileUserPhoto,doc.id,doc.data(), false);
-              console.log(doc2.data().profilePhoto);
-            }
-            else{
-              console.log("User not found");
-            }
-          }).catch(function(error) {
-                console.log("Error getting document:", error);});
-        });
-    })
-    .catch(function(error) {
-        console.log("Error getting documents: ", error);
+  var profileUserPhoto;
+  var challengeList=[];
+  var likedBy = [];
+  var challenges = db.collection("challenges").orderBy("time", "desc");
+  challenges.get().then(function(querySnapshot){
+    querySnapshot.forEach(function(doc){
+      var creator = doc.data().creatorId.path;
+      var query = doc.data();
+      var status = false;
+      likedBy = doc.data().likedBy;
+      likedByPath = [];
+      var j=0;
+      for(j=0;j<likedBy.length;j++){
+        likedByPath.push(likedBy[j].id);
+      }
+      if(likedByPath.includes(currentUser)) status=true;
+      if(listOfFollowingPath.includes(creator)){
+        var docUser = db.collection("users").doc(doc.data().creatorId.id);
+        docUser.get().then(function(querySnapshot){
+          if(querySnapshot.exists) {
+            addElement("challenges-section",querySnapshot.data().profilePhoto,doc.id,doc.data(), false,status);
+        }
+        }).catch(function(error) {
+              console.log("Error getting document:", error);});
+      }
     });
-    }
-    else{
-      console.log("No user logged in");
-    }
-  });
+  }).catch(function(error) {
+        console.log("Error getting document:", error);});
+
 }
+//
+// function getChallenges(value){
+//   console.log("Uder im following: ",value.id);
+//   const db = firebase.firestore();
+//   firebase.auth().onAuthStateChanged(function(user) {
+//     //console.log("GARRET: ", user);
+//     if (user) {
+//         var doc = db.collection("challenges").where("creatorId", "==", value)
+//         .get()
+//         .then(function(querySnapshot) {
+//           querySnapshot.forEach(function(doc) {
+//             console.log("Challenge::",doc.id, " => ", doc.data());
+//           // doc.data() is never undefined for query doc snapshotsn
+//           var profileUserPhoto = null;
+//           var doc2 = db.collection("users").doc(value.id).get()
+//           .then(function(doc2){
+//             if(doc2.exists){
+//               profileUserPhoto = doc2.data().profilePhoto;
+//               addElement("challenges-section",profileUserPhoto,doc.id,doc.data(), false);
+//               console.log(doc2.data().profilePhoto);
+//             }
+//             else{
+//               console.log("User not found");
+//             }
+//           }).catch(function(error) {
+//                 console.log("Error getting document:", error);});
+//
+//           // console.log(doc.id, " => ", doc.data());
+//           // addElement("challenges-section",profileUserPhoto,doc.id,doc.data(), false);
+//         });
+//     })
+//     .catch(function(error) {
+//         console.log("Error getting documents: ", error);
+//     });
+//     }
+//     else{
+//       console.log("No user logged in");
+//     }
+//   });
+// }
 function follow(userToFollowIdentifier){
   const db = firebase.firestore();
   firebase.auth().onAuthStateChanged(function(user) {
@@ -692,10 +732,11 @@ function likeChallenge(challengeIdentifier){
             doc5.get().then(function(doc){
               likedChallenge.push(doc5);
               var doc4 = db.collection("users").doc(user.uid);
+              likedby.push(doc4);
               doc4.update({
                 likedChallenges: likedChallenge
               }).catch(function(error){console.log("Error updating documents: ", error);});
-              likedby.push(doc4);
+
               var docLike2 = db.collection("challenges").doc(challengeIdentifier).update({
                 likedBy: likedby
               }).catch(function(error){console.log("Error getting documents: ", error);});
@@ -735,9 +776,19 @@ function challengesLikedSearch(value){
   }).catch(function(error) {console.log("Error getting document:", error);});
 }
 
-function search(labelEntered){
+function searchLabel(labelEntered){
   const db = firebase.firestore();
   db.collection("challenges").where("labels", "array-contains", labelEntered).get()
+  .then(function(querySnapshot) {
+    querySnapshot.forEach(function(doc) {
+    console.log(doc.id, " => ", doc.data());
+  });}).catch(function(error) {
+      console.log("Error getting documents: ", error);
+  });
+}
+function searchEmail(emailEntered){
+  const db = firebase.firestore();
+  db.collection("users").where("email", "==", emailEntered).get()
   .then(function(querySnapshot) {
     querySnapshot.forEach(function(doc) {
     console.log(doc.id, " => ", doc.data());
@@ -829,6 +880,7 @@ function postChallenge(answer,label, option_1,option_2,option_3,option_4,audioSt
         labels: label,
         options: [option_1, option_2, option_3, option_4],
         audio : audioString,
+        likedBy: [],
         time: firebase.firestore.FieldValue.serverTimestamp()
       })
       .then(function(docRef) {
