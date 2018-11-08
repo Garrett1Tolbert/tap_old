@@ -306,22 +306,12 @@ function playChallenge(challengeIdentifier) {
     });
     $("#playChallengeModal").modal("show");
 
-
-
-  //-----------------------------------------------------------------------------------
-  //Get challenge answers and other doc info from firebase from the challengeIdentifier
-  //-----------------------------------------------------------------------------------
-
-
-  document.getElementById('playChallengeModalLabel').innerHTML = creator_fname + "\'s Challenge";
-  document.getElementById('playChallengeModalLabel').style.letterSpacing = "3px";
-  document.getElementById('playChallengeModalLabel').style.marginLeft = "30%";
 }
 
 function checkAnswers() {
   //an answer is not selected as the correct answer
-  if(!(document.getElementById('answer_radio1').checked || document.getElementById('answer_radio2').checked
-  || document.getElementById('answer_radio3').checked || document.getElementById('answer_radio4').checked)) {
+  if(!(document.getElementById('play_answer_radio1').checked || document.getElementById('play_answer_radio2').checked
+  || document.getElementById('play_answer_radio3').checked || document.getElementById('play_answer_radio4').checked)) {
     document.getElementById('challengeFooter').style.marginTop = "0";
     document.getElementById('noAnswerAlert').style.display = "block";
   } else {
@@ -337,11 +327,9 @@ function checkAnswers() {
       }
     }
     //get answer
-    var answerString = "answer_choice";
+    var answerString = "play_answer_choice";
     answerString += correct_option.slice(-1);
-    // console.log("AnswerID: " + answerString);
     answer = document.getElementById(answerString).value;
-    window.alert("Answer chosen: " + answer);
 
   }
 }
