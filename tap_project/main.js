@@ -1,5 +1,6 @@
 console.log("App loaded");
 var counter = 1;
+var currChallenge = "";
 
 
 // Checks that the Firebase SDK has been correctly setup and configured.
@@ -281,6 +282,7 @@ function listenToEventsOnFeed(){
 
 }
 function playChallenge(challengeIdentifier) {
+  currChallenge = challengeIdentifier;
   const db = firebase.firestore();
   var doc = db.collection("challenges").doc(challengeIdentifier);
   doc.get().then(function(doc){
@@ -309,6 +311,7 @@ function playChallenge(challengeIdentifier) {
 }
 
 function checkAnswers() {
+  window.alert("Challenge: " + currChallenge);
   //an answer is not selected as the correct answer
   if(!(document.getElementById('play_answer_radio1').checked || document.getElementById('play_answer_radio2').checked
   || document.getElementById('play_answer_radio3').checked || document.getElementById('play_answer_radio4').checked)) {
