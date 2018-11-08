@@ -281,16 +281,38 @@ function listenToEventsOnFeed(){
 
 }
 function playChallenge(challengeIdentifier) {
-  $("#playChallengeModal").modal("show");
-  creator_fname = "Lianne"
+  const db = firebase.firestore();
+  var doc = db.collection("challenges").doc(challengeIdentifier);
+  doc.get().then(function(doc){
+    if(doc.exists){
+      var creatorId =  doc.data().creatorId.id;
+      listOfOptions =  doc.data().options;
+      var doc2 = db.collection("users").doc(creatorId);
+      doc2.get().then(function(doc){
+        if(doc.exists){
+          creator_fname = doc.data().firstname;
+
+          document.getElementById('playChallengeModalLabel').innerHTML = creator_fname + "\'s Challenge";
+          document.getElementById('playChallengeModalLabel').style.letterSpacing = "3px";
+          document.getElementById('playChallengeModalLabel').style.marginLeft = "30%";
+          for(var i=0;i<listOfOptions.length;i++){
+            document.getElementsByClassName('form-control playchallengeAnswers')[i].value = listOfOptions[i];
+          }
+        }
+      })
+    }
+  }).catch(function(error) {
+      console.log("Error getting document:", error);
+    });
+    $("#playChallengeModal").modal("show");
+
+
 
   //-----------------------------------------------------------------------------------
   //Get challenge answers and other doc info from firebase from the challengeIdentifier
   //-----------------------------------------------------------------------------------
 
-  document.getElementById('playChallengeModalLabel').innerHTML = creator_fname + "\'s Challenge";
-  document.getElementById('playChallengeModalLabel').style.letterSpacing = "3px";
-  document.getElementById('playChallengeModalLabel').style.marginLeft = "30%";
+
 }
 
 function checkAnswers() {
@@ -521,8 +543,16 @@ function grabMyChallenges(){
         .then(function(querySnapshot) {
           querySnapshot.forEach(function(doc) {
             // doc.data() is never undefined for query doc snapshots
+            likedBy = doc.data().likedBy;
+            likedByPath = [];
+            var status = false;
+            var j=0;
+            for(j=0;j<likedBy.length;j++){
+              likedByPath.push(likedBy[j].id);
+            }
+            if(likedByPath.includes(user.uid)) status=true;
           console.log(doc.id, " => ", doc.data());
-          addElement("myChallenges-section",user.photoURL,doc.id,doc.data(), true);
+          addElement("myChallenges-section",user.photoURL,doc.id,doc.data(), true,status);
         });
     })
     .catch(function(error) {
