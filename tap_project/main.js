@@ -313,6 +313,9 @@ function playChallenge(challengeIdentifier) {
   //-----------------------------------------------------------------------------------
 
 
+  document.getElementById('playChallengeModalLabel').innerHTML = creator_fname + "\'s Challenge";
+  document.getElementById('playChallengeModalLabel').style.letterSpacing = "3px";
+  document.getElementById('playChallengeModalLabel').style.marginLeft = "30%";
 }
 
 function checkAnswers() {
@@ -323,6 +326,23 @@ function checkAnswers() {
     document.getElementById('noAnswerAlert').style.display = "block";
   } else {
     document.getElementById('noAnswerAlert').style.display = "none";
+
+    var inputs = document.getElementsByTagName('input');
+
+    //get answer choices
+    for(var i = 0; i<inputs.length; i++) {
+      if(inputs[i].getAttribute('type')=='radio' && document.getElementById(inputs[i].id).checked) {
+        correct_option = inputs[i].id;
+        break;
+      }
+    }
+    //get answer
+    var answerString = "answer_choice";
+    answerString += correct_option.slice(-1);
+    // console.log("AnswerID: " + answerString);
+    answer = document.getElementById(answerString).value;
+    window.alert("Answer chosen: " + answer);
+
   }
 }
 
@@ -404,7 +424,7 @@ function populateLabels(div,labelsArray) {
   // newlabel.style.backgroundColor = "lightgray";
   if(labelsArray.length == 0) {
     div.appendChild(newlabel);
-    newlabel.innerHTML = "No Labels";
+    // newlabel.innerHTML = "No Labels";
     newlabel.style.textAlign = "center";
     newlabel.style.paddingBottom = "3%";
     newlabel.style.color = "#525456";
@@ -419,7 +439,7 @@ function populateLabels(div,labelsArray) {
       newlabel.innerHTML = "#" + labelsArray[i];
       newlabel.style.textAlign = "left";
       newlabel.style.fontStyle = "italic";
-      newlabel.style.paddingRight = "17%";
+      newlabel.style.paddingRight = "15%";
       newlabel.style.color = "#525456";
     }
   }
@@ -461,7 +481,7 @@ function addElement (div,userPhoto, docID, docData, didCreate, status) {
   // contentDiv.style.border = "3px solid black";
 
   newDiv.appendChild(labelDiv);
-  labelDiv.className = "col-lg-3";
+  labelDiv.className = "col-lg-10";
   labelDiv.classList.add("labels-area");
   labelDiv.style.display = "flex";
   labelDiv.style.flexDirection = "row";
@@ -469,7 +489,7 @@ function addElement (div,userPhoto, docID, docData, didCreate, status) {
   labelDiv.style.marginLeft = "16%";
   labelDiv.style.marginTop = "2%";
   labelDiv.style.padding = "0";
-  // labelDiv.style.width = "inherit";
+  labelDiv.style.overflowX = "scroll";
 
   // add each image node to the newly created div
   // contentDiv.appendChild(newAnswer);
@@ -478,8 +498,9 @@ function addElement (div,userPhoto, docID, docData, didCreate, status) {
 
   contentDiv.appendChild(newPhoto);
   newPhoto.className = "rounded-circle shadow";
-  // newPhoto.src = user.photoURL;
   newPhoto.src = userPhoto;
+  newPhoto.setAttribute("aria-label","challenge creator's profile photo");
+
 
   contentDiv.appendChild(newPlay);
   newPlay.className = "fas fa-play";
@@ -490,10 +511,12 @@ function addElement (div,userPhoto, docID, docData, didCreate, status) {
   newPlay.style.marginTop = "1%";
   newPlay.style.paddingTop = "0.5%";
   newPlay.setAttribute("onclick","playChallenge('" + docID + "')");
+  newPlay.setAttribute("aria-label","play a challenge");
 
   contentDiv.appendChild(newAudioLevel);
   newAudioLevel.className = "audio-levels";
   newAudioLevel.src = "images/fake_audio_level.png";
+  newAudioLevel.setAttribute("aria-label","audio levels");
 
   contentDiv.appendChild(newFavorite);
   newFavorite.className = "favorite-button";
@@ -503,23 +526,40 @@ function addElement (div,userPhoto, docID, docData, didCreate, status) {
   else
     newFavorite.src = "images/unFavorite.png";
 
+  newFavorite.style.transitionProperty = "src";
+  newFavorite.style.transitionDuration = "0.5s";
   newFavorite.setAttribute("onclick","likeChallenge('" + docID + "')");
+  newFavorite.setAttribute("aria-label","like/unlike a challenge");
 
   contentDiv.appendChild(newRepost);
   newRepost.className = "repost-button";
   newRepost.src = "images/repostFalse.png";
-  // newRepost.setAttribute("onclick","repostChallenge()");
+  newRepost.setAttribute("aria-label","repost a challenge");
 
 
 
   if(didCreate == true) {
-    var newDelete = document.createElement("img");
+
+    //add trash icon
+    var newDelete = document.createElement("i");
     contentDiv.appendChild(newDelete);
-    newDelete.className = "delete-button";
-    newDelete.src = "images/delete.png";
+    newDelete.className = "fas fa-trash fa-3x";
     var concatString = "deleteChallenge('"+ newDiv.id+"')";
     newDelete.setAttribute("onclick",concatString+"");
-    newDiv.style.width = "60%";
+    newDelete.setAttribute("aria-label","delete a challenge");
+    newDelete.style.color = "red";
+    newDelete.style.marginLeft = "15%";
+    newDelete.style.paddingTop = "3%";
+    newDiv.style.width = "50%";
+
+    //add edit icon
+    var newEdit = document.createElement("i");
+    contentDiv.appendChild(newEdit);
+    newEdit.className = "fas fa-pencil-alt fa-3x";
+    newEdit.style.color = "#525456";
+    newEdit.style.marginLeft = "2%";
+    newEdit.style.paddingTop = "3%";
+    newEdit.setAttribute("aria-label","edit a challenge");
   }
 
   populateLabels(labelDiv,docData.labels);
@@ -742,7 +782,7 @@ function likeChallenge(challengeIdentifier){
           var likedChallenge = doc2.data().likedChallenges;
           var likedby = doc.data().likedBy;
           if (likedChallenge.some(value => value.id === doc.id)) { //unlike
-            var challengeUnlikeBtn = document.getElementById(challengeIdentifier).childNodes[0].childNodes[3];
+            var challengeUnlikeBtn = document.getElementById(challengeIdentifier).childNodes[0].childNodes[4];
             challengeUnlikeBtn.src = "images/unFavorite.png";
             var filtered = likedChallenge.filter(function(value, index, arr){
               return value.id != doc.id;});
@@ -756,7 +796,7 @@ function likeChallenge(challengeIdentifier){
               likedBy: filteredLikedBy
             }).catch(function(error){console.log("Error updating document: ", error);});
           }else{//push the like
-            var challengeLikeBtn = document.getElementById(challengeIdentifier).childNodes[0].childNodes[3];
+            var challengeLikeBtn = document.getElementById(challengeIdentifier).childNodes[0].childNodes[4];
             challengeLikeBtn.src = "images/Favorite.png";
             var doc5 = db.collection("challenges").doc(challengeIdentifier);
             doc5.get().then(function(doc){

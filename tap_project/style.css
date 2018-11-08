@@ -258,8 +258,18 @@ form .input_field.bottom {
   color: #525456;
 }
 
-i:hover {
-  color: #ffc000;
+#checkAnswer {
+  background-color:#ffc000;
+  border-color:#ffc000;
+  color:#525456;
+  width:150px;
+  transition-property: width;
+  transition-duration: .25s;
+
+}
+#checkAnswer:hover {
+
+  width: 200px;
 }
 
 #feed_footer, #myChallenges_footer {
@@ -359,7 +369,7 @@ i:hover {
   border: 1px solid lightgray;
   margin-top: 3%;
   margin: auto;
-  width: 50%;
+  width: 40%;
   padding: 1%;
   padding-bottom: 0;
 }
