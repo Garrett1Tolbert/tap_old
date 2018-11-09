@@ -228,7 +228,8 @@ function googleLogin() {
             lastname: getFirstNameLastName(user).lastname,
             password: null,
             points : -99,
-            unCompletedChallenges : []
+            unCompletedChallenges : [],
+            likedChallenges : []
         })
         .then(function() {
             console.log("Document successfully written!");
@@ -300,14 +301,13 @@ function playChallenge(challengeIdentifier) {
           for(var i=0;i<listOfOptions.length;i++){
             document.getElementsByClassName('form-control playchallengeAnswers')[i].value = listOfOptions[i];
           }
+          $("#playChallengeModal").modal("show");
         }
       })
     }
   }).catch(function(error) {
       console.log("Error getting document:", error);
     });
-    $("#playChallengeModal").modal("show");
-
 }
 
 function checkAnswers() {
@@ -334,7 +334,24 @@ function checkAnswers() {
     answerString += correct_option.slice(-1);
     answer = document.getElementById(answerString).value;
 
+    const db = firebase.firestore();
+    var getAnswer = db.collection("challenges").doc(currChallenge);
+    getAnswer.get().then(function(doc){
+      if(doc.exists){
+        if(doc.data().answer == answer){
+          console.log("YOU ARE CORRECT!!!!!!!");
+        }
+        else{
+          console.log("WRONGGGG!!!")
+        }
+      }
+    }).catch(function(error) {
+        console.log("Error getting document:", error);
+      });
+
   }
+
+
 }
 
 function anonymousFAQ() {
@@ -653,46 +670,7 @@ function getChallenges(listOfFollowingPath, currentUser){
         console.log("Error getting document:", error);});
 
 }
-//
-// function getChallenges(value){
-//   console.log("Uder im following: ",value.id);
-//   const db = firebase.firestore();
-//   firebase.auth().onAuthStateChanged(function(user) {
-//     //console.log("GARRET: ", user);
-//     if (user) {
-//         var doc = db.collection("challenges").where("creatorId", "==", value)
-//         .get()
-//         .then(function(querySnapshot) {
-//           querySnapshot.forEach(function(doc) {
-//             console.log("Challenge::",doc.id, " => ", doc.data());
-//           // doc.data() is never undefined for query doc snapshotsn
-//           var profileUserPhoto = null;
-//           var doc2 = db.collection("users").doc(value.id).get()
-//           .then(function(doc2){
-//             if(doc2.exists){
-//               profileUserPhoto = doc2.data().profilePhoto;
-//               addElement("challenges-section",profileUserPhoto,doc.id,doc.data(), false);
-//               console.log(doc2.data().profilePhoto);
-//             }
-//             else{
-//               console.log("User not found");
-//             }
-//           }).catch(function(error) {
-//                 console.log("Error getting document:", error);});
-//
-//           // console.log(doc.id, " => ", doc.data());
-//           // addElement("challenges-section",profileUserPhoto,doc.id,doc.data(), false);
-//         });
-//     })
-//     .catch(function(error) {
-//         console.log("Error getting documents: ", error);
-//     });
-//     }
-//     else{
-//       console.log("No user logged in");
-//     }
-//   });
-// }
+
 function follow(userToFollowIdentifier){
   const db = firebase.firestore();
   firebase.auth().onAuthStateChanged(function(user) {
@@ -834,6 +812,7 @@ function challengesLikedSearch(value){
   var challenges = db1.collection("challenges").doc(value.id);
   challenges.get().then(function(challenges){
     console.log("Challenges", challenges.data());
+    //addElement("challenges-section",images/Favorite.png,challenges.id,challenges.data(), false,true);
   }).catch(function(error) {console.log("Error getting document:", error);});
 }
 
