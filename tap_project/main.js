@@ -455,6 +455,10 @@ function populateLabels(div,labelsArray) {
 
 function addElement (div,userPhoto, docID, docData, didCreate, status) {
  //console.log("Challenge Id:::",docID);
+ console.log("User photo: ", userPhoto);
+ console.log("Doc Id: ", docID);
+ console.log("doc Data", docData);
+ console.log("Did create ", didCreate);
   var newFavorite, newRepost;
 
   // create a new div element
@@ -574,6 +578,8 @@ function addElement (div,userPhoto, docID, docData, didCreate, status) {
 
   // add the newly created div and its content into the DOM
   var currentDiv = document.getElementById(div);
+  console.log("parameter",  div);
+  console.log("currentDic", currentDiv);
   currentDiv.appendChild(newDiv);
   //document.body.insertBefore(newDiv, currentDiv);
 
@@ -811,7 +817,16 @@ function challengesLikedSearch(value){
   const db1 = firebase.firestore();
   var challenges = db1.collection("challenges").doc(value.id);
   challenges.get().then(function(challenges){
-    console.log("Challenges", challenges.data());
+    var creator = db1.collection("users").doc(challenges.data().creatorId.id);
+    creator.get().then(function(creator){
+      if(creator.exists){
+        // console.log("Profile pic: ",creator.data().profilePhoto );
+        // console.log("Challenge id",challenges.id );
+        // console.log("challenge data: ", challenges.data());
+        addElement("myChallenges-section",creator.data().profilePhoto,challenges.id,challenges.data(), false,true);
+      }
+    }).catch(function(error) {console.log("Error getting document:", error);});
+
     //addElement("challenges-section",images/Favorite.png,challenges.id,challenges.data(), false,true);
   }).catch(function(error) {console.log("Error getting document:", error);});
 }
