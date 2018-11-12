@@ -295,7 +295,7 @@ function playChallenge(challengeIdentifier) {
       listOfOptions =  doc.data().options;
       var audioStr = doc.data().audio;
       var doc2 = db.collection("users").doc(creatorId);
-      doc2.get().then(function(doc){
+      doc2.get().then(async function(doc){
         if(doc.exists){
           creator_fname = doc.data().firstname;
 
@@ -307,9 +307,13 @@ function playChallenge(challengeIdentifier) {
           }
           $("#playChallengeModal").modal("show");
 
+          var audioURL = await getURLFromStorage(challengeIdentifier);
+          var audio = new Audio(audioURL);
+          audio.play();
+
 
         }
-      })
+      });
     }
   }).catch(function(error) {
       console.log("Error getting document:", error);
@@ -1044,18 +1048,7 @@ const playAudio = () => {
    }
 };
 
-function ab2str(buf) {
-  return String.fromCharCode.apply(null, new Uint16Array(buf));
-}
 
-function str2ab(str) {
-  var buf = new ArrayBuffer(str.length*2); // 2 bytes for each char
-  var bufView = new Uint16Array(buf);
-  for (var i=0, strLen=str.length; i < strLen; i++) {
-    bufView[i] = str.charCodeAt(i);
-  }
-  return buf;
-}
 
 
 function storeBlobInStorage(challengeID, blob){
@@ -1080,9 +1073,23 @@ function storeBlobInStorage(challengeID, blob){
 
 }
 
-function getBlobFromStorage(challengeID){
+function getURLFromStorage(challengeID){
+  return new Promise(async (resolve) => {
+    var storageRef = firebase.storage().ref();
+    // Create a reference to 'recordings/challengeID'
+    var recordingsChallengeIDRef = storageRef.child('recordings/' + challengeID);
 
+    var returnURL = "not defined";
 
+    returnURL = await recordingsChallengeIDRef.getDownloadURL();
+    // `url` is the download URL for 'images/stars.jpg'
+
+    console.log(returnURL);
+
+    resolve(returnURL);
+  });
+
+  // return returnURL;
 }
 //-----------------
 // Code that MUST be initlialized first when each HTML page loads
