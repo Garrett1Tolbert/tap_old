@@ -172,6 +172,8 @@ function create() {
                       lastname: createLastname,
                       password: createPassword,
                       points : -99,
+                      profilePhoto: user.photoURL,
+                      likedChallenges : [],
                       unCompletedChallenges : []
                   })
                   .then(function() {
@@ -228,6 +230,7 @@ function googleLogin() {
             lastname: getFirstNameLastName(user).lastname,
             password: null,
             points : -99,
+            profilePhoto: user.photoURL,
             unCompletedChallenges : [],
             likedChallenges : []
         })
