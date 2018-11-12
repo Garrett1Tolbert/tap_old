@@ -290,6 +290,7 @@ function playChallenge(challengeIdentifier) {
     if(doc.exists){
       var creatorId =  doc.data().creatorId.id;
       listOfOptions =  doc.data().options;
+      var audioStr = doc.data().audio;
       var doc2 = db.collection("users").doc(creatorId);
       doc2.get().then(function(doc){
         if(doc.exists){
@@ -302,12 +303,23 @@ function playChallenge(challengeIdentifier) {
             document.getElementsByClassName('form-control playchallengeAnswers')[i].value = listOfOptions[i];
           }
           $("#playChallengeModal").modal("show");
+
+
         }
       })
     }
   }).catch(function(error) {
       console.log("Error getting document:", error);
     });
+
+
+
+
+  //-----------------------------------------------------------------------------------
+  //Get challenge answers and other doc info from firebase from the challengeIdentifier
+  //-----------------------------------------------------------------------------------
+
+
 }
 
 function checkAnswers() {
@@ -852,7 +864,7 @@ function searchEmail(emailEntered){
   });
 }
 
-function getChallengeData(audioString) {
+function getChallengeData(audioBlob) {
   var inputs = document.getElementsByTagName('input');
   var labels = document.getElementById('labels').value;
   var option1 = document.getElementById("answer_choice1").value;
@@ -912,12 +924,12 @@ function getChallengeData(audioString) {
       }
       console.log(challengeLabels);
 
-      postChallenge(answer,challengeLabels,option1,option2,option3,option4,audioString);
+      postChallenge(answer,challengeLabels,option1,option2,option3,option4, audioBlob);
     }
   }
 }
 
-function postChallenge(answer,label, option_1,option_2,option_3,option_4,audioString) {
+function postChallenge(answer,label, option_1,option_2,option_3,option_4, audioBlob) {
 
   const db = firebase.firestore();
   $("#postChallengeModal").modal("show");
@@ -934,12 +946,13 @@ function postChallenge(answer,label, option_1,option_2,option_3,option_4,audioSt
         creatorId: firebase.firestore().doc('/users/'+user.uid),
         labels: label,
         options: [option_1, option_2, option_3, option_4],
-        audio : audioString,
+        // isAudioStored : storeBlobInStorage(),
         likedBy: [],
         time: firebase.firestore.FieldValue.serverTimestamp()
       })
       .then(function(docRef) {
         console.log("Document written with ID: ", docRef.id);
+        console.log( storeBlobInStorage(docRef.id, audioBlob) );
       })
       .catch(function(error) {
         console.error("Error adding document: ", error);
@@ -982,19 +995,37 @@ async function recordStop() {
   console.log("Anurag");
   if (recorder) {
    audio = await recorder.stop();
-    var blob = audio.audioBlob
+
+   $("#postModal").click(function(){
+     console.log(typeof blob);
+     getChallengeData(blob);
+   });
+
+    var blob = audio.audioBlob;
+    console.log(typeof blob);
 
    const reader = new FileReader();
    // This fires after the blob has been read/loaded.
-   reader.addEventListener('loadend', (e) => {
-     const text = e.srcElement.result;
-     console.log(text);
-     $("#postModal").click(function(){
-       getChallengeData(text);
-     });
-   });
+   // reader.addEventListener('loadend', (e) => {
+   //   const text = e.srcElement.result;
+   //   console.log(text);
+   //   $("#postModal").click(function(){
+   //     getChallengeData(text);
+   //   });
+   // });
+   // // Start reading the blob as text.
+   // reader.readAsText(blob);
+
+   // This fires after the blob has been read/loaded.
+
+     // $("#postModal").click(function(){
+     //   getChallengeData(blob);
+     // });
+
    // Start reading the blob as text.
-   reader.readAsText(blob);
+
+   // reader.readAsArrayBuffer(blob);
+
    recorder = null;
    document.querySelector("#record_stopBtn").setAttribute("src", "images/record_audio.png");
    document.querySelector("#playbackAudioBtn").removeAttribute("disabled");
@@ -1010,9 +1041,46 @@ const playAudio = () => {
    }
 };
 
+function ab2str(buf) {
+  return String.fromCharCode.apply(null, new Uint16Array(buf));
+}
+
+function str2ab(str) {
+  var buf = new ArrayBuffer(str.length*2); // 2 bytes for each char
+  var bufView = new Uint16Array(buf);
+  for (var i=0, strLen=str.length; i < strLen; i++) {
+    bufView[i] = str.charCodeAt(i);
+  }
+  return buf;
+}
 
 
+function storeBlobInStorage(challengeID, blob){
+    // Create a root reference
+  var storageRef = firebase.storage().ref();
 
+  // Create a reference to 'recordings/challengeID'
+
+  // var pathToBlob = "recordings/" + challengeID;
+  var recordingsChallengeIDRef = storageRef.child('recordings/' + challengeID);
+
+  console.log(typeof blob);
+
+  recordingsChallengeIDRef.put(blob).then(function(snapshot) {
+    console.log('Uploaded a blob or file!');
+    //return true;
+  })
+  .catch(function(error){
+    console.log(error);
+    //return false;
+  });
+
+}
+
+function getBlobFromStorage(challengeID){
+
+
+}
 //-----------------
 // Code that MUST be initlialized first when each HTML page loads
 //-----------------
