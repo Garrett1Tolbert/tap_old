@@ -222,7 +222,8 @@
                   </div>
                   <div class="col-lg-7" style="display:flex;justify-content:flex-end">
                     <button id="cancelModal" type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right:1%">Cancel</button>
-                    <button id="postModal" type="button" class="btn btn-primary" onclick="getChallengeData()" style="background-color: #537EA6;border:0">POST</button>
+                    <!-- <button id="postModal" type="button" class="btn btn-primary" onclick="getChallengeData()" style="background-color: #537EA6;border:0">POST</button> -->
+                    <button id="postModal" type="button" class="btn btn-primary">POST</button>
                   </div>
                 </div>
                 <p id="privacySetting" style="color: #756868; margin-left:5%">Public</p>
@@ -430,6 +431,7 @@
     <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase-auth.js"></script>
     <!-- <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase-database.js"></script> -->
     <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase-storage.js"></script>
     <!-- <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase-messaging.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase-functions.js"></script> -->
 
@@ -441,7 +443,10 @@
       apiKey: "AIzaSyAIpR8O8xEDrSitpVI6jpVBEvXU5reQLNM",
       authDomain: "alphabetter-tap-v1.firebaseapp.com",
       // databaseURL: "https://alphabetter-tap-v1.firebaseio.com",
-      projectId: "alphabetter-tap-v1"
+      projectId: "alphabetter-tap-v1",
+      databaseURL: "https://alphabetter-tap-v1.firebaseio.com",
+      projectId: "alphabetter-tap-v1",
+      storageBucket: "alphabetter-tap-v1.appspot.com"
       // storageBucket: "alphabetter-tap-v1.appspot.com",
       // messagingSenderId: "806333716389"
     };
