@@ -850,6 +850,20 @@ function challengesLikedSearch(value){
   }).catch(function(error) {console.log("Error getting document:", error);});
 }
 
+function searchUsingEnter(e) {
+  searchBar_value = document.getElementById('search').value;
+
+  if (e.keyCode == 13) {
+    window.alert(searchBar_value);
+  }
+}
+function searchUsingClick() {
+  searchBar_value = document.getElementById('search').value;
+
+  window.alert(searchBar_value);
+
+}
+
 function searchLabel(labelEntered){
   const db = firebase.firestore();
   db.collection("challenges").where("labels", "array-contains", labelEntered).get()
