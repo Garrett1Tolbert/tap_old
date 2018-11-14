@@ -916,6 +916,7 @@ function getChallengeData(audioBlob) {
 
       //get labels
       var labelPos = 0;
+      for(var a = 0; a < labels.length; a++) {
       if(labels.charAt(a) == ',') {
           labelPos++;
           challengeLabels[labelPos] = "";
@@ -933,7 +934,7 @@ function getChallengeData(audioBlob) {
       postChallenge(answer,challengeLabels,option1,option2,option3,option4, audioBlob, true);
     }
   }
-
+}
 
 function postChallenge(answer,label, option_1,option_2,option_3,option_4, audioBlob, publicStatus) {
 
@@ -946,7 +947,7 @@ function postChallenge(answer,label, option_1,option_2,option_3,option_4, audioB
      //location.replace('feed.html');
      console.log("User is signed in.")
      // Add a new document with a generated id.
-     let date = Date.parse('01 Jan 2000 00:00:00 GMT');
+     //let date = Date.parse('01 Jan 2000 00:00:00 GMT');
      db.collection("challenges").add({
         answer: answer,
         creatorId: firebase.firestore().doc('/users/'+user.uid),
