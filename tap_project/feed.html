@@ -35,7 +35,7 @@
           <li id="home"><a href="feed.html">Home<i class="fas fa-home sidebarIcons" style="margin-left: 70%;width: 23px; height: 23px"></i></a> </li>
           <li id="view_Profile"><a href="#">Profile<i class="fas fa-user-circle sidebarIcons" style="margin-left: 70%;width: 23px; height: 23px"></i></a> </li>
           <li><a href="my-challenges.html">My Challenges<i class="fas fa-th-list sidebarIcons" style="margin-left: 50%;width: 23px; height: 23px"></i></a> </li>
-          <li><a href="liked-challenges.html">Liked Challenges<i class="fas fa-thumbs-up sidebarIcons" style="margin-left: 45%;width: 23px; height: 23px"></i></a> </li>
+          <li><a href="#">Liked Challenges<i class="fas fa-thumbs-up sidebarIcons" style="margin-left: 45%;width: 23px; height: 23px"></i></a> </li>
           <li id="view_FAQ"><a href="#">FAQ<i class="fas fa-question sidebarIcons" style="margin-left: 75%;width: 23px; height: 23px"></i></a> </li>
           <li id="logoutBtn" onclick="logout()"><a>Logout<i class="fas fa-sign-out-alt sidebarIcons" style="margin-left: 70%;width: 23px; height: 23px"></i></a> </li>
         </ul>
@@ -205,17 +205,27 @@
                       <input id="answer_choice4" type="text" class="form-control challengeAnswers" placeholder="Answer Choice 4" style="margin-left: 0;" aria-label="Text input with radio button">
                     </div>
                   </div>
-                  <div id="correctAnswerAlert" class="alert alert-danger fade show" role="alert" style=" display: none; width: 60%; margin-top: 2%; margin-bottom: 0; margin-left: 3.5%; font-size: 1em; color:#537EA6">
+                  <div id="correctAnswerAlert" class="alert alert-danger fade show" role="alert" style=" display: none; width: 50%; margin-top: 2%; margin-bottom: 0; margin-left: 3.5%; font-size: 1em; color:#537EA6">
                      <i class="fas fa-info-circle"></i> Don't forget to select the correct answer!
                   </div>
-                  <div id="allAnswersRequiredAlert" class="alert alert-warning fade show" role="alert" style=" display: none; width: 60%; margin-top: 2%; margin-bottom: 0; margin-left: 3.5%; font-size: 1em; color:#537EA6">
+                  <div id="allAnswersRequiredAlert" class="alert alert-warning fade show" role="alert" style=" display: none; width: 65%; margin-top: 2%; margin-bottom: 0; margin-left: 3.5%; font-size: 1em; color:#537EA6">
                      <i class="fas fa-info-circle"></i> You need to fill in all answer choices! Please try again.
                   </div>
                 </div>
-                <div class="modal-footer" style="justify-content: flex-end">
-                  <button id="cancelModal" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                  <button id="postModal" type="button" class="btn btn-primary">POST</button>
+                <div class="modal-footer" style="padding-bottom:0">
+                  <div class="col-lg-5" style="display:flex;align-items:center;">
+                    <p data-toggle="tooltip" data-placement="top" title="Toggle to set challenge to private/public" style="font-size:20px; width:110px;color:#525456; margin-left:3%"><i class="fas fa-info-circle" style="color: #537EA6;font-size: 20px;margin-right:4%;"></i>Privacy</p>
+                    <label class="switch">
+                      <input id="privacyFilter" onclick="setPrivacy()" type="checkbox">
+                      <span class="slider round"></span>
+                    </label>
+                  </div>
+                  <div class="col-lg-7" style="display:flex;justify-content:flex-end">
+                    <button id="cancelModal" type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right:1%">Cancel</button>
+                    <button id="postModal" type="button" class="btn btn-primary" onclick="getChallengeData()" style="background-color: #537EA6;border:0">POST</button>
+                  </div>
                 </div>
+                <p id="privacySetting" style="color: #756868; margin-left:5%">Public</p>
               </div>
             </div>
           </div>
@@ -422,7 +432,6 @@
     <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase-firestore.js"></script>
     <!-- <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase-messaging.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase-functions.js"></script> -->
-    <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase-storage.js"></script>
 
     <!-- Comment out (or don't include) services that you don't want to use -->
 
@@ -431,9 +440,9 @@
     var config = {
       apiKey: "AIzaSyAIpR8O8xEDrSitpVI6jpVBEvXU5reQLNM",
       authDomain: "alphabetter-tap-v1.firebaseapp.com",
-      databaseURL: "https://alphabetter-tap-v1.firebaseio.com",
-      projectId: "alphabetter-tap-v1",
-      storageBucket: "alphabetter-tap-v1.appspot.com"
+      // databaseURL: "https://alphabetter-tap-v1.firebaseio.com",
+      projectId: "alphabetter-tap-v1"
+      // storageBucket: "alphabetter-tap-v1.appspot.com",
       // messagingSenderId: "806333716389"
     };
     firebase.initializeApp(config);
