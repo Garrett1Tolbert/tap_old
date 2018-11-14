@@ -681,14 +681,16 @@ function getChallenges(listOfFollowingPath, currentUser){
         likedByPath.push(likedBy[j].id);
       }
       if(likedByPath.includes(currentUser)) status=true;
-      if(listOfFollowingPath.includes(creator)){
-        var docUser = db.collection("users").doc(doc.data().creatorId.id);
-        docUser.get().then(function(querySnapshot){
-          if(querySnapshot.exists) {
-            addElement("challenges-section",querySnapshot.data().profilePhoto,doc.id,doc.data(), false,status);
+      if(doc.data().public){
+        if(listOfFollowingPath.includes(creator)){
+          var docUser = db.collection("users").doc(doc.data().creatorId.id);
+          docUser.get().then(function(querySnapshot){
+            if(querySnapshot.exists) {
+              addElement("challenges-section",querySnapshot.data().profilePhoto,doc.id,doc.data(), false,status);
+          }
+          }).catch(function(error) {
+                console.log("Error getting document:", error);});
         }
-        }).catch(function(error) {
-              console.log("Error getting document:", error);});
       }
     });
   }).catch(function(error) {
@@ -836,16 +838,14 @@ function challengesLikedSearch(value){
   const db1 = firebase.firestore();
   var challenges = db1.collection("challenges").doc(value.id);
   challenges.get().then(function(challenges){
-    var creator = db1.collection("users").doc(challenges.data().creatorId.id);
-    creator.get().then(function(creator){
-      if(creator.exists){
-        // console.log("Profile pic: ",creator.data().profilePhoto );
-        // console.log("Challenge id",challenges.id );
-        // console.log("challenge data: ", challenges.data());
-        addElement("myChallenges-section",creator.data().profilePhoto,challenges.id,challenges.data(), false,true);
-      }
-    }).catch(function(error) {console.log("Error getting document:", error);});
-
+    if(challenges.data().public){
+      var creator = db1.collection("users").doc(challenges.data().creatorId.id);
+      creator.get().then(function(creator){
+        if(creator.exists){
+          addElement("myChallenges-section",creator.data().profilePhoto,challenges.id,challenges.data(), false,true);
+        }
+      }).catch(function(error) {console.log("Error getting document:", error);});
+    }
     //addElement("challenges-section",images/Favorite.png,challenges.id,challenges.data(), false,true);
   }).catch(function(error) {console.log("Error getting document:", error);});
 }
@@ -930,12 +930,12 @@ function getChallengeData(audioBlob) {
       }
       console.log(challengeLabels);
 
-      postChallenge(answer,challengeLabels,option1,option2,option3,option4, audioBlob);
+      postChallenge(answer,challengeLabels,option1,option2,option3,option4, audioBlob, true);
     }
   }
 
 
-function postChallenge(answer,label, option_1,option_2,option_3,option_4, audioBlob) {
+function postChallenge(answer,label, option_1,option_2,option_3,option_4, audioBlob, publicStatus) {
 
   const db = firebase.firestore();
   $("#postChallengeModal").modal("show");
@@ -954,7 +954,8 @@ function postChallenge(answer,label, option_1,option_2,option_3,option_4, audioB
         options: [option_1, option_2, option_3, option_4],
         // isAudioStored : storeBlobInStorage(),
         likedBy: [],
-        time: firebase.firestore.FieldValue.serverTimestamp()
+        time: firebase.firestore.FieldValue.serverTimestamp(),
+        public: publicStatus
       })
       .then(function(docRef) {
         console.log("Document written with ID: ", docRef.id);
