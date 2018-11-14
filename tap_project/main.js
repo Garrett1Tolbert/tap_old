@@ -933,7 +933,7 @@ function getChallengeData(audioBlob) {
       postChallenge(answer,challengeLabels,option1,option2,option3,option4, audioBlob);
     }
   }
-}
+
 
 function postChallenge(answer,label, option_1,option_2,option_3,option_4, audioBlob) {
 
