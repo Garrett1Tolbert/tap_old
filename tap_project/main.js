@@ -260,14 +260,6 @@ function googleLogin() {
   });
 }
 
-function setPrivacy() {
-  if (document.getElementById('privacyFilter').checked) {
-    document.getElementById('privacySetting').innerHTML = "Private";
-  } else {
-    document.getElementById('privacySetting').innerHTML = "Public";
-  }
-}
-
 function listenToEventsOnFeed(){
   $("#recordBtn").click(function() {
     console.log("New Challenge Modal showing");
@@ -924,8 +916,7 @@ function getChallengeData(audioBlob) {
 
       //get labels
       var labelPos = 0;
-      for(var a = 0; a < labels.length; a++) {
-        if(labels.charAt(a) == ',') {
+      if(labels.charAt(a) == ',') {
           labelPos++;
           challengeLabels[labelPos] = "";
           continue;
