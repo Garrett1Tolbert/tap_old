@@ -871,6 +871,18 @@ function searchEmail(emailEntered){
   });
 }
 
+function setPrivacy() {
+  var publicStatus = true;
+  if (document.getElementById('privacyFilter').checked) {
+    publicStatus = false;
+    document.getElementById('privacySetting').innerHTML = 'Private';
+  } else {
+    publicStatus = true;
+    document.getElementById('privacySetting').innerHTML = 'Public';
+  }
+  return publicStatus;
+}
+
 function getChallengeData(audioBlob) {
   var inputs = document.getElementsByTagName('input');
   var labels = document.getElementById('labels').value;
