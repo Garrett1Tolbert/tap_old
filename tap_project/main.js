@@ -943,7 +943,7 @@ function getChallengeData(audioBlob) {
       }
       console.log(challengeLabels);
 
-      postChallenge(answer,challengeLabels,option1,option2,option3,option4, audioBlob, true);
+      postChallenge(answer,challengeLabels,option1,option2,option3,option4, audioBlob, setPrivacy());
     }
   }
 }
