@@ -366,12 +366,36 @@ function checkAnswers() {
       }
     }).catch(function(error) {
         console.log("Error getting document:", error);
-      });
-
+    });
+    addToCompletedChallenges(currChallenge);
   }
-
-
 }
+
+function addToCompletedChallenges(challengeToBeAdded){
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      const db = firebase.firestore();
+      console.log("user id", user.uid);
+      var completedChallenges = db.collection("users").doc(user.uid);
+      completedChallenges.get().then(function(doc){
+        if(doc.exists){
+          var listOfCompleted = doc.data().completedChallenges;
+          var challengeReference = db.collection("challenges").doc(challengeToBeAdded);
+          listOfCompleted.push(challengeReference);
+          completedChallenges.update({
+            completedChallenges: listOfCompleted
+          }).catch(function(error){console.log("Error updating documents: ", error);});
+        }
+      }).catch(function(error) {
+          console.log("Error getting document:", error);
+        });
+    }
+    else{
+      console.log("User is not logged in!");
+    }
+  });
+}
+
 
 function anonymousFAQ() {
   $("#anonfaqModal").modal("show");
@@ -680,12 +704,16 @@ function getChallenges(listOfFollowingPath, currentUser){
       for(j=0;j<likedBy.length;j++){
         likedByPath.push(likedBy[j].id);
       }
+
       if(likedByPath.includes(currentUser)) status=true;
       if(doc.data().public){
         if(listOfFollowingPath.includes(creator)){
           var docUser = db.collection("users").doc(doc.data().creatorId.id);
           docUser.get().then(function(querySnapshot){
             if(querySnapshot.exists) {
+              var completedChallenges = querySnapshot.data();
+              console.log("JUMMMM INTERESTING", completedChallenges);
+              var isChallengeComplete = checkifChallengeisCompleted(doc.path, completedChallenges);
               addElement("challenges-section",querySnapshot.data().profilePhoto,doc.id,doc.data(), false,status);
           }
           }).catch(function(error) {
@@ -696,6 +724,18 @@ function getChallenges(listOfFollowingPath, currentUser){
   }).catch(function(error) {
         console.log("Error getting document:", error);});
 
+}
+
+function checkifChallengeisCompleted(challengePath, listOfChallenges){
+  var result = false;
+  console.log("PATH: ",challengePath);
+  console.log("LIST of CHALLENGES", listOfChallenges);
+  for(var i=0;i<listOfChallenges.length;i++){
+    if(listOfChallenges.get(i).path == challengePath){
+      result = true;
+    }
+  }
+  return result;
 }
 
 function follow(userToFollowIdentifier){
@@ -852,9 +892,10 @@ function challengesLikedSearch(value){
 
 function searchUsingEnter(e) {
   searchBar_value = document.getElementById('search').value;
-
   if (e.keyCode == 13) {
     window.alert(searchBar_value);
+    searchLabel(searchBar_value);
+    searchEmail(searchBar_value);
   }
 }
 function searchUsingClick() {
@@ -864,26 +905,58 @@ function searchUsingClick() {
 
 }
 
+// function searchLabel(labelEntered){
+//   const db = firebase.firestore();
+//   db.collection("challenges").where("labels", "array-contains", labelEntered).get()
+//   .then(function(querySnapshot) {
+//     querySnapshot.forEach(function(doc) {
+//     console.log(doc.id, " => ", doc.data());
+//   });}).catch(function(error) {
+//       console.log("Error getting documents: ", error);
+//   });
+// }
 function searchLabel(labelEntered){
   const db = firebase.firestore();
-  db.collection("challenges").where("labels", "array-contains", labelEntered).get()
+  db.collection("challenges").get()
   .then(function(querySnapshot) {
     querySnapshot.forEach(function(doc) {
-    console.log(doc.id, " => ", doc.data());
+      var labels = doc.data().labels;
+      for(var i=0;i<labels.length;i++){
+        if(labels[i].indexOf(labelEntered)>=0){
+        //  console.log("INDICE: ", labels[i].indexOf(labelEntered));
+            console.log(doc.id, " => ", doc.data());
+        }
+      }
   });}).catch(function(error) {
       console.log("Error getting documents: ", error);
   });
 }
+
 function searchEmail(emailEntered){
   const db = firebase.firestore();
-  db.collection("users").where("email", "==", emailEntered).get()
+  db.collection("users").get()
   .then(function(querySnapshot) {
     querySnapshot.forEach(function(doc) {
-    console.log(doc.id, " => ", doc.data());
+      var labels = doc.data().email;
+        if(labels.indexOf(emailEntered)>=0){
+          //console.log("INDICE: ", labels.indexOf(emailEntered));
+            console.log(doc.id, " => ", doc.data());
+        }
+
   });}).catch(function(error) {
       console.log("Error getting documents: ", error);
   });
 }
+// function searchEmail(emailEntered){
+//   const db = firebase.firestore();
+//   db.collection("users").where("email", "==", emailEntered).get()
+//   .then(function(querySnapshot) {
+//     querySnapshot.forEach(function(doc) {
+//     console.log(doc.id, " => ", doc.data());
+//   });}).catch(function(error) {
+//       console.log("Error getting documents: ", error);
+//   });
+// }
 
 function setPrivacy() {
   var publicStatus = true;
