@@ -20,11 +20,11 @@ function initFirebaseAuth() {
 
 function authStateObserver(user){
   console.log("Observer called here.");
-  if ((user && currentPageName() === "feed.html") || (user && currentPageName() == "my-challenges.html")) {
+  if ((user && currentPageName() === "feed.html") || (user && currentPageName() == "my-challenges.html") || (user && currentPageName() == "liked-challenges.html")) {
     setProfileElements(user);
     listenToEventsOnFeed();
   }
-  else if ((!user && currentPageName() === "feed.html") || (!user && currentPageName() === "my-challenges.html")) {
+  else if ((!user && currentPageName() === "feed.html") || (!user && currentPageName() === "my-challenges.html") || (!user && currentPageName() === "liked-challenges.html")) {
     showAnonymous();
   }
 
@@ -497,6 +497,7 @@ function populateLabels(div,labelsArray) {
 }
 
 function addElement (div,userPhoto, docID, docData, didCreate, status) {
+  // window.alert(screen.width);
  //console.log("Challenge Id:::",docID);
  console.log("User photo: ", userPhoto);
  console.log("Doc Id: ", docID);
@@ -508,9 +509,9 @@ function addElement (div,userPhoto, docID, docData, didCreate, status) {
   var newDiv = document.createElement("div");
   newDiv.id = docID;
   newDiv.className = "questions";
-  newDiv.classList.add("rounded");
-  newDiv.classList.add("shadow");
-  newDiv.style.marginTop = "3%";
+  // newDiv.classList.add("rounded");
+  newDiv.classList.add("shadow-sm");
+  newDiv.style.marginTop = "4%";
 
 
   // create a new element
@@ -535,16 +536,16 @@ function addElement (div,userPhoto, docID, docData, didCreate, status) {
   // contentDiv.className = "col-lg-9";
   // contentDiv.style.border = "3px solid black";
 
-  newDiv.appendChild(labelDiv);
-  labelDiv.className = "col-lg-10";
-  labelDiv.classList.add("labels-area");
-  labelDiv.style.display = "flex";
-  labelDiv.style.flexDirection = "row";
-  // labelDiv.style.border = "3px solid red";
-  labelDiv.style.marginLeft = "16%";
-  labelDiv.style.marginTop = "2%";
-  labelDiv.style.padding = "0";
-  labelDiv.style.overflowX = "scroll";
+  // newDiv.appendChild(labelDiv);
+  // labelDiv.className = "col-lg-10";
+  // labelDiv.classList.add("labels-area");
+  // labelDiv.style.display = "flex";
+  // labelDiv.style.flexDirection = "row";
+  // // labelDiv.style.border = "3px solid red";
+  // labelDiv.style.marginLeft = "16%";
+  // labelDiv.style.marginTop = "2%";
+  // labelDiv.style.padding = "0";
+  // labelDiv.style.overflowX = "scroll";
 
   // add each image node to the newly created div
   // contentDiv.appendChild(newAnswer);
@@ -552,7 +553,7 @@ function addElement (div,userPhoto, docID, docData, didCreate, status) {
   // newAnswer.innerHTML = docID;
 
   contentDiv.appendChild(newPhoto);
-  newPhoto.className = "rounded-circle shadow";
+  newPhoto.className = "challengePhotos rounded-circle shadow";
   newPhoto.src = userPhoto;
   newPhoto.setAttribute("aria-label","challenge creator's profile photo");
 
@@ -561,8 +562,8 @@ function addElement (div,userPhoto, docID, docData, didCreate, status) {
   newPlay.className = "fas fa-play";
   newPlay.style.color = "#537EA6";
   newPlay.style.marginLeft = "5%";
-  newPlay.style.height = "30px";
-  newPlay.style.width = "30px";
+  newPlay.style.height = "4%";
+  newPlay.style.width = "4%";
   newPlay.style.marginTop = "1%";
   newPlay.style.paddingTop = "0.5%";
   newPlay.setAttribute("onclick","playChallenge('" + docID + "')");
@@ -586,10 +587,10 @@ function addElement (div,userPhoto, docID, docData, didCreate, status) {
   newFavorite.setAttribute("onclick","likeChallenge('" + docID + "')");
   newFavorite.setAttribute("aria-label","like/unlike a challenge");
 
-  contentDiv.appendChild(newRepost);
-  newRepost.className = "repost-button";
-  newRepost.src = "images/repostFalse.png";
-  newRepost.setAttribute("aria-label","repost a challenge");
+  // contentDiv.appendChild(newRepost);
+  // newRepost.className = "repost-button";
+  // newRepost.src = "images/repostFalse.png";
+  // newRepost.setAttribute("aria-label","repost a challenge");
 
 
 
@@ -598,24 +599,36 @@ function addElement (div,userPhoto, docID, docData, didCreate, status) {
     //add trash icon
     var newDelete = document.createElement("i");
     contentDiv.appendChild(newDelete);
-    newDelete.className = "fas fa-trash fa-3x";
+    newDelete.className = "fas fa-trash fa-2x";
     var concatString = "deleteChallenge('"+ newDiv.id+"')";
     newDelete.setAttribute("onclick",concatString+"");
-    newDelete.setAttribute("aria-label","delete a challenge");
+    newDelete.setAttribute("aria-label","delete your challenge");
     newDelete.style.color = "red";
-    newDelete.style.marginLeft = "15%";
     newDelete.style.paddingTop = "3%";
-    newDiv.style.width = "50%";
+    // newDiv.style.width = "33%";
+
+    newDelete.classList.add("delete-button");
 
     //add edit icon
     var newEdit = document.createElement("i");
     contentDiv.appendChild(newEdit);
-    newEdit.className = "fas fa-pencil-alt fa-3x";
+    newEdit.className = "fas fa-pencil-alt fa-2x";
     newEdit.style.color = "#525456";
-    newEdit.style.marginLeft = "2%";
+    // newEdit.style.float = "right";
+    newEdit.style.marginLeft = "1%";
     newEdit.style.paddingTop = "3%";
     newEdit.setAttribute("aria-label","edit a challenge");
-  }
+    newEdit.classList.add("edit-button");
+
+    // if(screen.width < 601) {
+    //   newDiv.style.width = "95%";
+    //   newDelete.style.marginLeft = "0";
+    //   newEdit.style.float = "right";
+    // } else {
+    //   newDiv.style.width = "33%";
+    //
+    // }
+}
 
   populateLabels(labelDiv,docData.labels);
 
@@ -901,6 +914,8 @@ function challengesLikedSearch(value){
 
 function searchUsingEnter(e) {
   searchBar_value = document.getElementById('search');
+  document.getElementById('resultsItem').innerHTML = "";
+
   searchLabel(searchBar_value.value);
   searchEmail(searchBar_value.value);
   console.log("INPUT");
@@ -915,12 +930,6 @@ function searchUsingEnter(e) {
   //   searchEmail(searchBar_value);
   // }
 }
-function searchUsingClick() {
-  searchBar_value = document.getElementById('search').value;
-
-  window.alert(searchBar_value);
-
-}
 
 // function searchLabel(labelEntered){
 //   const db = firebase.firestore();
@@ -932,6 +941,23 @@ function searchUsingClick() {
 //       console.log("Error getting documents: ", error);
 //   });
 // }
+
+function addSearchResult(id) {
+  var newResult = document.createElement("p");
+  var currentDiv = document.getElementById('resultsItem');
+  
+  if ($('#resultsItem').height() >= 300) {
+    currentDiv.style.height = $('#resultsItem').height() + 'px';
+    currentDiv.style.overflowY = "scroll";
+  } else {
+    currentDiv.style.height = "auto";
+  }
+
+  newResult.innerHTML = id;
+  newResult.style.paddingLeft = "20px";
+  currentDiv.appendChild(newResult);
+}
+
 function searchLabel(labelEntered){
   const db = firebase.firestore();
   db.collection("challenges").get()
@@ -941,7 +967,8 @@ function searchLabel(labelEntered){
       for(var i=0;i<labels.length;i++){
         if(labels[i].toLowerCase().indexOf(labelEntered.toLowerCase())>=0){
         //  console.log("INDICE: ", labels[i].indexOf(labelEntered));
-            console.log(doc.id, " => ", doc.data());
+            console.log("\nChallenge\n",doc.id, " => ", doc.data());
+            addSearchResult("Challenge: " + doc.id);
         }
       }
   });}).catch(function(error) {
@@ -957,13 +984,16 @@ function searchEmail(emailEntered){
       var labels = doc.data().email;
         if(labels.toLowerCase().indexOf(emailEntered.toLowerCase())>=0){
           //console.log("INDICE: ", labels.indexOf(emailEntered));
-            console.log(doc.id, " => ", doc.data());
+            console.log("\nUsers\n",doc.id, " => ", doc.data());
+            addSearchResult("User: " + doc.id);
         }
 
   });}).catch(function(error) {
       console.log("Error getting documents: ", error);
   });
 }
+
+
 // function searchEmail(emailEntered){
 //   const db = firebase.firestore();
 //   db.collection("users").where("email", "==", emailEntered).get()

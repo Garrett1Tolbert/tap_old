@@ -1,242 +1,74 @@
+* {
+    box-sizing: border-box;
+}
+
 html {
   height: 100%;
   margin: 0;
 }
 body {
-  background-color: #FFC000;
-  min-height: 120%;
+  background-color: #ffffff;
   font-family: 'Arvo', serif;
   margin: 0;
   position: relative;
 }
-
 button:hover, a:hover {
   cursor:  pointer;
 }
+/* #searchbar:focus,#searchbar:active ~ #searchResults > #resultsItem {
+  display: none;
+} */
 
-.account_fragments {
-  width: inherit;
+#searchResults {
+  padding: 0;
+  height: 350px;
+  width: 600px;
+  /* border: 3px solid blue; */
+  position: absolute;
+  /* bottom: 0; */
+  z-index: -1;
 }
-
-.container.initial_screen {
-  /* border: 3px solid red; */
-  min-height: 100%;
-  min-width: 100%;
-}
-
-.section {
-  /* border: 5px solid black; */
-  min-height: 100%;
-}
-
-.inside_create_account {
+#resultsItem{
   background-color: white;
-  box-shadow:
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  height: auto;
+  margin-top: 8%;
+  /* border: 3px solid green; */
+  z-index: 999;
 }
-
-.inside_section {
-  /* border: 5px solid green; */
-  height: 100%;
-}
-
-
-#logo_is {
-  margin-top: 10%;
-  padding-bottom: 2.5%;
-}
-
-.social_auth{
-  font-size: 1.2em;
-  font-weight: 400;
-  letter-spacing: 5px;
-  color: white;
-  border-width: 7px;
-  border-radius: 7px;
-  display: flex;
-  height: 15%;
-  width: 100%;
-}
-
-.social_auth span {
-  color: white;
-  vertical-align: middle;
-}
-
-.initial_screen_logos {
-  margin-left: 3%;
-}
-.initial_screen_desc {
-  margin-top: 1.5%;
-  margin-left: 22%;
-}
-
-
-
-#google_logo {
-  height: 42px;
-  width: 42px;
-}
-#google_auth {
-  background-color: #F4511E;
-  border-color: hsla(14, 90.7%, 50.7%,1);
-  margin-top: 10%;
-}
-
-#facebook_logo {
-  height: 42px;
-  width: 42px;
-}
-#facebook_auth {
-  background-color: #3F51B5;
-  border-color: hsla(231, 48.4%, 44.8%,1);
-  margin-top: 1%;
-}
-
-#or_filler {
-  padding-top: 5%;
-  padding-bottom: 5%;
-  /* margin-left: 25%;
-  margin-right: 25%; */
-  display: block;
-  margin: auto;
-  width: 45%;
-}
-
-/*FORM INFORMATION*/
-form .input_field.bottom {
-  margin-top: 5%;
-}
-
-.createAccount button, .login button {
+#sidebar .sidebar-header {
+  height: 8%;
+  border-bottom: 2px solid lightgray;
   margin-top: 7%;
-  margin-bottom: 2%;
-  background-color: #537EA6;
-  font-size: 1.2em;
-  font-weight: 400;
-  letter-spacing: 10px;
-  color: white;
-  border-radius: 7px;
-  width: 100%;
-  height: 50px;
+  padding: 10px;
+  background: white;
+  color: #525456;
 }
-
-
-.form-control {
-  height: 50px;
-  font-size: 1.5em;
-  width: 75%;
-  text-align:center;
-  margin-left: 12.5%;
-}
-
-
-#link_to_create {
-  text-decoration: underline;
-  font-style: italic;
-  color: lightgray;
-  text-align: center;
-  margin-left: 25%;
-  margin-right: 25%;
-  width: inherit;
-}
-#link_to_login {
-  text-decoration: underline;
-  font-style: italic;
-  color: lightgray;
-  text-align: center;
-  margin-left: 25%;
-  margin-right: 25%;
-  width: inherit;
-}
-/*END FORM INFORMATION*/
-
-
-/*---------
-    FEED
------------*/
-#feed_page {
-  background-color: #ffffff;
-  min-height: 100%;
-}
-
-#feed_header {
-  /* border: 5px solid black; */
-  height: 100px;
-}
-#followersTab {
-  color: #537EA6;
-  font-size: 1.2em;
-  font-weight: 700;
-}
-#followersTab:hover {
-    text-decoration: none;
-}
-
-#feed_body {
-  /* border: 5px solid blue; */
-  height:675px;
-  margin-top: 0;
-  position: relative;
-}
-
-#challenges-section {
-  height: 700px;
-  overflow: auto;
-}
-#myChallenges-section {
-  overflow: auto;
-}
-
-#challengeArea, #myChallengeArea{
-  /* border: 5px solid green; */
-}
-#profilePage_Photo {
-  width: 200px;
-  height: 200px;
-}
-
-.challenge {
-  border: 2px solid lightgray;
-  margin-top: 3%;
-  margin-left: 30%;
-  width: 60%;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  text-align: center;
-}
-.card {
-  border: 2px solid lightgray;
-  margin-top: 3%;
-  margin-left: 20%;
-  width: 40%;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  text-align: center;
-}
-#hub {
-  /* border: 5px solid red; */
-  margin-right: 7%;
-  margin-top: 3%;
-  height: 275px;
-  width: auto;
-  position: fixed;
-  right: 0;
-  z-index: 10;
+.mCSB_container{
+  height: 100vh;
 }
 #hubTop {
   /* border: 5px solid blue; */
+  position: absolute;
+  bottom: 0;
   background-color: #FFC000;
-  height: inherit;
   width: inherit;
+  height: 10%;
   display: flex;
   align-items: center;
   font-size: 1.25em;
   /* box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2); */
 }
-#hubBottom {
-  /* border: 5px solid green; */
 
+#hubLinks{
+  height: 50%;
+  list-style:none;
+  padding-top: 5px;
+  margin-bottom: 0;
+  padding-left: 3px;
 }
+
 #hubLinks li {
   height: 50px;
   padding-top: 5%;
@@ -245,6 +77,7 @@ form .input_field.bottom {
   transition-property: background-color;
   transition-duration: .75s;
 }
+
 #hubLinks li:hover a > .sidebarIcons{
   color: #ffc000;
 }
@@ -257,323 +90,805 @@ form .input_field.bottom {
   padding-right:3px;
   color: #525456;
 }
-
-#checkAnswer {
-  background-color:#ffc000;
-  border-color:#ffc000;
+#user_Name {
   color:#525456;
-  width:150px;
-  transition-property: width;
-  transition-duration: .25s;
-
-}
-#checkAnswer:hover {
-
-  width: 200px;
-}
-
-#feed_footer, #myChallenges_footer {
-  /* border: 5px solid purple; */
-  bottom: 0;
-  height: 175px;
-  width: 100%;
-  position: fixed;
-  /* box-shadow: 1px -2px 5px red; */
-}
-#recordBtn {
-  top: 0;
-  margin-left: 45%;
-}
-#recordBtn:hover {
-  cursor: pointer;
-}
-
-#searchbar {
-    /* margin-right: 6.25%; */
-    /* width: 300px; */
-
-}
-
-.searchbar{
+  text-align: center;
   vertical-align: middle;
-  white-space: nowrap;
-  position: relative;
-  border: 10px;
-  border-color: lightgray;
+  font-weight: 700;
+   padding-right: 2%;
 }
-
-.searchbar input#search{
-  width: 400px;
-  height: 50px;
-  background: ;
-  border: none;
-  color: #525456;
-  text-align: left;
-  float: left;
-  padding-left: 45px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  transition-property: width;
-  transition-duration: .5s;
-}
-.searchbar .icon{
-  position: absolute;
-  top: 50%;
-  margin-left: 17px;
-  padding-bottom: 7px;
-  margin-top: 13px;
-  z-index: 1;
-  color: #525456;
-}
-.searchbar input#search:focus, .searchbar input#search:active{
-  outline:none;
-  width: 600px;
-  /* border-color: lightgray; */
-}
-
-::placeholder {
-  color: #5F6368;
-}
-
-.modal-footer {
-  margin-top: 5%;
-  justify-content: space-between;
-}
-
-.sticky-top {
-  z-index: 990;
-}
-/* My Challenges */
-#myChall_page {
-  background-color: #ffffff;
-  min-height: 100%;
-}
-
-#myChall_header {
-  /* border: 5px solid black; */
-  height: 100px;
-  margin-bottom: 3%;
-}
-
-#myChall_body {
-  /* border: 5px solid blue; */
-  height:100%;
-  margin-top: 0;
-  overflow: auto;
-  position: relative;
-}
-
-/* Grabbing challenges Dynamically */
-
-.questions {
-  border: 1px solid lightgray;
-  margin-top: 3%;
-  margin: auto;
-  width: 40%;
-  padding: 1%;
-  padding-bottom: 0;
-}
-
-.rounded-circle {
-  height: 80px;
-  width: 80px;
-  border: 1px solid lightgray;
-}
-#theTeam .rounded-circle {
-  height: 50px;
-  width: 50px;
-}
-.play-button {
-  height: 35px;
-  width: 27px;
-  margin-left: 7%;
-}
-
-.audio-levels {
-  width: 225px;
-  height: 50px;
-  margin-left: 5%;
+#user_Email {
+  color:#525456;
+  vertical-align: middle;
   padding-right: 2%;
 }
 
-.test-head{
-  color:red;
-  text-align: center;
-}
+/* RESPONSIVE UI */
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  #content{
+    height: 100vh;
+  }
+  .sticky-top{
+    z-index: 998;
+  }
+  .overlay {
+      display: none;
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 998;
+      opacity: 0;
+      transition: all 0.5s ease-in-out;
+  }
+  .overlay.active {
+      display: block;
+      opacity: 1;
+  }
+  #headerCol1{
+    width:25%;
+  }
+  #headerCol2{
+    display: none;
+  }
+  #headerCol3{
+    width: 75%;
+    padding: 0;
+  }
+  #profileJumbotron{
+    background-color: #ffffff;
+    width: -webkit-fill-available;
+    padding-top: 0;
+    padding-bottom: 25px;
+    margin: 0;
+  }
+  #profileJumbotron #exitProfile{
+    padding: 10px;
+  }
+  #profileInfo{
+    width: 100vw;
+    display: flex;
+  }
+  #profilePicSection,#ProfileDetailsSection{
+    margin-left: 20%;
+  }
+  #followers_following_view{
+    width: 100vw;
+    display: flex;
+  }
+  #section-followers,#section-following{
+    /* margin-left: 5%; */
+  }
 
-.favorite-button {
-  width: 35px;
-  height: 35px;
-  margin-left: 2%;
-}
+  /* Header */
+  #feed_header,#myChall_header,#likedChall_header {
+    height: 10%;
+  }
+  .searchbar{
+    vertical-align: middle;
+    white-space: nowrap;
+    position: relative;
+    border: 10px;
+    border-color: lightgray;
+  }
 
-.repost-button {
-  margin-left: 3%;
-}
-.delete-button {
-  height: 35px;
-  width: 35px;
-  margin-left: 7%;
-}
-.delete-button:hover{
-  cursor: pointer;
-}
-/* --------------
+  .searchbar input#search{
+    width: 100%;
+    height: 50px;
+    background: ;
+    border: none;
+    color: #525456;
+    text-align: left;
+    float: left;
+    padding-left: 45px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    text-overflow: ellipsis;
+    /* transition-property: width;
+    transition-duration: .5s; */
+  }
+  .searchbar .icon{
+    position: absolute;
+    top: 50%;
+    margin-left: 17px;
+    padding-bottom: 7px;
+    margin-top: 13px;
+    z-index: 1;
+    color: #525456;
+  }
+  .searchbar input#search:focus, .searchbar input#search:active{
+    outline:none;
+  }
 
-TESTING SIDEBAR
+ #searchbar {
+   z-index: 1000;
+    width:100%;
+    text-overflow: ellipsis;
+  }
 
----------------*/
-#sidebarCollapse {
-  color: white;
-  background-color: transparent;
-  border: 0;
-}
-#sidebarCollapse:hover {
-  color: #537EA6;
-  background-color: transparent;
-}
-#sidebar.active ~ #content #sidebarCollapse{
-  display: none;
-}
+  #Menutext{
+    display: none;
+  }
 
-#sidebar {
+  /* Sidebar */
+  #sidebar {
     width: 350px;
     position: absolute;
     top: 0;
     left: -350px;
-    height: 100vh;
-    z-index: 999;
+    /* height: 100vh; */
+    z-index: 1028;
     background: white;
     color: #fff;
     transition: all 0.3s;
-    overflow-y: hidden;
+    overflow-y: scroll;
     /* box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2); */
-}
+  }
 
-#sidebar.active {
+  #sidebar.active {
     left: 0;
-}
+  }
 
-#dismiss {
-    position: relative;
-    background: transparent;
+  #sidebarCollapse {
+    color: white;
+    background-color: transparent;
+    border: 0;
+  }
+  #sidebarCollapse:hover {
     color: #537EA6;
-    cursor: pointer;
-    -webkit-transition: all 0.3s;
-    -o-transition: all 0.3s;
-    transition: all 0.3s;
-}
-
-#dismiss:hover {
-  color: #ffc000;
-}
-
-
-.overlay {
+    background-color: transparent;
+  }
+  #sidebar.active ~ #content #sidebarCollapse{
     display: none;
+  }
+  #dismiss {
+      position: relative;
+      background: transparent;
+      color: #537EA6;
+      cursor: pointer;
+      -webkit-transition: all 0.3s;
+      -o-transition: all 0.3s;
+      transition: all 0.3s;
+  }
+
+  #dismiss:hover {
+    color: #ffc000;
+  }
+
+  #feed_body {
+    height: 72%;
+    text-align: center;
+    /* overflow: scroll; */
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+  #feed_footer, #myChallenges_footer {
+    /* border: 5px solid purple; */
+    bottom: 0;
+    height: 18%;
+    width: 100%;
     position: fixed;
-    width: 100vw;
+    /* box-shadow: 1px -2px 5px red; */
+  }
+  .sidebar-footer{
+    height: 42%;
+    bottom: 0;
+  }
+
+  /* #mCSB_1_container{
     height: 100vh;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 998;
-    opacity: 0;
-    transition: all 0.5s ease-in-out;
-}
-.overlay.active {
-    display: block;
-    opacity: 1;
-}
+  } */
 
-#sidebar .sidebar-header {
-    border-bottom: 2px solid lightgray;
-    margin-top: 7%;
-    padding: 10px;
-    background: white;
-    color: #525456;
-}
+  .questions {
+    border: 1px solid lightgray;
+    border-radius: 2%;
+    margin: auto;
+    width: 95%;
+    padding: 1%;
+    padding-bottom: 0;
+  }
 
-a[data-toggle="collapse"] {
+  .challengePhotos {
+    height: 12%;
+    width: 12%;
+    border: 1px solid lightgray;
+    margin-bottom: 2%;
+    margin-top: 2%;
+  }
+
+  .audio-levels {
+    width: 60%;
+    height: 25px;
+    margin-left: 5%;
+    padding-right: 2%;
+  }
+
+
+  .favorite-button {
+    width: 10%;
+    height: 10%;
+    margin-left: 2%;
+  }
+
+  .delete-button {
+    height: 35px;
+    width: 35px;
+    margin-left: 0;
+  }
+  .edit-button{
+    height: 35px;
+    width: 35px;
+    float: right;
+  }
+  .delete-button:hover, .edit-button:hover{
+    cursor: pointer;
+  }
+
+  #recordBtn {
+    top: 0;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #recordBtn:hover {
+    cursor: pointer;
+  }
+
+  /* Challenges */
+
+  /* New Challenge Modal */
+  #newChallengeModalLabel{
+    color: #537EA6;
+    font-weight: 700;
+    margin-left:15%;
+    letter-spacing: 3px;
+  }
+  #record_stopBtn {
+    height: 7%;
+    width: 7%;
+    margin-left: 7%;
+    margin-right: 5%;
+  }
+  #fake_audio {
+    height: 50%;
+    width: 60%;
+    margin-left: 2%;
+    margin-right: 2%;
+  }
+  #playbackAudioBtn {
+    height: 7%;
+    width: 7%;
+    margin-left: 2%;
+    margin-top: 1%;
+    margin-right: 5%;
+  }
+  #label,#labels {
+    display: none;
+  }
+  #option1,#option2,#option3,#option4 {
+    width: 42%;
+    margin-left: 5%;
+  }
+  #mobileLabel{
+    width: 89%;
+    margin-left: 5%;
+  }
+  #correctAnswerAlert,#allAnswersRequiredAlert {
+    width: 100%;
+    margin-top: 2%;
+    margin-bottom: 0;
+    font-size: 1em;
+    color: #537EA6;
+    display: none;
+  }
+  /* SWITCH */
+  /* The switch - the box around the slider */
+  .switch {
+    margin-right: 5%;
     position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 27px;
+  }
+
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border:0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 19px;
+    width: 19px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+
+  #privacyFilter:checked + .slider {
+    background-color: #537EA6;
+  }
+
+
+  input:checked + .slider:before {
+    -webkit-transform: translateX(30px);
+    -ms-transform: translateX(30px);
+    transform: translateX(30px);
+  }
+
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+
+  .slider.round:before {
+    background-color: white;
+    border-radius: 50%;
+  }
+  #privacySetting{
+    text-align: left;
+  }
+  .modal-footer {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
-.dropdown-toggle::after {
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  #feed_page {
+    background-color: #ffffff;
+    min-height: 100%;
+  }
+
+  #feed_header {
+    /* border: 5px solid black; */
+    height: 100px;
+  }
+  #followersTab {
+    color: #537EA6;
+    font-size: 1.2em;
+    font-weight: 700;
+  }
+  #followersTab:hover {
+      text-decoration: none;
+  }
+  #headerCol1{
+    width:25%;
+  }
+  #headerCol2{
     display: block;
+    /* margin-left: 10%; */
+  }
+  #headerCol3{
+    width: 50%;
+    padding: 0;
+  }
+  #feed_body {
+    /* border: 5px solid blue; */
+    height:675px;
+    margin-top: 0;
+    position: relative;
+  }
+
+  #challenges-section {
+    height: 700px;
+    overflow: auto;
+  }
+  #myChallenges-section {
+    overflow: auto;
+  }
+
+  #challengeArea, #myChallengeArea{
+    /* border: 5px solid green; */
+  }
+  #profilePage_Photo {
+    width: 200px;
+    height: 200px;
+  }
+
+  .challenge {
+    border: 2px solid lightgray;
+    margin-top: 3%;
+    margin-left: 30%;
+    width: 60%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+  }
+  #hub {
+    /* border: 5px solid red; */
+    margin-right: 7%;
+    margin-top: 3%;
+    height: 275px;
+    width: auto;
+    position: fixed;
+    right: 0;
+    z-index: 10;
+  }
+
+
+  #checkAnswer {
+    background-color:#ffc000;
+    border-color:#ffc000;
+    color:#525456;
+    width:150px;
+    transition-property: width;
+    transition-duration: .25s;
+
+  }
+  #checkAnswer:hover {
+
+    width: 200px;
+  }
+
+  #user_Name,#user_Email {
+    margin-left: 5%;
+  }
+  #feed_footer, #myChallenges_footer {
+    /* border: 5px solid purple; */
+    bottom: 0;
+    height: 175px;
+    width: 100%;
+    position: fixed;
+    /* box-shadow: 1px -2px 5px red; */
+  }
+  #recordBtn {
+    top: 0;
+    margin-left: 45%;
+  }
+  #recordBtn:hover {
+    cursor: pointer;
+  }
+
+
+  .searchbar{
+    vertical-align: middle;
+    white-space: nowrap;
+    position: relative;
+    border: 10px;
+    border-color: lightgray;
+  }
+
+  .searchbar input#search{
+    width: 600px;
+    height: 50px;
+    background: ;
+    border: none;
+    color: #525456;
+    text-align: left;
+    float: left;
+    padding-left: 45px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    /* transition-property: width;
+    transition-duration: .5s; */
+  }
+  .searchbar .icon{
     position: absolute;
     top: 50%;
-    right: 20px;
-    transform: translateY(-50%);
-}
+    margin-left: 17px;
+    padding-bottom: 7px;
+    margin-top: 13px;
+    z-index: 1;
+    color: #525456;
+  }
+  .searchbar input#search:focus, .searchbar input#search:active{
+    outline:none;
+    /* width: 600px; */
+    /* border-color: lightgray; */
+  }
 
-#content {
-    width: 100%;
-    min-height: 100vh;
-    transition: all 0.3s;
+  ::placeholder {
+    color: #5F6368;
+  }
+
+  .modal-footer {
+    margin-top: 5%;
+    justify-content: space-between;
+  }
+
+  .sticky-top {
+    z-index: 990;
+  }
+  /* My Challenges */
+  #myChall_page {
+    background-color: #ffffff;
+    min-height: 100%;
+  }
+
+  #myChall_header {
+    /* border: 5px solid black; */
+    height: 100px;
+    margin-bottom: 3%;
+  }
+
+  #myChall_body {
+    /* border: 5px solid blue; */
+    height:100%;
+    margin-top: 0;
+    overflow: auto;
+    position: relative;
+  }
+
+  /* Grabbing challenges Dynamically */
+
+   .questions {
+    border: 1px solid lightgray;
+    margin-top: 3%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 33%;
+    padding-left: 1%;
+  }
+
+  .rounded-circle {
+    margin-top: 2%;
+    margin-bottom: 2%;
+    height: 70px;
+    width: 70px;
+    border: 1px solid lightgray;
+  }
+
+  .play-button {
+    margin-left: 7%;
+  }
+
+  .audio-levels {
+    width: 53%;
+    height: 25px;
+    margin-left: 5%;
+    padding-right: 2%;
+  }
+
+  .favorite-button {
+    width: 35px;
+    height: 35px;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+
+  .delete-button {
+    height: 35px;
+    width: 35px;
+    margin-left: 0;
+  }
+  .edit-button{
+    height: 35px;
+    width: 35px;
+    float: right;
+  }
+  .delete-button:hover, .edit-button:hover{
+    cursor: pointer;
+  }
+
+  /* --------------
+
+  TESTING SIDEBAR
+
+  ---------------*/
+  #sidebarCollapse {
+    color: white;
+    background-color: transparent;
+    border: 0;
+  }
+  #sidebarCollapse:hover {
+    color: #537EA6;
+    background-color: transparent;
+  }
+  #sidebar.active ~ #content #sidebarCollapse{
+    display: none;
+  }
+
+  #sidebar {
+      width: 350px;
+      position: absolute;
+      top: 0;
+      left: -350px;
+      height: 100vh;
+      z-index: 999;
+      background: white;
+      color: #fff;
+      transition: all 0.3s;
+      overflow-y: hidden;
+      /* box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2); */
+  }
+
+  #sidebar.active {
+      left: 0;
+  }
+  .sidebar-footer{
+    height: 42%;
+    bottom: 0;
+  }
+  #dismiss {
+      position: relative;
+      background: transparent;
+      color: #537EA6;
+      cursor: pointer;
+      -webkit-transition: all 0.3s;
+      -o-transition: all 0.3s;
+      transition: all 0.3s;
+  }
+
+  #dismiss:hover {
+    color: #ffc000;
+  }
+
+
+  .overlay {
+      display: none;
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 998;
+      opacity: 0;
+      transition: all 0.5s ease-in-out;
+  }
+  .overlay.active {
+      display: block;
+      opacity: 1;
+  }
+
+  a[data-toggle="collapse"] {
+      position: relative;
+  }
+
+  .dropdown-toggle::after {
+      display: block;
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+  }
+
+  #content {
+      width: 100%;
+      min-height: 100vh;
+      transition: all 0.3s;
+      position: absolute;
+      top: 0;
+      right: 0;
+  }
+
+  /* SWITCH */
+  /* The switch - the box around the slider */
+  .switch {
+    margin-right: 5%;
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 27px;
+  }
+
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  /* The slider */
+  .slider {
     position: absolute;
+    cursor: pointer;
     top: 0;
+    left: 0;
     right: 0;
-}
+    bottom: 0;
+    border:0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
 
-/* SWITCH */
-/* The switch - the box around the slider */
-.switch {
-  margin-right: 5%;
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 27px;
-}
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 19px;
+    width: 19px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
 
-/* Hide default HTML checkbox */
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-/* The slider */
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border:0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 19px;
-  width: 19px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-#privacyFilter:checked + .slider {
-  background-color: #537EA6;
-}
+  #privacyFilter:checked + .slider {
+    background-color: #537EA6;
+  }
 
 
-input:checked + .slider:before {
-  -webkit-transform: translateX(32px);
-  -ms-transform: translateX(32px);
-  transform: translateX(32px);
-}
+  input:checked + .slider:before {
+    -webkit-transform: translateX(32px);
+    -ms-transform: translateX(32px);
+    transform: translateX(32px);
+  }
 
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
 
-.slider.round:before {
-  background-color: white;
-  border-radius: 50%;
+  .slider.round:before {
+    background-color: white;
+    border-radius: 50%;
+  }
+  #newChallengeModalLabel{
+    color: #537EA6;
+    font-weight: 700;
+    margin-left:30%;
+    letter-spacing: 3px;
+  }
+  #record_stopBtn {
+    height: 7%;
+    width: 7%;
+    margin-left: 7%;
+    margin-right: 5%;
+  }
+  #fake_audio {
+    height: 50%;
+    width: 60%;
+    margin-left: 2%;
+    margin-right: 2%;
+  }
+  #playbackAudioBtn {
+    height: 7%;
+    width: 7%;
+    margin-left: 2%;
+    margin-top: 1%;
+    margin-right: 5%;
+  }
+  #mobileLabel,#mobileLabels {
+    display: none;
+  }
+  #option1,#option2,#option3,#option4 {
+    width: 20%;
+    margin-left: 5%;
+  }
+
+  #correctAnswerAlert,#allAnswersRequiredAlert {
+    width: 100%;
+    margin-top: 2%;
+    margin-bottom: 0;
+    font-size: 1em;
+    color: #537EA6;
+    display: none;
+  }
+  #theTeam .rounded-circle {
+    height: 50px;
+    width: 50px;
+  }
+  button.close {
+    display: none;
+  }
+  #profileJumbotron{
+    background-color: #ffffff;
+    width: -webkit-fill-available;
+    padding-top: 35px;
+    padding-bottom: 25px;
+    margin: 0;
+  }
 }
