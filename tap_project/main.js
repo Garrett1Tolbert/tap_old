@@ -890,13 +890,30 @@ function challengesLikedSearch(value){
   }).catch(function(error) {console.log("Error getting document:", error);});
 }
 
+// function searchUsingEnter(e) {
+//   searchBar_value = document.getElementById('search').value;
+//   if (e.keyCode == 13) {
+//     //window.alert(searchBar_value);
+//     searchLabel(searchBar_value);
+//     searchEmail(searchBar_value);
+//   }
+// }
+
 function searchUsingEnter(e) {
-  searchBar_value = document.getElementById('search').value;
-  if (e.keyCode == 13) {
-    window.alert(searchBar_value);
-    searchLabel(searchBar_value);
-    searchEmail(searchBar_value);
-  }
+  searchBar_value = document.getElementById('search');
+  searchLabel(searchBar_value.value);
+  searchEmail(searchBar_value.value);
+  console.log("INPUT");
+  // window.addEventListener('input', function(){
+  //   console.log("VALUE: ", searchBar_value.value);
+  //
+  //   searchLabel(searchBar_value.value);
+  // })
+  // if (e.keyCode == 13) {
+  //   //window.alert(searchBar_value);
+  //   searchLabel(searchBar_value);
+  //   searchEmail(searchBar_value);
+  // }
 }
 function searchUsingClick() {
   searchBar_value = document.getElementById('search').value;
@@ -922,7 +939,7 @@ function searchLabel(labelEntered){
     querySnapshot.forEach(function(doc) {
       var labels = doc.data().labels;
       for(var i=0;i<labels.length;i++){
-        if(labels[i].indexOf(labelEntered)>=0){
+        if(labels[i].toLowerCase().indexOf(labelEntered.toLowerCase())>=0){
         //  console.log("INDICE: ", labels[i].indexOf(labelEntered));
             console.log(doc.id, " => ", doc.data());
         }
@@ -938,7 +955,7 @@ function searchEmail(emailEntered){
   .then(function(querySnapshot) {
     querySnapshot.forEach(function(doc) {
       var labels = doc.data().email;
-        if(labels.indexOf(emailEntered)>=0){
+        if(labels.toLowerCase().indexOf(emailEntered.toLowerCase())>=0){
           //console.log("INDICE: ", labels.indexOf(emailEntered));
             console.log(doc.id, " => ", doc.data());
         }

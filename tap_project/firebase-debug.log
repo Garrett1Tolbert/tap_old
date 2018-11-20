@@ -1,0 +1,29 @@
+[debug] [2018-11-19T19:12:17.418Z] ----------------------------------------------------------------------
+[debug] [2018-11-19T19:12:17.419Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2018-11-19T19:12:17.419Z] CLI Version:   5.1.1
+[debug] [2018-11-19T19:12:17.419Z] Platform:      darwin
+[debug] [2018-11-19T19:12:17.419Z] Node Version:  v10.10.0
+[debug] [2018-11-19T19:12:17.421Z] Time:          Mon Nov 19 2018 11:12:17 GMT-0800 (Pacific Standard Time)
+[debug] [2018-11-19T19:12:17.421Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-11-19T19:12:17.437Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-11-19T19:12:17.437Z] > authorizing via signed-in user
+[debug] [2018-11-19T19:12:17.437Z] [iam] checking project alphabetter-tap-v1 for permissions ["firebase.projects.get"]
+[debug] [2018-11-19T19:12:17.439Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-11-19T19:12:17.439Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2018-11-19T19:12:17.612Z] <<< HTTP RESPONSE 200
+[debug] [2018-11-19T19:12:17.629Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/alphabetter-tap-v1:testIamPermissions  
+
+[debug] [2018-11-19T19:12:17.879Z] <<< HTTP RESPONSE 200
+[debug] [2018-11-19T19:12:17.880Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/alphabetter-tap-v1  
+ 
+[debug] [2018-11-19T19:12:18.345Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/liannes/Desktop/tap'...
+[info] 
+[debug] [2018-11-19T19:12:18.346Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/806333716389/clients/_:getWebAppConfig  
+ 
+[debug] [2018-11-19T19:12:18.755Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: tap_project
+[info] ✔  hosting: Local server: http://localhost:5000
