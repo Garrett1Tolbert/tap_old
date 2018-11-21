@@ -916,9 +916,10 @@ function searchUsingEnter(e) {
   searchBar_value = document.getElementById('search');
   document.getElementById('resultsItem').innerHTML = "";
 
+  
   searchLabel(searchBar_value.value);
   searchEmail(searchBar_value.value);
-  console.log("INPUT");
+  console.log("INPUT", searchBar_value.value);
   // window.addEventListener('input', function(){
   //   console.log("VALUE: ", searchBar_value.value);
   //
@@ -945,7 +946,7 @@ function searchUsingEnter(e) {
 function addSearchResult(id) {
   var newResult = document.createElement("p");
   var currentDiv = document.getElementById('resultsItem');
-  
+
   if ($('#resultsItem').height() >= 300) {
     currentDiv.style.height = $('#resultsItem').height() + 'px';
     currentDiv.style.overflowY = "scroll";
