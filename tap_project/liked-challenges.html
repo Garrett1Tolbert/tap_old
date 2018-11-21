@@ -69,11 +69,17 @@
             <div id="searchbar" class="box" style="float:right">
               <div class="searchbar">
                 <span onclick="searchUsingClick()" class="icon"><i class="fa fa-search"></i></span>
-<input type="text" id= "search" onkeyup="searchUsingEnter(event)" placeholder="Search for a username, genre, or artist" name="search" aria-label="Search bar">              </div>
+                <input type="text" id= "search" onkeyup="searchUsingEnter(event)" placeholder="Search for a username, genre, or artist" name="search" aria-label="Search bar">              </div>
             </div>
+            <ul id="searchResults">
+              <div id="resultsItem" >
 
+              </div>
+            </ul>
+          </div>
           </div>
         </nav>
+
         <!-- Anonymous FAQ Modal -->
         <div class="modal fade" id="anonfaqModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
           <div class="modal-dialog" role="document">
@@ -132,18 +138,16 @@
             <div class="modal-dialog modal-lg">
               <div class="modal-content">
                 <div class="modal-header" style="padding: 0;">
-                  <div id="profileJumbotron" class="jumbotron jumbotron-fluid shadow" >
+                  <div class="jumbotron jumbotron-fluid shadow" style="background-color: #ffffff; width: -webkit-fill-available; padding-top: 35px; padding-bottom: 25px; margin: 0">
                     <div class="container">
                       <div class="row">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span id="exitProfile"aria-hidden="true" style="margin-right:2%">&times;</span>
-                        </button>
-                      </div>
-                      <div class="row" id="profileInfo">
-                        <div class="col-lg-4" id="profilePicSection">
+                        <div class="col-lg-4">
                           <img id="profilePage_Photo" class="rounded-circle shadow" src="images/default_profile_pic.png" style="border: 2px solid #FFC000; margin-left: 5px;" src="images/default_profile_pic.png" height="200px" width="200px"  alt="Your_Profile_Pic">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
                         </div>
-                        <div class="col-lg-8" id="ProfileDetailsSection">
+                        <div class="col-lg-8">
                           <h2 id="profilePage_Name" class="display-4" style="font-weight: bold; margin-top: 10%"></h2>
                           <p id="profilePage_Email" class="lead" style="color: #4f5051"></p>
                         </div>

@@ -1,4 +1,4 @@
-
+console.log("App loaded");
 var counter = 1;
 var currChallenge = "";
 
@@ -19,6 +19,7 @@ function initFirebaseAuth() {
 }
 
 function authStateObserver(user){
+  console.log("Observer called here.");
   if ((user && currentPageName() === "feed.html") || (user && currentPageName() == "my-challenges.html") || (user && currentPageName() == "liked-challenges.html")) {
     setProfileElements(user);
     setProfileModalElements(user);
@@ -83,6 +84,7 @@ function currentPageName(){
 
 
 function storeUserInfoByUID(uid, user, password=null){
+  console.log(user);
   const db = firebase.firestore();
   var usersRef = db.collection('users').doc(uid);
   usersRef.set({
@@ -157,7 +159,9 @@ function create() {
               photoURL: "images/default_profile_pic.png"
             }).then(function() {
               // Update successful.
+              console.log("Update successful.");
               var ref = firebase.firestore().collection('users').doc(user.uid);
+              console.log(ref);
               ref.get()
               .then(doc => {if (doc.exists){}else{
                 ref.set({
@@ -174,6 +178,7 @@ function create() {
                       unCompletedChallenges : []
                   })
                   .then(function() {
+                      console.log("Document successfully written!");
                       location.replace('feed.html');
                   })
                   .catch(function(error) {
@@ -204,6 +209,7 @@ function create() {
 }
 
 function googleLogin() {
+  console.log("Google login called...");
   const provider = new firebase.auth.GoogleAuthProvider();
 
   const db = firebase.firestore();
@@ -213,6 +219,7 @@ function googleLogin() {
     const user  = result.user;
 
     var ref = firebase.firestore().collection('users').doc(user.uid);
+    console.log(ref);
     ref.get()
     .then(doc => {if (doc.exists){location.replace('feed.html');}else{
       ref.set({
@@ -229,6 +236,7 @@ function googleLogin() {
             likedChallenges : []
         })
         .then(function() {
+            console.log("Document successfully written!");
             location.replace('feed.html');
         })
         .catch(function(error) {
@@ -255,13 +263,22 @@ function googleLogin() {
 
 function listenToEventsOnFeed(){
   $("#recordBtn").click(function() {
+    console.log("New Challenge Modal showing");
+    audio = null;
     $("#newChallengeModal").modal("show");
+    
+    // Set all the inputs to empty string
     var inputs = document.getElementsByTagName('input');
     for(var i = 0; i<inputs.length; i++) {
       inputs[i].value = '';
     }
+    // Uncheck all the radio boxes
+    for (var i = 1; i <= 4; ++i){
+      var radioElement = document.getElementById('radio' + i)
+      radioElement.checked = false;
+    }
     document.getElementById('correctAnswerAlert').style.display = "none";
-
+    console.log("New Challenge Modal shown");
   });
 
   $("#view_Profile").click(function() {
@@ -367,6 +384,7 @@ function addToCompletedChallenges(challengeToBeAdded){
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
       const db = firebase.firestore();
+      console.log("user id", user.uid);
       var completedChallenges = db.collection("users").doc(user.uid);
       completedChallenges.get().then(function(doc){
         if(doc.exists){
@@ -421,7 +439,7 @@ function grabFollowers() {
       var doc = db.collection("users").doc(user.uid);
      doc.get().then(function(doc) {
            if (doc.exists){
-
+               console.log("Document data:", doc.data().followers);
                var followers = doc.data().followers;
                document.getElementById('followersCount').innerHTML = followers.length;
                return doc.data().followers;
@@ -448,6 +466,7 @@ function grabFollowing() {
       var doc = db.collection("users").doc(user.uid);
      doc.get().then(function(doc) {
            if (doc.exists){
+              console.log("Document data:", doc.data().following);
               var following = doc.data().following;
               document.getElementById('followingCount').innerHTML = following.length;
 
@@ -494,6 +513,11 @@ function populateLabels(div,labelsArray) {
 
 function addElement (div,userPhoto, docID, docData, didCreate, status) {
   // window.alert(screen.width);
+ //console.log("Challenge Id:::",docID);
+ console.log("User photo: ", userPhoto);
+ console.log("Doc Id: ", docID);
+ console.log("doc Data", docData);
+ console.log("Did create ", didCreate);
   var newFavorite, newRepost;
 
   // create a new div element
@@ -551,7 +575,6 @@ function addElement (div,userPhoto, docID, docData, didCreate, status) {
   newPhoto.src = userPhoto;
   newPhoto.setAttribute("aria-label","challenge creator's profile photo");
   newPhoto.setAttribute("onclick","showProfile('"+newDiv.id+"')");
-
 
   contentDiv.appendChild(newPlay);
   newPlay.className = "fas fa-play";
@@ -631,6 +654,8 @@ function addElement (div,userPhoto, docID, docData, didCreate, status) {
 
   // add the newly created div and its content into the DOM
   var currentDiv = document.getElementById(div);
+  console.log("parameter",  div);
+  console.log("currentDic", currentDiv);
   currentDiv.appendChild(newDiv);
   //document.body.insertBefore(newDiv, currentDiv);
 
@@ -704,6 +729,7 @@ function grabFeedChallenges(){
             listOfFollowingPath.push(listOfFollowing[i].path);
           }
           getChallenges(listOfFollowingPath, user.uid);
+          ///console.log("Arrived List: ", challengesList);
 
         }}).catch(function(error) {
           console.log("Error getting document:", error);});
@@ -738,6 +764,7 @@ function getChallenges(listOfFollowingPath, currentUser){
           docUser.get().then(function(querySnapshot){
             if(querySnapshot.exists) {
               var completedChallenges = querySnapshot.data();
+              console.log("JUMMMM INTERESTING", completedChallenges);
               var isChallengeComplete = checkifChallengeisCompleted(doc.path, completedChallenges);
               if(!isChallengeComplete)
                 addElement("challenges-section",querySnapshot.data().profilePhoto,doc.id,doc.data(), false,status);
@@ -754,6 +781,8 @@ function getChallenges(listOfFollowingPath, currentUser){
 
 function checkifChallengeisCompleted(challengePath, listOfChallenges){
   var result = false;
+  console.log("PATH: ",challengePath);
+  console.log("LIST of CHALLENGES", listOfChallenges);
   for(var i=0;i<listOfChallenges.length;i++){
     if(listOfChallenges.get(i).path == challengePath){
       result = true;
@@ -768,9 +797,11 @@ function follow(userToFollowIdentifier){
     if (user) {
       var myself = db.collection("users").doc(user.uid);
       var toFollow = db.collection("users").doc(userToFollowIdentifier);
+      console.log("TO FOLLOW: ", toFollow);
       myself.get().then(function(myself) {
         if (myself.exists){
           var following = myself.data().following;
+          console.log("FOLLOWING ARRAY", following);
           if(following.some(value => value.id === userToFollowIdentifier)){
             var filtered = following.filter(function(value, index, arr){return value.id != userToFollowIdentifier;});
             var filteredUpdate = db.collection("users").doc(user.uid).update({
@@ -778,6 +809,7 @@ function follow(userToFollowIdentifier){
             toFollow.get().then(function(toFollow){
               if(toFollow.exists){
                 var followersOf = toFollow.data().followers;
+                console.log("Followers: ", followersOf);
                 var filteredFollowers = followersOf.filter(function(valueFollow, indexF, arrF){
                   return valueFollow.id != user.uid;});
                 var followerUpdate = db.collection("users").doc(userToFollowIdentifier).update({
@@ -788,6 +820,7 @@ function follow(userToFollowIdentifier){
 
               }
             else{
+              console.log("PLACE AT:", following);
               following.push(toFollow); //Push to the array the person you want to follow!
               var pushUpdate = db.collection("users").doc(user.uid).update({
                 following: following }).catch(function(error){console.log("Error updating document: ", error);});
@@ -892,6 +925,7 @@ function likeChallenge(challengeIdentifier){
               return value.id != doc.id;});
               var filteredLikedBy = likedby.filter(function(value, index, arr){
                 return value.id != user.uid;});
+              console.log("FILTERED LIKED BY: ", filteredLikedBy);
             var doc3 = db.collection("users").doc(user.uid).update({
               likedChallenges: filtered
             }).catch(function(error){console.log("Error updating document: ", error);});
@@ -957,23 +991,16 @@ function challengesLikedSearch(value){
   }).catch(function(error) {console.log("Error getting document:", error);});
 }
 
-// function searchUsingEnter(e) {
-//   searchBar_value = document.getElementById('search').value;
-//   if (e.keyCode == 13) {
-//     //window.alert(searchBar_value);
-//     searchLabel(searchBar_value);
-//     searchEmail(searchBar_value);
-//   }
-// }
 
 function searchUsingEnter(e) {
   searchBar_value = document.getElementById('search');
   document.getElementById('resultsItem').innerHTML = "";
-  if(searchBar_value.value == "")
-    return;
+
 
   searchLabel(searchBar_value.value);
   searchEmail(searchBar_value.value);
+  console.log("INPUT");
+
 }
 
 function addSearchResult(id) {
@@ -1000,6 +1027,7 @@ function searchLabel(labelEntered){
       var labels = doc.data().labels;
       for(var i=0;i<labels.length;i++){
         if(labels[i].toLowerCase().indexOf(labelEntered.toLowerCase())>=0){
+        //  console.log("INDICE: ", labels[i].indexOf(labelEntered));
             console.log("\nChallenge\n",doc.id, " => ", doc.data());
             addSearchResult("Challenge: " + doc.id);
         }
@@ -1016,6 +1044,7 @@ function searchEmail(emailEntered){
     querySnapshot.forEach(function(doc) {
       var labels = doc.data().email;
         if(labels.toLowerCase().indexOf(emailEntered.toLowerCase())>=0){
+          //console.log("INDICE: ", labels.indexOf(emailEntered));
             console.log("\nUsers\n",doc.id, " => ", doc.data());
             addSearchResult("User: " + doc.id);
         }
@@ -1025,6 +1054,17 @@ function searchEmail(emailEntered){
   });
 }
 
+
+// function searchEmail(emailEntered){
+//   const db = firebase.firestore();
+//   db.collection("users").where("email", "==", emailEntered).get()
+//   .then(function(querySnapshot) {
+//     querySnapshot.forEach(function(doc) {
+//     console.log(doc.id, " => ", doc.data());
+//   });}).catch(function(error) {
+//       console.log("Error getting documents: ", error);
+//   });
+// }
 
 function setPrivacy() {
   var publicStatus = true;
@@ -1077,7 +1117,9 @@ function getChallengeData(audioBlob) {
       //get answer
       var answerString = "answer_choice";
       answerString += correct_option.slice(-1);
+      // console.log("AnswerID: " + answerString);
       answer = document.getElementById(answerString).value;
+      console.log("Answer chosen: " + answer);
 
       //get labels
       var labelPos = 0;
@@ -1094,6 +1136,7 @@ function getChallengeData(audioBlob) {
           challengeLabels[labelPos] += labels.charAt(a);
         }
       }
+      console.log(challengeLabels);
 
       postChallenge(answer,challengeLabels,option1,option2,option3,option4, audioBlob, setPrivacy());
     }
@@ -1144,7 +1187,8 @@ function postChallenge(answer,label, option_1,option_2,option_3,option_4, audioB
         public: publicStatus
       })
       .then(function(docRef) {
-        storeBlobInStorage(docRef.id, audioBlob)
+        console.log("Document written with ID: ", docRef.id);
+        console.log( storeBlobInStorage(docRef.id, audioBlob) );
       })
       .catch(function(error) {
         console.error("Error adding document: ", error);
@@ -1184,36 +1228,17 @@ const recordAudio = () =>
 let recorder = null;
 let audio = null;
 async function recordStop() {
+  console.log("Anurag");
   if (recorder) {
    audio = await recorder.stop();
 
    $("#postModal").click(function(){
+     console.log(typeof blob);
      getChallengeData(blob);
    });
 
     var blob = audio.audioBlob;
-
-   const reader = new FileReader();
-   // This fires after the blob has been read/loaded.
-   // reader.addEventListener('loadend', (e) => {
-   //   const text = e.srcElement.result;
-   //   console.log(text);
-   //   $("#postModal").click(function(){
-   //     getChallengeData(text);
-   //   });
-   // });
-   // // Start reading the blob as text.
-   // reader.readAsText(blob);
-
-   // This fires after the blob has been read/loaded.
-
-     // $("#postModal").click(function(){
-     //   getChallengeData(blob);
-     // });
-
-   // Start reading the blob as text.
-
-   // reader.readAsArrayBuffer(blob);
+    console.log(typeof blob);
 
    recorder = null;
    document.querySelector("#record_stopBtn").setAttribute("src", "images/record_audio.png");
@@ -1254,8 +1279,10 @@ function storeBlobInStorage(challengeID, blob){
   // var pathToBlob = "recordings/" + challengeID;
   var recordingsChallengeIDRef = storageRef.child('recordings/' + challengeID);
 
+  console.log(typeof blob);
 
   recordingsChallengeIDRef.put(blob).then(function(snapshot) {
+    console.log('Uploaded a blob or file!');
     //return true;
   })
   .catch(function(error){
@@ -1275,6 +1302,8 @@ function getURLFromStorage(challengeID){
 
     returnURL = await recordingsChallengeIDRef.getDownloadURL();
     // `url` is the download URL for 'images/stars.jpg'
+
+    console.log(returnURL);
 
     resolve(returnURL);
   });

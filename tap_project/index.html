@@ -26,16 +26,16 @@
 
           <div class="container inside_create_account shadow p-3 mb-5 bg-white rounded">
             <div class="row">
-              <div class="col-lg-2 inside_section">
-              </div>
+              <div class="col-lg-2 inside_section"></div>
               <div id="main_content" class="col-lg-8 inside_section">
 
                 <!--LOGIN FRAGMENT-->
                 <div id="login_fragment" class="account_fragments">
-                  <h1 id="loginTitle" style="font-weight: bold;font-size: 2.75em; color: #4A4A4A; margin-top: 8%; text-align: center">Login</h1>
+                  <h1 id="loginTitle">Login</h1>
                   <button type="button" class="social_auth" id="google_auth" onclick="googleLogin()">
                     <div class="initial_screen_logos">
                       <img id="google_logo" src="images/icons8-google-plus-480.png" alt="google login">
+                      <span class="mobileInitial_screen_desc">Continue with Google</span>
                     </div>
                     <div class="initial_screen_desc">
                       Continue with Google
@@ -44,6 +44,7 @@
                   <button type="button" class="social_auth" id="facebook_auth">
                     <div class="initial_screen_logos">
                       <img id="facebook_logo" src="images/icons8-facebook-48.png" alt="facebook login">
+                      <span class="mobileInitial_screen_desc">Continue with Facebook</span>
                     </div>
                     <div class="initial_screen_desc">
                       Continue with Facebook
@@ -75,10 +76,11 @@
                 <!--CREATE FRAGMENT-->
                 <div id="create_fragment" class="account_fragments" style="display:none">
                   <!--CREATE ACCOUNT-->
-                  <h1 id="createTitle" style="font-weight: bold;font-size: 2.75em; color: #4A4A4A; margin-top: 8%; text-align: center">Create your personal account</h1>
+                  <h1 id="createTitle">Create Your Personal Account</h1>
                   <button type="button" class="social_auth" id="google_auth" onclick="googleLogin()">
                     <div class="initial_screen_logos">
-                      <img id="google_logo" src="images/icons8-google-plus-480.png" alt="google logo">
+                      <img id="google_logo" src="images/icons8-google-plus-480.png" alt="google login">
+                      <span class="mobileInitial_screen_desc">Continue with Google</span>
                     </div>
                     <div class="initial_screen_desc">
                       Continue with Google
@@ -86,7 +88,8 @@
                   </button>
                   <button type="button" class="social_auth" id="facebook_auth">
                     <div class="initial_screen_logos">
-                      <img id="facebook_logo" src="images/icons8-facebook-48.png" alt="facebook logo">
+                      <img id="facebook_logo" src="images/icons8-facebook-48.png" alt="facebook login">
+                      <span class="mobileInitial_screen_desc">Continue with Facebook</span>
                     </div>
                     <div class="initial_screen_desc">
                       Continue with Facebook
@@ -98,19 +101,19 @@
                   <div id="create_account_form">
                     <div class="row input_field top">
                       <div style="padding: 0; margin-left:0%" class="col">
-                        <input  style="font-size: 1.25em" id="create_fname" type="text" class="form-control" placeholder="First Name">
+                        <input  style="font-size: 1.25em" id="create_fname" type="text" class="form-control left_create_input" placeholder="First Name">
                       </div>
                       <div style="padding: 0" class="col">
-                        <input style="font-size: 1.25em" id="create_lname" type="text" class="form-control" placeholder="Last Name">
+                        <input style="font-size: 1.25em" id="create_lname" type="text" class="form-control right_create_input" placeholder="Last Name">
                       </div>
 
                     </div>
                     <div class="row input_field bottom" style="margin-top: 3%">
                       <div style="padding: 0; margin-left:0%" class="col">
-                        <input  style="font-size: 1.25em" id="create_email" type="email" class="form-control" placeholder="Email">
+                        <input  style="font-size: 1.25em" id="create_email" type="email" class="form-control left_create_input" placeholder="Email">
                       </div>
                       <div style="padding: 0" class="col">
-                        <input  style="font-size: 1.25em" id="create_password" type="password" class="form-control" placeholder="Password">
+                        <input  style="font-size: 1.25em" id="create_password" type="password" class="form-control right_create_input" placeholder="Password">
                       </div>
                     </div>
                     <div class="createAccount">
