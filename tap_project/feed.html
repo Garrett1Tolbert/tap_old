@@ -90,6 +90,277 @@
         </div> -->
 
         <div id="feed_body">
+          <div id="postChallengeModal" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+              <div class="modal-content">
+                <div class="modal-body" style="margin-top:5%; padding-bottom: 0">
+                  Adding challenge to feed 👍
+                  <p style="font-size: 0.75em; margin-top: 5%">Refreshing...</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- New Challenge Modal -->
+          <div id="newChallengeModal" class="modal fade bd-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header" style="">
+                  <h3 class="modal-title" id="newChallengeModalLabel" style="color: #537EA6; font-weight: 700;margin-left:30%;letter-spacing: 3px;">New Challenge</h3>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body" style="margin-top:5%; padding-bottom: 2%">
+                  <div class="row">
+                    <img id="record_stopBtn" data-toggle="tooltip" data-placement="top" title="Record Audio" onclick="recordStop()" src="images/record_audio.png" alt="record_audio" style="margin-left: 10%; margin-right: 5%">
+                    <img src="images/fake_audio_level.png" style="margin-left: 5%; margin-right: 5%" alt="audio_level">
+                    <img id="playbackAudioBtn" data-toggle="tooltip" data-placement="right" title="Playback" onclick="playAudio()" src="images/playback.png" style="margin-left: 5%; margin-right: 5%; margin-top: 15px;" height="35px" width="35px" alt="playback">
+                  </div>
+                  <div class="row" style="margin-top: 10%; height: 40px">
+                    <div id="option1" class="input-group input-group-sm mb-3" style="width: inherit; margin-left: 5%">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <input id="radio1" type="radio" name="correct_answer" aria-label="Radio button for following text input">
+                        </div>
+                      </div>
+                      <input id="answer_choice1" type="text" class="form-control challengeAnswers" placeholder="Answer Choice 1" style="margin-left: 0;" aria-label="Text input with radio button">
+                    </div>
+                    <div id="option2" class="input-group input-group-sm mb-3" style="width: inherit; margin-left: 5%">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <input id="radio2" type="radio" name="correct_answer" aria-label="Radio button for following text input">
+                        </div>
+                      </div>
+                      <input id="answer_choice2" type="text" class="form-control challengeAnswers" placeholder="Answer Choice 2" style="margin-left: 0;" aria-label="Text input with radio button">
+                    </div>
+                    <div id="label" class="input-group input-group-sm mb-3" style="width: 275px; margin-left: 5%">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">Labels</span>
+                      </div>
+                      <input id="labels" type="text" class="form-control" style="margin-left: 0;" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="separate labels by comma(,)">
+                    </div>
+                  </div>
+                  <div class="row" style="height: 40px">
+                    <div id="option3" class="input-group input-group-sm mb-3" style="width: inherit; margin-left: 5%">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <input id="radio3" type="radio" name="correct_answer" aria-label="Radio button for following text input">
+                        </div>
+                      </div>
+                      <input id="answer_choice3" type="text" class="form-control challengeAnswers" placeholder="Answer Choice 3" style="margin-left: 0;" aria-label="Text input with radio button">
+                    </div>
+                    <div id="option4" class="input-group input-group-sm mb-3" style="width: inherit; margin-left: 5%">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <input id="radio4" type="radio" name="correct_answer" aria-label="Radio button for following text input">
+                        </div>
+                      </div>
+                      <input id="answer_choice4" type="text" class="form-control challengeAnswers" placeholder="Answer Choice 4" style="margin-left: 0;" aria-label="Text input with radio button">
+                    </div>
+                  </div>
+                  <div id="correctAnswerAlert" class="alert alert-danger fade show" role="alert" style=" display: none; width: 50%; margin-top: 2%; margin-bottom: 0; margin-left: 3.5%; font-size: 1em; color:#537EA6">
+                     <i class="fas fa-info-circle"></i> Don't forget to select the correct answer!
+                  </div>
+                  <div id="allAnswersRequiredAlert" class="alert alert-warning fade show" role="alert" style=" display: none; width: 65%; margin-top: 2%; margin-bottom: 0; margin-left: 3.5%; font-size: 1em; color:#537EA6">
+                     <i class="fas fa-info-circle"></i> You need to fill in all answer choices! Please try again.
+                  </div>
+                </div>
+                <div class="modal-footer" style="padding-bottom:0">
+                  <div class="col-lg-5" style="display:flex;align-items:center;">
+                    <p data-toggle="tooltip" data-placement="top" title="Toggle to set challenge to private/public" style="font-size:20px; width:110px;color:#525456; margin-left:3%"><i class="fas fa-info-circle" style="color: #537EA6;font-size: 20px;margin-right:4%;"></i>Privacy</p>
+                    <label class="switch">
+                      <input id="privacyFilter" onclick="setPrivacy()" type="checkbox">
+                      <span class="slider round"></span>
+                    </label>
+                  </div>
+                  <div class="col-lg-7" style="display:flex;justify-content:flex-end">
+                    <button id="cancelModal" type="button" class="btn btn-secondary" data-dismiss="modal" style="margin-right:1%">Cancel</button>
+                    <!-- <button id="postModal" type="button" class="btn btn-primary" onclick="getChallengeData()" style="background-color: #537EA6;border:0">POST</button> -->
+                    <button id="postModal" type="button" class="btn btn-primary">POST</button>
+                  </div>
+                </div>
+                <p id="privacySetting" style="color: #756868; margin-left:5%">Public</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Play Challenge Modal -->
+          <div id="playChallengeModal" class="modal fade bd-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h3 class="modal-title" id="playChallengeModalLabel" style="color: #537EA6; font-weight: 700;margin-left: 40%"></h3>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body" style="margin-top:5%; padding-bottom: 2%">
+                  <div class="row">
+                    <i id="play_stopBtn" data-toggle="tooltip" data-placement="top" title="Play Audio" class="fas fa-play fa-3x" style="color:#537EA6;margin-left: 10%; margin-right: 5%"></i>
+                    <!-- <img id="record_stopBtn" data-toggle="tooltip" data-placement="top" title="Play Audio"  src="images/play_challenge.png" alt="record_audio" style="margin-left: 10%; margin-right: 5%"> -->
+                    <img src="images/fake_audio_level.png" style="margin-left: 5%; margin-right: 5%" alt="audio_level">
+                    <img id="playbackAudioBtn" data-toggle="tooltip" data-placement="right" title="Playback" onclick="playAudio()" src="images/playback.png" style="margin-left: 5%; margin-right: 5%; margin-top: 15px;" height="35px" width="35px" alt="playback">
+                  </div>
+                  <div class="row" style="margin-top: 10%;margin-left: 15%; height: 40px">
+                    <div id="option1" class="input-group input-group-sm mb-3" style="width: inherit; margin-left: 5%">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <input id="play_answer_radio1" type="radio" name="correct_answer" aria-label="Radio button for following text input">
+                        </div>
+                      </div>
+                      <input id="play_answer_choice1" type="button" class="form-control playchallengeAnswers" value="Answer Choice 1" style="width: 200px;margin-left: 0;" aria-label="Challenge Answer choice">
+                    </div>
+                    <div id="option2" class="input-group input-group-sm mb-3" style="width: inherit; margin-left: 5%">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <input id="play_answer_radio2" type="radio" name="correct_answer" aria-label="Radio button for following text input">
+                        </div>
+                      </div>
+                      <input id="play_answer_choice2" type="button" class="form-control playchallengeAnswers" value="Answer Choice 2" style="width: 200px;margin-left: 0;" aria-label="Challenge Answer choice">
+                    </div>
+                  </div>
+                  <div class="row" style="height: 40px; margin-top: 2%;margin-left: 15%">
+                    <div id="option3" class="input-group input-group-sm mb-3" style="width: inherit; margin-left: 5%">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <input id="play_answer_radio3" type="radio" name="correct_answer" aria-label="Radio button for following text input">
+                        </div>
+                      </div>
+                      <input id="play_answer_choice3" type="button" class="form-control playchallengeAnswers" value="Answer Choice 3" style="width: 200px;margin-left: 0;" aria-label="Challenge Answer choice">
+                    </div>
+                    <div id="option4" class="input-group input-group-sm mb-3" style="width: inherit; margin-left: 5%">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <input id="play_answer_radio4" type="radio" name="correct_answer" aria-label="Radio button for following text input">
+                        </div>
+                      </div>
+                      <input id="play_answer_choice4" type="button" class="form-control playchallengeAnswers" value="Answer Choice 4" style="width: 200px;margin-left: 0;" aria-label="Challenge Answer choice">
+                    </div>
+                  </div>
+                  <div id="noAnswerAlert" class="alert alert-danger fade show" role="alert" style=" display: none; width: 65%; margin-top: 2%; margin-bottom: 0; margin-left: 3.5%; font-size: 1em; color:#537EA6">
+                     <i class="fas fa-info-circle"></i> You need to select an answer before checking!
+                  </div>
+                </div>
+                <div id="challengeFooter" class="modal-footer" style="justify-content: center; border:none; margin-top:3%">
+                  <!-- <button id="cancelModal" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button> -->
+                  <button id="checkAnswer" type="button" class="btn btn-primary" onclick="checkAnswers()">CHECK</button>
+                  <!-- add a modal inside here -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Profile Modal -->
+          <div id="profileModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header" style="padding: 0;">
+                  <div class="jumbotron jumbotron-fluid shadow" style="background-color: #ffffff; width: -webkit-fill-available; padding-top: 35px; padding-bottom: 25px; margin: 0">
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-lg-4">
+                          <img id="profilePage_Photo" class="rounded-circle shadow" src="images/default_profile_pic.png" style="border: 2px solid #FFC000; margin-left: 5px;" src="images/default_profile_pic.png" height="200px" width="200px"  alt="Your_Profile_Pic">
+                        </div>
+                        <div class="col-lg-8">
+                          <h2 id="profilePage_Name" class="display-4" style="font-weight: bold; margin-top: 10%"></h2>
+                          <p id="profilePage_Email" class="lead" style="color: #4f5051"></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-body" style="margin: 0">
+                  <div id="followers_following_view" class="row" style="margin-top: 5%; margin-bottom: 5%;">
+                    <div id="section-followers" class="col-lg-6">
+                      <div id="section-followers-title" class="row">
+                        <h3 style="margin:auto; font-weight:bold; font-size: 2.25em; color: #537EA6">Followers</h3>
+                      </div>
+                      <div id="section-followers-count" class="row">
+                        <h1 id="followersCount" style="margin: auto; text-align: center; font-size: 5em; color: #FFC000; font-weight:bold"></h1>
+                      </div>
+                    </div>
+                    <div id="section-following" class="col-lg-6">
+                      <div class="row">
+                        <h3 style="margin:auto; font-weight:bold; font-size: 2.25em; color: #537EA6">Following</h3>
+                      </div>
+                      <div class="row">
+                        <h1 id="followingCount" style="margin: auto;text-align: center; font-size: 5em; color: #FFC000; font-weight:bold"></h1>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <div class="row" style="height: 100px">
+
+                  </div>
+                  <div class="row" style="height: 100px">
+
+                  </div> -->
+                </div>
+                <!-- <div class="modal-footer" >
+                  <button id="cancelModal" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                  <button id="postModal" type="button" class="btn btn-primary" onclick="getChallengeData()">POST</button>
+                </div> -->
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ Modal -->
+          <div class="modal fade" id="faqModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="faqModalTitle" style="color: #537EA6; margin-left: 45%; font-size: 1.5em;font-weight:bold">FAQ</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <h1 class="faq_questions" style="font-size:1.25em;color: #FFC000;text-transform:uppercase;">How do I earn more points?</h1>
+                  <p class="faq_answers" style="text-align: justify; background-color:#efefef; border-radius: 10px; padding: 5px">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
+                    pharetra tortor tortor, a rutrum eros porta eget. Proin diam neque,
+                    interdum venenatis nulla nec, interdum sollicitudin risus. Quisque
+                    mattis semper gravida. Fusce dictum purus in pulvinar elementum.
+                    Vestibulum eget ipsum id lorem vestibulum consequat. Donec convallis
+                    risus id sodales feugiat. Donec rhoncus finibus tincidunt. Donec feugiat
+                    cursus arcu, sit amet faucibus lorem vulputate eget.</p>
+                  <h1 class="faq_questions" style="font-size:1.25em;color: #FFC000;text-transform:uppercase; ">How do I create a challenge?</h1>
+                  <p class="faq_answers" style="text-align: justify; background-color:#efefef; border-radius: 10px; padding: 5px">Nulla rutrum congue eros sed vestibulum. Cras tristique interdum magna
+                    eu ornare. Vivamus sem leo, tincidunt nec ipsum congue, consequat lacinia
+                    purus. Quisque vitae pellentesque diam. Proin eu metus eu lorem maximus molestie.
+                    Nullam bibendum mauris et dui blandit ultricies tincidunt vel dolor. Suspendisse
+                    non commodo felis.</p>
+                  <h1 class="faq_questions" style="font-size:1.25em;color: #FFC000;text-transform:uppercase; ">What is Tap?</h1>
+                  <p class="faq_answers" style="text-align: justify; background-color:#efefef; border-radius: 10px; padding: 5px">Maecenas vitae facilisis arcu, sit amet auctor augue. Maecenas blandit,
+                    est nec tincidunt euismod, sem ipsum rhoncus nisl, nec efficitur diam magna eget purus. Cras
+                    et vehicula felis. Nulla pulvinar at elit fringilla mattis. Integer sit amet nunc quis nulla
+                    mollis finibus quis non eros. Nam nec lectus non mi malesuada tristique non non massa. Integer
+                    mollis posuere tempus. Aliquam vestibulum augue vitae diam ultrices, sed fringilla lectus viverra.
+                    Aenean vitae laoreet lacus. Nulla tempus porttitor sem ac pretium. In hac habitasse platea dictumst.
+                    Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
+                  <h1 class="faq_questions" style="font-size:1.25em;color: #FFC000;text-transform:uppercase;">How can I see my challenges?</h1>
+                  <p class="faq_answers" style="text-align: justify; background-color:#efefef; border-radius: 10px; padding: 5px">Phasellus feugiat, justo quis scelerisque
+                    pharetra, enim sem iaculis libero, vel auctor arcu ipsum eget turpis. Fusce facilisis at ex id euismod. Sed feugiat leo urna, vel
+                    luctus leo tincidunt et. Aenean at tincidunt nibh. Donec ante felis, rhoncus vel ipsum et, dictum dictum libero. Maecenas eget augue
+                    aliquet, vestibulum quam aliquam, aliquet nisi. Nullam felis ex, rutrum eget sapien nec, bibendum pharetra ipsum. Maecenas
+                    semper egestas est. Aenean pharetra, dui nec mollis elementum, tortor risus ultricies nulla, nec tristique massa ligula
+                    non ante. Nulla dapibus turpis eget tempus dictum. Praesent massa mauris, porta quis elit eget, condimentum cursus erat.
+                    Nunc elit justo, eleifend ac imperdiet ac, fringilla nec nisi. Praesent scelerisque, lectus in imperdiet finibus, augue magna
+                    dignissim velit, in porta nisl diam sed nunc.</p>
+                </div>
+                <div class="modal-footer">
+                  <div id="theTeam" style="width: inherit;">
+                    <span style="color: #5F6368; font-size: 1.25em;font-weight: 400; padding-left: 0; margin-right: 30px; letter-spacing: 2px">alphabetter ©</span>
+                    <img src="images/TheTeam/anurag.jpg" data-toggle="tooltip" data-placement="left" title="Anurag Yadav" class="rounded-circle theteam shadow-lg" width="40" height="40" style="margin: 0; padding: 0" alt="team_member">
+                    <img src="images/TheTeam/candace.jpg" data-toggle="tooltip" data-placement="bottom" title="Candace Williams" class="rounded-circle theteam shadow-lg" width="40" height="40" style="margin:0; padding: 0" alt="team_member">
+                    <img src="images/TheTeam/daniel.jpg" data-toggle="tooltip" data-placement="bottom" title="Daniel Erhabor" class="rounded-circle theteam shadow-lg" width="40" height="40" style="margin:0; padding: 0; transform:rotate(90deg)" alt="team_member">
+                    <img src="images/TheTeam/lianné.jpg" data-toggle="tooltip" data-placement="bottom" title="Lianne Sánchez" class="rounded-circle theteam shadow-lg" width="40" height="40" style="margin:0; padding: 0" alt="team_member">
+                    <img src="images/TheTeam/garrett.jpg" data-toggle="tooltip" data-placement="right" title="Garrett Tolbert" class="rounded-circle theteam shadow-lg" width="40" height="40" style="margin:0; padding: 0" alt="team_member">
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
 
           <div id="challengeArea">
               <div id="challenges-section" class="">
