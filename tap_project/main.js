@@ -254,10 +254,22 @@ function googleLogin() {
 
 function listenToEventsOnFeed(){
   $("#recordBtn").click(function() {
+<<<<<<< Updated upstream
+=======
+    console.log("New Challenge Modal showing");
+    audio = null;
+>>>>>>> Stashed changes
     $("#newChallengeModal").modal("show");
+    
+    // Set all the inputs to empty string
     var inputs = document.getElementsByTagName('input');
     for(var i = 0; i<inputs.length; i++) {
       inputs[i].value = '';
+    }
+    // Uncheck all the radio boxes
+    for (var i = 1; i <= 4; ++i){
+      var radioElement = document.getElementById('radio' + i)
+      radioElement.checked = false;
     }
     document.getElementById('correctAnswerAlert').style.display = "none";
 
@@ -1089,28 +1101,6 @@ async function recordStop() {
    });
 
     var blob = audio.audioBlob;
-
-   const reader = new FileReader();
-   // This fires after the blob has been read/loaded.
-   // reader.addEventListener('loadend', (e) => {
-   //   const text = e.srcElement.result;
-   //   console.log(text);
-   //   $("#postModal").click(function(){
-   //     getChallengeData(text);
-   //   });
-   // });
-   // // Start reading the blob as text.
-   // reader.readAsText(blob);
-
-   // This fires after the blob has been read/loaded.
-
-     // $("#postModal").click(function(){
-     //   getChallengeData(blob);
-     // });
-
-   // Start reading the blob as text.
-
-   // reader.readAsArrayBuffer(blob);
 
    recorder = null;
    document.querySelector("#record_stopBtn").setAttribute("src", "images/record_audio.png");
