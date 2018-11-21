@@ -706,7 +706,20 @@ button:hover, a:hover {
     margin: auto;
     width: 45%;
   }
-
+  #loginTitle {
+    font-weight: bold;
+    font-size: 2.75em;
+    color: #525456;
+    margin-top: 8%;
+    text-align: center;
+  }
+  #createTitle {
+    font-weight: bold;
+    font-size: 2.75em;
+    color: #4A4A4A;
+    margin-top: 8%;
+    text-align: center;
+  }
   /*FORM INFORMATION*/
   form .input_field.bottom {
     margin-top: 5%;
@@ -752,6 +765,19 @@ button:hover, a:hover {
     margin-left: 25%;
     margin-right: 25%;
     width: inherit;
+  }
+  #create_account_form {
+    width: 100%;
+  }
+  #create_fname,#create_email {
+    margin-left: 5%;
+    margin-right: 0;
+    width: 90%;
+  }
+  #create_lname,#create_password {
+    margin-left: 5%;
+    margin-right: 15%;
+    width: 90%;
   }
   /*END FORM INFORMATION*/
 
