@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <link rel="icon" href="images/Tap(Dark).png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Arvo:400,400i,700,700i" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+
+    <title>Login</title>
+  </head>
+  <body style="background-color: #FFC000">
+
+    <div class="container initial_screen">
+      <div class="row">
+        <div class="col-lg-2 section">
+        </div>
+        <div class="col-lg-8 section">
+          <img id="logo_is" src="images/Tap(Light).png" alt="Logo" height="175" width="175">
+
+          <div class="container inside_create_account shadow p-3 mb-5 bg-white rounded">
+            <div class="row">
+              <div class="col-lg-2 inside_section"></div>
+              <div id="main_content" class="col-lg-8 inside_section">
+
+                <!--LOGIN FRAGMENT-->
+                <div id="login_fragment" class="account_fragments">
+                  <h1 id="loginTitle">Login</h1>
+                  <button type="button" class="social_auth" id="google_auth" onclick="googleLogin()">
+                    <div class="initial_screen_logos">
+                      <img id="google_logo" src="images/icons8-google-plus-480.png" alt="google login">
+                      <span class="mobileInitial_screen_desc">Continue with Google</span>
+                    </div>
+                    <div class="initial_screen_desc">
+                      Continue with Google
+                    </div>
+                  </button>
+                  <button type="button" class="social_auth" id="facebook_auth">
+                    <div class="initial_screen_logos">
+                      <img id="facebook_logo" src="images/icons8-facebook-48.png" alt="facebook login">
+                      <span class="mobileInitial_screen_desc">Continue with Facebook</span>
+                    </div>
+                    <div class="initial_screen_desc">
+                      Continue with Facebook
+                    </div>
+                  </button>
+                  <img id="or_filler" src="images/or_filler.png" alt="or_filler">
+
+                  <!--FORM INFORMATION-->
+                  <div id="login_form">
+                    <div class="row input_field top">
+                      <div class="col">
+                        <input style="font-size: 1.25em" id="login_email" type="text" class="form-control" placeholder="Email">
+                      </div>
+                    </div>
+                    <div class="row input_field bottom" style="margin-top: 3%">
+                      <div class="col">
+                        <input style="font-size: 1.25em" id="login_password" type="password" class="form-control" placeholder="Password">
+                      </div>
+                    </div>
+                    <div class="login">
+                      <button id="btn_login"  type="submit" onclick="login()">LOGIN</button>
+                    </div>
+                    <a id="link_to_create">Don't have an account yet? Click here</a>
+                  </div>
+                  <!--END FORM INFORMATION-->
+                  <!--END LOGIN FRAGMENT-->
+                </div>
+
+                <!--CREATE FRAGMENT-->
+                <div id="create_fragment" class="account_fragments" style="display:none">
+                  <!--CREATE ACCOUNT-->
+                  <h1 id="createTitle">Create Your Personal Account</h1>
+                  <button type="button" class="social_auth" id="google_auth" onclick="googleLogin()">
+                    <div class="initial_screen_logos">
+                      <img id="google_logo" src="images/icons8-google-plus-480.png" alt="google login">
+                      <span class="mobileInitial_screen_desc">Continue with Google</span>
+                    </div>
+                    <div class="initial_screen_desc">
+                      Continue with Google
+                    </div>
+                  </button>
+                  <button type="button" class="social_auth" id="facebook_auth">
+                    <div class="initial_screen_logos">
+                      <img id="facebook_logo" src="images/icons8-facebook-48.png" alt="facebook login">
+                      <span class="mobileInitial_screen_desc">Continue with Facebook</span>
+                    </div>
+                    <div class="initial_screen_desc">
+                      Continue with Facebook
+                    </div>
+                  </button>
+                  <img id="or_filler" src="images/or_filler.png" alt="page divider">
+
+                  <!--FORM INFORMATION-->
+                  <div id="create_account_form">
+                    <div class="row input_field top">
+                      <div style="padding: 0; margin-left:0%" class="col">
+                        <input  style="font-size: 1.25em" id="create_fname" type="text" class="form-control left_create_input" placeholder="First Name">
+                      </div>
+                      <div style="padding: 0" class="col">
+                        <input style="font-size: 1.25em" id="create_lname" type="text" class="form-control right_create_input" placeholder="Last Name">
+                      </div>
+
+                    </div>
+                    <div class="row input_field bottom" style="margin-top: 3%">
+                      <div style="padding: 0; margin-left:0%" class="col">
+                        <input  style="font-size: 1.25em" id="create_email" type="email" class="form-control left_create_input" placeholder="Email">
+                      </div>
+                      <div style="padding: 0" class="col">
+                        <input  style="font-size: 1.25em" id="create_password" type="password" class="form-control right_create_input" placeholder="Password">
+                      </div>
+                    </div>
+                    <div class="createAccount">
+                      <button  style="" id="btn_create_account" type="submit" onclick="create()">Create Account</button>
+                    </div>
+                    <a id="link_to_login">Already have an account? Click here</a>
+                  </div>
+                  <!--END FORM INFORMATION-->
+                  <!--END CREATE FRAGMENT-->
+                </div>
+              </div>
+              <div class="col-lg-2 inside_section">
+                <img style="float:right" src="images/lock.png" alt="security_lock">
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-lg-2 section">
+        </div>
+      </div>
+    </div>
+
+
+    <!--SCRIPTS-->
+  </script>
+
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+      <script>
+        document.getElementById("link_to_create").addEventListener("click",function() {
+          document.getElementById("login_fragment").style.display = "none";
+          document.getElementById("create_fragment").style.display = "block";
+          console.log("Click event going to create account fragment");
+        });
+        document.getElementById("link_to_login").addEventListener("click",function() {
+          document.getElementById("create_fragment").style.display = "none";
+          document.getElementById("login_fragment").style.display = "block";
+          console.log("Click event going to login fragment");
+        });
+    </script>
+
+
+    <!-- Firebase App is always required and must be first -->
+    <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase-app.js"></script>
+
+    <!-- Add additional services that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase-auth.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase-database.js"></script> -->
+    <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase-firestore.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase-messaging.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase-functions.js"></script> -->
+    <script src="https://www.gstatic.com/firebasejs/5.5.6/firebase-storage.js"></script>
+
+    <!-- Comment out (or don't include) services that you don't want to use -->
+
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyAIpR8O8xEDrSitpVI6jpVBEvXU5reQLNM",
+      authDomain: "alphabetter-tap-v1.firebaseapp.com",
+      databaseURL: "https://alphabetter-tap-v1.firebaseio.com",
+      projectId: "alphabetter-tap-v1",
+      storageBucket: "alphabetter-tap-v1.appspot.com"
+      // messagingSenderId: "806333716389"
+    };
+    firebase.initializeApp(config);
+</script>
+  <script src="main.js"> </script>
+  </body>
+</html>
