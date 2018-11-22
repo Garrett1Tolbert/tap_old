@@ -303,7 +303,7 @@
             </div>
           </div>
 
-
+          <!-- Another User Modal -->
           <div id="followingProfileModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
               <div class="modal-content">
@@ -346,12 +346,7 @@
                       </div>
                     </div>
                   </div>
-                  <!-- <div class="row" style="height: 100px">
-
-                  </div>
-                  <div class="row" style="height: 100px">
-
-                  </div> -->
+                  <button id="follow-unfollowUser" type="button" onclick="follow_unfollowUser()"></button>
                 </div>
                 <!-- <div class="modal-footer" >
                   <button id="cancelModal" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -416,63 +411,6 @@
               </div>
             </div>
           </div>
-
-          <!-- Another User Modal -->
-          <div id="userModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-              <div class="modal-content">
-                <div class="modal-header" style="padding: 0;">
-                  <div class="jumbotron jumbotron-fluid shadow" style="background-color: #ffffff; width: -webkit-fill-available; padding-top: 35px; padding-bottom: 25px; margin: 0">
-                    <div class="container">
-                      <div class="row">
-                        <div class="col-lg-4">
-                          <img id="userProfile_Photo" class="rounded-circle shadow" src="images/default_profile_pic.png" style="border: 2px solid #FFC000; margin-left: 5px;" src="images/default_profile_pic.png" height="200px" width="200px"  alt="Your_Profile_Pic">
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="col-lg-8">
-                          <h2 id="userProfile_Name" class="display-4" style="font-weight: bold; margin-top: 10%"></h2>
-                          <p id="userProfile_Email" class="lead" style="color: #4f5051"></p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="modal-body" style="margin: 0">
-                  <div id="followers_following_view" class="row" style="margin-top: 5%; margin-bottom: 5%;">
-                    <div id="section-followers" class="col-lg-6">
-                      <div id="section-followers-title" class="row">
-                        <h3 style="margin:auto; font-weight:bold; font-size: 2.25em; color: #537EA6">Followers</h3>
-                      </div>
-                      <div id="section-followers-count" class="row">
-                        <h1 id="userFollowersCount" style="margin: auto; text-align: center; font-size: 5em; color: #FFC000; font-weight:bold"></h1>
-                      </div>
-                    </div>
-                    <div id="section-following" class="col-lg-6">
-                      <div class="row">
-                        <h3 style="margin:auto; font-weight:bold; font-size: 2.25em; color: #537EA6">Following</h3>
-                      </div>
-                      <div class="row">
-                        <h1 id="userFollowingCount" style="margin: auto;text-align: center; font-size: 5em; color: #FFC000; font-weight:bold"></h1>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- <div class="row" style="height: 100px">
-
-                  </div>
-                  <div class="row" style="height: 100px">
-
-                  </div> -->
-                </div>
-                <!-- <div class="modal-footer" >
-                  <button id="cancelModal" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                  <button id="postModal" type="button" class="btn btn-primary" onclick="getChallengeData()">POST</button>
-                </div> -->
-              </div>
-            </div>
-          </div>
-
 
           <!-- FAQ Modal -->
           <div class="modal fade" id="faqModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">

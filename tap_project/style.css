@@ -239,8 +239,27 @@ button:hover, a:hover {
   }
   /*END FORM INFORMATION*/
 
+  /* FOLOOW/UNFOLLOW */
+  #follow-unfollowUser {
+    height: 50px;
+    color: white;
+    font-weight: bold;
+    font-size: 1.5em;
+    background-color: #537EA6;
+    border-radius: 10px;
+    width: 100%;
+    padding-left: 5%;
+  }
+  #follow-unfollowUser:focus, #follow-unfollowUser:active{
+    outline:none;
+  }
 
-
+  #follow_unfollow_icon {
+    margin-left: 0;
+    color:white;
+    height:50%;
+    width:50%;
+  }
 
   /* FULL APPLICATION */
 
@@ -426,7 +445,7 @@ button:hover, a:hover {
     bottom: 0;
     height: 18%;
     width: 100%;
-    position: fixed;
+    position: absolute;
     /* box-shadow: 1px -2px 5px red; */
   }
   .sidebar-footer{
@@ -781,7 +800,29 @@ button:hover, a:hover {
   }
   /*END FORM INFORMATION*/
 
+  /* FOLLOW/UNFOLLOWER */
+  .modal-body {
+    width: 55vw;
+  }
+  #follow-unfollowUser {
+    height: 50px;
+    color: white;
+    font-weight: bold;
+    font-size: 1.5em;
+    background-color: #537EA6;
+    border-radius: 10px;
+    width: 100%;
+    padding-left: 35%;
+  }
+  #follow-unfollowUser:focus, #follow-unfollowUser:active{
+    outline:none;
+  }
 
+  #follow_unfollow_icon {
+    color:white;
+    height:50%;
+    width:50%;
+  }
 
   /* FULL APPLICATION */
   #feed_page {
@@ -830,7 +871,7 @@ button:hover, a:hover {
   #challengeArea, #myChallengeArea{
     /* border: 5px solid green; */
   }
-  #profilePage_Photo {
+  #profilePage_Photo,#followPage_Photo {
     width: 200px;
     height: 200px;
   }

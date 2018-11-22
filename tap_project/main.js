@@ -397,6 +397,24 @@ function addToCompletedChallenges(challengeToBeAdded){
   });
 }
 
+function follow_unfollowUser() {
+  var icon = document.createElement("i");
+  var displayName = "Lianne";
+  icon.id = "follow_unfollow_icon";
+
+  if (1 == 2) {
+    icon.className = "fas fa-user-minus";
+
+    document.getElementById('follow-unfollowUser').innerHTML = "Unfollow " + displayName;
+  } else {
+    icon.className = "fas fa-user-plus";
+
+    document.getElementById('follow-unfollowUser').innerHTML = "Follow " + displayName;
+  }
+  if (screen.width > 600) {
+    document.getElementById('follow-unfollowUser').appendChild(icon);
+  }
+}
 
 function anonymousFAQ() {
   $("#anonfaqModal").modal("show");
@@ -421,6 +439,27 @@ function setProfileModalElements(user){
   document.getElementById('profilePage_Name').innerHTML = user.displayName;
   document.getElementById('profilePage_Email').innerHTML = user.email;
   document.getElementById('profilePage_Photo').setAttribute("src",user.photoURL);
+}
+
+function showProfile(challengeIdentifier){
+  //$("#followingProfileModal").modal("show");
+  const db = firebase.firestore();
+  db.collection("challenges").doc(challengeIdentifier).get().then(function(doc){
+    if(doc.exists){
+      var user = db.collection("users").doc(doc.data().creatorId.id);
+      user.get().then(function(queryResult){
+        if(queryResult.exists){
+          setFollowProfileElements(queryResult);
+          $("#followingProfileModal").modal("show");
+        }
+      }).catch(function(error) {
+        console.error("Could not find challenge: ", error);
+      });
+    }
+  }).catch(function(error) {
+    console.error("Could not find challenge: ", error);
+  });
+
 }
 
 function grabFollowers() {
@@ -560,14 +599,11 @@ function addElement (div,userPhoto, docID, docData, didCreate, status) {
   // newAnswer.className = "test-head";
   // newAnswer.innerHTML = docID;
 
-  // contentDiv.appendChild(newPhotoParent);
-  // newPhotoParent.setAttribute("href", console.log("CLICKING"));
-
   contentDiv.appendChild(newPhoto);
   newPhoto.className = "challengePhotos rounded-circle shadow";
   newPhoto.src = userPhoto;
   newPhoto.setAttribute("aria-label","challenge creator's profile photo");
-  newPhoto.setAttribute("onclick","showProfile('"+newDiv.id+"')");
+  newPhoto.setAttribute("onclick","showProfile('" + docID + "')");
 
   contentDiv.appendChild(newPlay);
   newPlay.className = "fas fa-play";
@@ -628,8 +664,6 @@ function addElement (div,userPhoto, docID, docData, didCreate, status) {
     // newEdit.style.float = "right";
     newEdit.style.marginLeft = "1%";
     newEdit.style.paddingTop = "3%";
-    var concatString = "getEditChallengeInfo('"+ newDiv.id+"')";
-    newEdit.setAttribute("onclick",concatString);
     newEdit.setAttribute("aria-label","edit a challenge");
     newEdit.classList.add("edit-button");
 
@@ -655,26 +689,6 @@ function addElement (div,userPhoto, docID, docData, didCreate, status) {
   counter++;
 }
 
-function showProfile(challengeIdentifier){
-  //$("#followingProfileModal").modal("show");
-  const db = firebase.firestore();
-  db.collection("challenges").doc(challengeIdentifier).get().then(function(doc){
-    if(doc.exists){
-      var user = db.collection("users").doc(doc.data().creatorId.id);
-      user.get().then(function(queryResult){
-        if(queryResult.exists){
-          setFollowProfileElements(queryResult);
-          $("#followingProfileModal").modal("show");
-        }
-      }).catch(function(error) {
-        console.error("Could not find challenge: ", error);
-      });
-    }
-  }).catch(function(error) {
-    console.error("Could not find challenge: ", error);
-  });
-
-}
 function grabMyChallenges(){
   var userChallenges = {};
   const db = firebase.firestore();
@@ -694,7 +708,8 @@ function grabMyChallenges(){
               likedByPath.push(likedBy[j].id);
             }
             if(likedByPath.includes(user.uid)) status=true;
-            addElement("myChallenges-section",user.photoURL,doc.id,doc.data(), true,status);
+          console.log(doc.id, " => ", doc.data());
+          addElement("myChallenges-section",user.photoURL,doc.id,doc.data(), true,status);
         });
     })
     .catch(function(error) {
@@ -759,8 +774,7 @@ function getChallenges(listOfFollowingPath, currentUser){
               var completedChallenges = querySnapshot.data();
               console.log("JUMMMM INTERESTING", completedChallenges);
               var isChallengeComplete = checkifChallengeisCompleted(doc.path, completedChallenges);
-              if(!isChallengeComplete)
-                addElement("challenges-section",querySnapshot.data().profilePhoto,doc.id,doc.data(), false,status);
+              addElement("challenges-section",querySnapshot.data().profilePhoto,doc.id,doc.data(), false,status);
           }
           }).catch(function(error) {
                 console.log("Error getting document:", error);});
@@ -851,54 +865,6 @@ function deleteChallenge(challengeIdentifier){
     console.error("Error removing document: ", error);
   });
   setTimeout("location.href = 'my-challenges.html'", 500);
-}
-
-function editChallenge(challengeIdentifier){
-  console.log("Challenge Identifier", challengeIdentifier);
-  const db = firebase.firestore();
-  db.collection("challenges").doc(challengeIdentifier).update({
-    public: setPrivacy(),
-    labels: getLabels()
-  }).catch(function(error){console.log("Error updating document: ", error);});
-    setTimeout("location.href = 'my-challenges.html'", 3000);
-}
-
-
-function getEditChallengeInfo(challengeIdentifier){
-  const db = firebase.firestore();
-  db.collection("challenges").doc(challengeIdentifier).get().then(function(doc){
-    if(doc.exists){
-      var options = doc.data().options;
-      var labels = doc.data().labels;
-      var labelString="";
-      var publicStatus = doc.data().public;
-      for(var answers=1;answers<=options.length;answers++){
-        document.getElementById('answer_choice'+answers).value = options[answers-1];
-        document.getElementById('answer_choice'+answers).readOnly = true;
-        if(options[answers-1]==doc.data().answer){
-          document.getElementById('radio'+answers).checked = true;
-        }
-        document.getElementById('radio'+answers).disabled = true;
-      }
-      for(var currLabel=0; currLabel<labels.length; currLabel++){
-        if(currLabel==0){labelString = labelString+labels[currLabel];}
-        else{labelString = labelString + ','+ labels[currLabel];}
-      }
-      document.getElementById('labels').value =labelString;
-      if (!publicStatus) {
-        document.getElementById('privacySetting').innerHTML = 'Private';
-        document.getElementById('privacyFilter').checked = true;
-      }
-      else{
-        document.getElementById('privacySetting').innerHTML = 'Public';
-        document.getElementById('privacyFilter').checked = false;
-      }
-      document.getElementById('challengeId').innerHTML=challengeIdentifier;
-      $("#editChallengeModal").modal("show");
-    }
-  }).catch(function(error) {
-    console.error("Could not find challenge: ", error);
-  });
 }
 
 function likeChallenge(challengeIdentifier){
@@ -1136,28 +1102,6 @@ function getChallengeData(audioBlob) {
   }
 }
 
-function getLabels(){
-  //get labels
-  var labels = document.getElementById('labels').value;
-  console.log("LABELS", labels);
-  var challengeLabels = [""];
-  var labelPos = 0;
-  for(var a = 0; a < labels.length; a++) {
-  if(labels.charAt(a) == ',') {
-      labelPos++;
-      challengeLabels[labelPos] = "";
-      continue;
-    }
-    else if (labels.charAt(a) == ' ' && labels.charAt(a-1) == ',') {
-      continue;
-    }
-    else {
-      challengeLabels[labelPos] += labels.charAt(a);
-    }
-  }
-  return challengeLabels;
-}
-
 function postChallenge(answer,label, option_1,option_2,option_3,option_4, audioBlob, publicStatus) {
 
   const db = firebase.firestore();
@@ -1169,6 +1113,7 @@ function postChallenge(answer,label, option_1,option_2,option_3,option_4, audioB
      //location.replace('feed.html');
      console.log("User is signed in.")
      // Add a new document with a generated id.
+     //let date = Date.parse('01 Jan 2000 00:00:00 GMT');
      db.collection("challenges").add({
         answer: answer,
         creatorId: firebase.firestore().doc('/users/'+user.uid),
