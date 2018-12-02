@@ -286,6 +286,12 @@ function listenToEventsOnFeed(){
   });
 
 }
+
+function getHint(hint){
+  console.log("Hint ", hint);
+  document.getElementById('hintInPopUp').innerHTML = hint;
+  $("#hintPopUp").modal("show");
+}
 function playChallenge(challengeIdentifier) {
   currChallenge = challengeIdentifier;
   const db = firebase.firestore();
@@ -295,6 +301,19 @@ function playChallenge(challengeIdentifier) {
       var creatorId =  doc.data().creatorId.id;
       listOfOptions =  doc.data().options;
       var audioStr = doc.data().audio;
+      var hint = doc.data().hint;
+      if(hint=="" || hint==undefined || hint==null){
+        document.getElementById('needHint').disabled = true;
+      }
+      else{
+        document.getElementById('needHint').disabled = false;
+
+        document.getElementById('needHint').setAttribute("onclick", "getHint('" + doc.data().hint + "')");
+        console.log("DOC", doc);
+      }
+      document.getElementById("challengeResults").innerHTML="";
+
+
       var doc2 = db.collection("users").doc(creatorId);
       doc2.get().then(async function(doc){
         if(doc.exists){
@@ -305,7 +324,10 @@ function playChallenge(challengeIdentifier) {
           document.getElementById('playChallengeModalLabel').style.marginLeft = "30%";
           for(var i=0;i<listOfOptions.length;i++){
             document.getElementsByClassName('form-control playchallengeAnswers')[i].value = listOfOptions[i];
+            document.getElementById('play_answer_radio'+(i+1)).checked=false;
+            document.getElementById('play_answer_radio'+(i+1)).disabled = false;
           }
+
           $("#playChallengeModal").modal("show");
 
           var audioURL = await getURLFromStorage(challengeIdentifier);
@@ -331,7 +353,7 @@ function playChallenge(challengeIdentifier) {
 }
 
 function checkAnswers() {
-  window.alert("Challenge: " + currChallenge);
+  //window.alert("Challenge: " + currChallenge);
   //an answer is not selected as the correct answer
   if(!(document.getElementById('play_answer_radio1').checked || document.getElementById('play_answer_radio2').checked
   || document.getElementById('play_answer_radio3').checked || document.getElementById('play_answer_radio4').checked)) {
@@ -349,20 +371,39 @@ function checkAnswers() {
         break;
       }
     }
+
     //get answer
     var answerString = "play_answer_choice";
     answerString += correct_option.slice(-1);
     answer = document.getElementById(answerString).value;
+
+    var div = document.getElementById("challengeResults");
+    //div.innerHTML="";
+    var newAnswer = document.createElement("h3");
+    newAnswer.className = "test-head";
+
+    div.appendChild(newAnswer);
 
     const db = firebase.firestore();
     var getAnswer = db.collection("challenges").doc(currChallenge);
     getAnswer.get().then(function(doc){
       if(doc.exists){
         if(doc.data().answer == answer){
-          console.log("YOU ARE CORRECT!!!!!!!");
+          newAnswer.style.color = "#00cc00";
+          newAnswer.innerHTML = "YOU ARE CORRECT!";
+          for(var j=0;j<4;j++){
+            document.getElementById('play_answer_radio'+(j+1)).disabled = true;
+          }
+          setTimeout("location.href = 'feed.html'", 2000);
         }
         else{
-          console.log("WRONGGGG!!!")
+          newAnswer.style.color = "#ff3300";
+          newAnswer.innerHTML = "AW TOO BAD!";
+          newAnswer.setAttribute("id","wrongId");
+          newAnswer.setAttribute("onclick","getAnswer('"+ doc.data().answer+"')");
+          for(var j=0;j<4;j++){
+            document.getElementById('play_answer_radio'+(j+1)).disabled = true;
+          }
         }
       }
     }).catch(function(error) {
@@ -370,6 +411,10 @@ function checkAnswers() {
     });
     addToCompletedChallenges(currChallenge);
   }
+}
+function getAnswer(answer){
+  document.getElementById('wrongId').style.color = "#537EA6";
+  document.getElementById('wrongId').innerHTML = "Correct Answer: " + answer;
 }
 
 function addToCompletedChallenges(challengeToBeAdded){
@@ -397,24 +442,91 @@ function addToCompletedChallenges(challengeToBeAdded){
   });
 }
 
-function follow_unfollowUser() {
+function follow_unfollowUser(isFollowing) {
   var icon = document.createElement("i");
   var displayName = "Lianne";
   icon.id = "follow_unfollow_icon";
 
-  if (1 == 2) {
+  if (isFollowing) {
     icon.className = "fas fa-user-minus";
-
     document.getElementById('follow-unfollowUser').innerHTML = "Unfollow " + displayName;
   } else {
     icon.className = "fas fa-user-plus";
-
     document.getElementById('follow-unfollowUser').innerHTML = "Follow " + displayName;
   }
   if (screen.width > 600) {
     document.getElementById('follow-unfollowUser').appendChild(icon);
   }
 }
+
+function follow(userToFollowIdentifier){
+  const db = firebase.firestore();
+  var icon = document.createElement("i");
+  icon.id = "follow_unfollow_icon";
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      var myself = db.collection("users").doc(user.uid);
+      var toFollow = db.collection("users").doc(userToFollowIdentifier);
+      myself.get().then(function(myself) {
+        if (myself.exists){
+          var following = myself.data().following;
+          if(following.some(value => value.id === userToFollowIdentifier)){
+            var filtered = following.filter(function(value, index, arr){return value.id != userToFollowIdentifier;});
+            var filteredUpdate = db.collection("users").doc(user.uid).update({
+              following: filtered }).catch(function(error){console.log("Error updating document: ", error);});
+            toFollow.get().then(function(toFollow){
+              if(toFollow.exists){
+                var followersOf = toFollow.data().followers;
+                  icon.className = "fas fa-user-plus";
+                document.getElementById('follow-unfollowUser').innerHTML = "Follow " + toFollow.data().firstname;
+                var filteredFollowers = followersOf.filter(function(valueFollow, indexF, arrF){
+                  return valueFollow.id != user.uid;});
+                var followerUpdate = db.collection("users").doc(userToFollowIdentifier).update({
+                  followers: filteredFollowers
+                }).then(function() {
+                  document.getElementById('followersFollowCount').innerHTML = filteredFollowers.length;
+                  console.log("Document successfully written!");
+                }).catch(function(error){console.log("Error updating document: ", error);});
+              }
+              }).catch(function(error){console.log("Error getting person to follow doc: ", error);});
+
+              }
+            else{
+              following.push(toFollow); //Push to the array the person you want to follow!
+
+              var pushUpdate = db.collection("users").doc(user.uid).update({
+                following: following }).catch(function(error){console.log("Error updating document: ", error);});
+              var toFollow2 = db.collection("users").doc(userToFollowIdentifier);
+              toFollow2.get().then(function(doc){
+                if(doc.exists){
+                  var followersOf2 = doc.data().followers;
+                  icon.className = "fas fa-user-minus";
+                  document.getElementById('follow-unfollowUser').innerHTML = "Unfollow " + doc.data().firstname;
+                  var myself2 = db.collection("users").doc(user.uid);
+                  myself2.get().then(function(doc2){
+                    if(doc2.exists){
+                      followersOf2.push(myself2);
+                      var pushFollowerUpdate = db.collection("users").doc(toFollow.id);
+                      pushFollowerUpdate.update({
+                        followers: followersOf2
+                      }).then(function() {
+                        document.getElementById('followersFollowCount').innerHTML = followersOf2.length;
+                        console.log("Document successfully written!");
+                      }).catch(function(error){console.log("Error updating documentsss: ", error);});
+                    }
+                  }).catch(function(error){console.log("Error updating document2: ", error);});
+                }
+              }).catch(function(error){console.log("Error getting toFollow user: ", error);});//good
+            }//close else
+          }
+      }).catch(function(error) {console.log("Error getting document:", error);});
+    }
+    else{
+      console.log("No user logged in");
+    }
+  });
+}
+
 
 function anonymousFAQ() {
   $("#anonfaqModal").modal("show");
@@ -432,6 +544,31 @@ function setFollowProfileElements(userPassed){
     document.getElementById('followPage_Photo').setAttribute("src",userPassed.data().profilePhoto);
     document.getElementById('followersFollowCount').innerHTML = userPassed.data().followers.length;
     document.getElementById('followingFollowCount').innerHTML = userPassed.data().following.length;
+    var button = document.getElementById('follow-unfollowUser');
+    button.setAttribute("onclick", "follow('" + userPassed.id + "')");
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        const db = firebase.firestore();
+        var doc = db.collection('users').doc(userPassed.id).get();
+        doc.then(function(doc){
+          if(doc.exists){
+            var followers = doc.data().followers;
+            for(var i=0; i<followers.length;i++){
+              followers[i] = followers[i].id;
+            }
+            if(followers.includes(user.uid)){
+              document.getElementById('follow-unfollowUser').innerHTML = "Unfollow " + userPassed.data().firstname;
+            }
+            else{
+              document.getElementById('follow-unfollowUser').innerHTML = "Follow " + userPassed.data().firstname;
+            }
+          }
+        }).catch(function(error) {console.log("Error getting document:", error);});
+      }
+    else{
+      console.log("No user logged in");
+    }
+  });
 }
 
 
@@ -546,10 +683,6 @@ function populateLabels(div,labelsArray) {
 function addElement (div,userPhoto, docID, docData, didCreate, status) {
   // window.alert(screen.width);
  //console.log("Challenge Id:::",docID);
- console.log("User photo: ", userPhoto);
- console.log("Doc Id: ", docID);
- console.log("doc Data", docData);
- console.log("Did create ", didCreate);
   var newFavorite, newRepost;
 
   // create a new div element
@@ -652,20 +785,29 @@ function addElement (div,userPhoto, docID, docData, didCreate, status) {
     newDelete.setAttribute("aria-label","delete your challenge");
     newDelete.style.color = "red";
     newDelete.style.paddingTop = "3%";
+    newDelete.style.marginLeft = "90%";
+    newDelete.style.float = "boottright";
     // newDiv.style.width = "33%";
 
     newDelete.classList.add("delete-button");
+
 
     //add edit icon
     var newEdit = document.createElement("i");
     contentDiv.appendChild(newEdit);
     newEdit.className = "fas fa-pencil-alt fa-2x";
     newEdit.style.color = "#525456";
-    // newEdit.style.float = "right";
-    newEdit.style.marginLeft = "1%";
+    newEdit.style.float = "left";
+  //  newEdit.style.marginRight = "90%";
+    var function_new = "getEditChallengeInfo('"+ newDiv.id+"')";
+    newEdit.setAttribute("onclick",function_new);
+     //ewEdit.style.float = "right";
+
+    newEdit.style.zIndex = "1000";
     newEdit.style.paddingTop = "3%";
     newEdit.setAttribute("aria-label","edit a challenge");
     newEdit.classList.add("edit-button");
+
 
     // if(screen.width < 601) {
     //   newDiv.style.width = "95%";
@@ -675,7 +817,7 @@ function addElement (div,userPhoto, docID, docData, didCreate, status) {
     //   newDiv.style.width = "33%";
     //
     // }
-}
+  }
 
   populateLabels(labelDiv,docData.labels);
 
@@ -687,6 +829,83 @@ function addElement (div,userPhoto, docID, docData, didCreate, status) {
   //document.body.insertBefore(newDiv, currentDiv);
 
   counter++;
+}
+function test() {
+  console.log("heeee");
+}
+
+function editChallenge(challengeIdentifier){
+  console.log("Challenge Identifier", challengeIdentifier);
+  const db = firebase.firestore();
+  db.collection("challenges").doc(challengeIdentifier).update({
+    public: setPrivacy(),
+    labels: getLabels(),
+    hint: getHintString()
+  }).catch(function(error){console.log("Error updating document: ", error);});
+    setTimeout("location.href = 'my-challenges.html'", 3000);
+}
+
+function getLabels(){
+  //get labels
+  var labels = document.getElementById('labels').value;
+  console.log("LABELS", labels);
+  var challengeLabels = [""];
+  var labelPos = 0;
+  for(var a = 0; a < labels.length; a++) {
+  if(labels.charAt(a) == ',') {
+      labelPos++;
+      challengeLabels[labelPos] = "";
+      continue;
+    }
+    else if (labels.charAt(a) == ' ' && labels.charAt(a-1) == ',') {
+      continue;
+    }
+    else {
+      challengeLabels[labelPos] += labels.charAt(a);
+    }
+  }
+  return challengeLabels;
+}
+
+
+function getEditChallengeInfo(challengeIdentifier){
+  console.log("hi");
+  const db = firebase.firestore();
+  db.collection("challenges").doc(challengeIdentifier).get().then(function(doc){
+    if(doc.exists){
+      var options = doc.data().options;
+      var labels = doc.data().labels;
+      var labelString="";
+      var publicStatus = doc.data().public;
+      for(var answers=1;answers<=options.length;answers++){
+        document.getElementById('answer_choice'+answers).value = options[answers-1];
+        document.getElementById('answer_choice'+answers).readOnly = true;
+        if(options[answers-1]==doc.data().answer){
+          document.getElementById('radio'+answers).checked = true;
+        }
+        document.getElementById('radio'+answers).disabled = true;
+      }
+      for(var currLabel=0; currLabel<labels.length; currLabel++){
+        if(currLabel==0){labelString = labelString+labels[currLabel];}
+        else{labelString = labelString + ','+ labels[currLabel];}
+      }
+      document.getElementById('labels').value =labelString;
+      document.getElementById('hints').value= doc.data().hint;
+      if (!publicStatus) {
+        document.getElementById('privacySetting').innerHTML = 'Private';
+        document.getElementById('privacyFilter').checked = true;
+      }
+      else{
+        document.getElementById('privacySetting').innerHTML = 'Public';
+        document.getElementById('privacyFilter').checked = false;
+      }
+      document.getElementById('challengeId').innerHTML=challengeIdentifier;
+
+      $("#editChallengeModal").modal("show");
+    }
+  }).catch(function(error) {
+    console.error("Could not find challenge: ", error);
+  });
 }
 
 function grabMyChallenges(){
@@ -796,65 +1015,6 @@ function checkifChallengeisCompleted(challengePath, listOfChallenges){
     }
   }
   return result;
-}
-
-function follow(userToFollowIdentifier){
-  const db = firebase.firestore();
-  firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-      var myself = db.collection("users").doc(user.uid);
-      var toFollow = db.collection("users").doc(userToFollowIdentifier);
-      console.log("TO FOLLOW: ", toFollow);
-      myself.get().then(function(myself) {
-        if (myself.exists){
-          var following = myself.data().following;
-          console.log("FOLLOWING ARRAY", following);
-          if(following.some(value => value.id === userToFollowIdentifier)){
-            var filtered = following.filter(function(value, index, arr){return value.id != userToFollowIdentifier;});
-            var filteredUpdate = db.collection("users").doc(user.uid).update({
-              following: filtered }).catch(function(error){console.log("Error updating document: ", error);});
-            toFollow.get().then(function(toFollow){
-              if(toFollow.exists){
-                var followersOf = toFollow.data().followers;
-                console.log("Followers: ", followersOf);
-                var filteredFollowers = followersOf.filter(function(valueFollow, indexF, arrF){
-                  return valueFollow.id != user.uid;});
-                var followerUpdate = db.collection("users").doc(userToFollowIdentifier).update({
-                  followers: filteredFollowers
-                }).catch(function(error){console.log("Error updating document: ", error);});
-              }
-              }).catch(function(error){console.log("Error getting person to follow doc: ", error);});
-
-              }
-            else{
-              console.log("PLACE AT:", following);
-              following.push(toFollow); //Push to the array the person you want to follow!
-              var pushUpdate = db.collection("users").doc(user.uid).update({
-                following: following }).catch(function(error){console.log("Error updating document: ", error);});
-              var toFollow2 = db.collection("users").doc(userToFollowIdentifier);
-              toFollow2.get().then(function(doc){
-                if(doc.exists){
-                  var followersOf2 = doc.data().followers;
-                  var myself2 = db.collection("users").doc(user.uid);
-                  myself2.get().then(function(doc2){
-                    if(doc2.exists){
-                      followersOf2.push(myself2);
-                      var pushFollowerUpdate = db.collection("users").doc(toFollow.id);
-                      pushFollowerUpdate.update({
-                        followers: followersOf2
-                      }).catch(function(error){console.log("Error updating documentsss: ", error);});
-                    }
-                  }).catch(function(error){console.log("Error updating document2: ", error);});
-                }
-              }).catch(function(error){console.log("Error getting toFollow user: ", error);});//good
-            }//close else
-          }
-      }).catch(function(error) {console.log("Error getting document:", error);});
-    }
-    else{
-      console.log("No user logged in");
-    }
-  });
 }
 
 function deleteChallenge(challengeIdentifier){
@@ -1097,12 +1257,16 @@ function getChallengeData(audioBlob) {
       }
       console.log(challengeLabels);
 
-      postChallenge(answer,challengeLabels,option1,option2,option3,option4, audioBlob, setPrivacy());
+      postChallenge(answer,challengeLabels,option1,option2,option3,option4, audioBlob, setPrivacy(), getHintString());
     }
   }
 }
+function getHintString(){
+  var hint = document.getElementById('hints').value;
+  return hint;
+}
 
-function postChallenge(answer,label, option_1,option_2,option_3,option_4, audioBlob, publicStatus) {
+function postChallenge(answer,label, option_1,option_2,option_3,option_4, audioBlob, publicStatus, hintString) {
 
   const db = firebase.firestore();
   $("#postChallengeModal").modal("show");
@@ -1122,7 +1286,8 @@ function postChallenge(answer,label, option_1,option_2,option_3,option_4, audioB
         // isAudioStored : storeBlobInStorage(),
         likedBy: [],
         time: firebase.firestore.FieldValue.serverTimestamp(),
-        public: publicStatus
+        public: publicStatus,
+        hint: hintString
       })
       .then(function(docRef) {
         console.log("Document written with ID: ", docRef.id);

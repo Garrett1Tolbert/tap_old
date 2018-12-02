@@ -542,6 +542,9 @@ button:hover, a:hover {
   #label,#labels {
     display: none;
   }
+  #hint,#hints {
+    display: none;
+  }
   #option1,#option2,#option3,#option4 {
     width: 42%;
     margin-left: 5%;
@@ -906,6 +909,15 @@ button:hover, a:hover {
     transition-duration: .25s;
 
   }
+  #needHint {
+    background-color:#ffc000;
+    border-color:#ffc000;
+    color:#525456;
+    width:150px;
+    transition-property: width;
+    transition-duration: .25s;
+
+  }
   #checkAnswer:hover {
 
     width: 200px;
@@ -1231,6 +1243,9 @@ button:hover, a:hover {
     margin-right: 5%;
   }
   #mobileLabel,#mobileLabels {
+    display: none;
+  }
+  #mobileHint,#mobileHints {
     display: none;
   }
   #option1,#option2,#option3,#option4 {
