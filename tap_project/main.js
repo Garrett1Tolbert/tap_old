@@ -1114,6 +1114,9 @@ function challengesLikedSearch(value){
 function searchUsingEnter(e) {
   searchBar_value = document.getElementById('search');
   document.getElementById('resultsItem').innerHTML = "";
+  if(searchBar_value.value==""){
+    return;
+  }
 
 
   searchLabel(searchBar_value.value);
