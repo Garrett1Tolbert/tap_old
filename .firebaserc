@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "alphabetter-tap-v1"
+    "default": "alphabetter-tap-v1",
+    "tap": "alphabetter-tap-v1"
   }
 }
