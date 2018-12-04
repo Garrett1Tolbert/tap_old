@@ -1270,6 +1270,44 @@ function getURLFromStorage(challengeID){
 
   // return returnURL;
 }
+
+async function timedCount() {
+    document.getElementById('demo').innerHTML = c;
+    // console.log(c);
+    if (c > 0){
+      c = c - 1;
+      time = setTimeout(timedCount, 1000);
+    }
+    else{
+      stopCount();
+      recordStop();
+    }
+}
+async function startCount() {
+    if (!timer_is_on) {
+        timer_is_on = 1;
+        timedCount();
+    }
+}
+async function stopCount() {
+    clearTimeout(time);
+    timer_is_on = 0;
+    c = 15
+    document.getElementById('demo').innerHTML = c;
+}
+let c = 15;
+let timer_is_on = 0;
+var time;
+$('#record_stopBtn').click(function(){
+  if (!timer_is_on){
+    startCount();
+    recordStop();
+  }
+  else{
+    stopCount();
+    recordStop();
+  }
+});
 //-----------------
 // Code that MUST be initlialized first when each HTML page loads
 //-----------------
