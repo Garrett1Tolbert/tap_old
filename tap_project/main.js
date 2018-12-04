@@ -264,10 +264,16 @@ function googleLogin() {
 function listenToEventsOnFeed(){
   $("#recordBtn").click(function() {
     console.log("New Challenge Modal showing");
+    audio = null;
     $("#newChallengeModal").modal("show");
     var inputs = document.getElementsByTagName('input');
     for(var i = 0; i<inputs.length; i++) {
       inputs[i].value = '';
+    }
+    // Uncheck all the radio boxes
+    for (var i = 1; i <= 4; ++i){
+      var radioElement = document.getElementById('radio' + i)
+      radioElement.checked = false;
     }
     document.getElementById('correctAnswerAlert').style.display = "none";
     console.log("New Challenge Modal shown");
@@ -859,6 +865,7 @@ function follow(userToFollowIdentifier){
 
 function deleteChallenge(challengeIdentifier){
   const db = firebase.firestore();
+  deleteBlobFromStorage(challengeIdentifier);
   db.collection("challenges").doc(challengeIdentifier).delete().then(function() {
     console.log("Document successfully deleted!");
   }).catch(function(error) {
@@ -1179,26 +1186,7 @@ async function recordStop() {
     console.log(typeof blob);
 
    const reader = new FileReader();
-   // This fires after the blob has been read/loaded.
-   // reader.addEventListener('loadend', (e) => {
-   //   const text = e.srcElement.result;
-   //   console.log(text);
-   //   $("#postModal").click(function(){
-   //     getChallengeData(text);
-   //   });
-   // });
-   // // Start reading the blob as text.
-   // reader.readAsText(blob);
 
-   // This fires after the blob has been read/loaded.
-
-     // $("#postModal").click(function(){
-     //   getChallengeData(blob);
-     // });
-
-   // Start reading the blob as text.
-
-   // reader.readAsArrayBuffer(blob);
 
    recorder = null;
    document.querySelector("#record_stopBtn").setAttribute("src", "images/record_audio.png");
@@ -1261,15 +1249,67 @@ function getURLFromStorage(challengeID){
     var returnURL = "not defined";
 
     returnURL = await recordingsChallengeIDRef.getDownloadURL();
-    // `url` is the download URL for 'images/stars.jpg'
 
     console.log(returnURL);
 
     resolve(returnURL);
   });
 
-  // return returnURL;
 }
+
+function deleteBlobFromStorage(challengeIdentifier){
+      // Create a reference to the file to delete
+      // Create a root reference
+    var storageRef = firebase.storage().ref();
+    var challengeReference = storageRef.child('recordings/' + challengeIdentifier);
+
+    // Delete the file
+    challengeReference.delete().then(function() {
+      // File deleted successfully
+      console.log("File deleted successfully.")
+    }).catch(function(error) {
+      // Uh-oh, an error occurred!
+      window.alert('Error:' + error);
+    });
+}
+
+async function timedCount() {
+    document.getElementById('demo').innerHTML = c;
+    // console.log(c);
+    if (c > 0){
+      c = c - 1;
+      time = setTimeout(timedCount, 1000);
+    }
+    else{
+      stopCount();
+      recordStop();
+    }
+}
+async function startCount() {
+    if (!timer_is_on) {
+        timer_is_on = 1;
+        timedCount();
+    }
+}
+async function stopCount() {
+    clearTimeout(time);
+    timer_is_on = 0;
+    c = 15
+    document.getElementById('demo').innerHTML = c;
+}
+let c = 15;
+let timer_is_on = 0;
+var time;
+$('#record_stopBtn').click(function(){
+  if (!timer_is_on){
+    startCount();
+    recordStop();
+  }
+  else{
+    stopCount();
+    recordStop();
+  }
+});
 //-----------------
 // Code that MUST be initlialized first when each HTML page loads
 //-----------------
