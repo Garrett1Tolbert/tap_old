@@ -1136,9 +1136,49 @@ function searchUsingEnter(e) {
 
 }
 
-function addSearchResult(id) {
-  var newResult = document.createElement("p");
+function addSearchResult(challengeType,id) {
   var currentDiv = document.getElementById('resultsItem');
+
+  var newResult = document.createElement("div");
+  newResult.className = "search-results";
+
+  var resultCol_one = document.createElement("div");
+  resultCol_one.className = "searchCol1 col-2";
+  var resultCol_one_img = document.createElement("img");
+  resultCol_one_img.className = "rounded-circle";
+  resultCol_one_img.style.width = "30px";
+  resultCol_one_img.style.height = "30px";
+  resultCol_one_img.style.marginTop = "1%";
+  resultCol_one_img.setAttribute("src","images/default_profile_pic.png");
+  // TODO: Get lianne to query user photo to place here
+
+  var resultCol_two = document.createElement("div");
+  resultCol_two.className = "searchCol2 col-8";
+
+  var resultCol_three = document.createElement("div");
+  resultCol_three.className = "searchCol3 col-2";
+
+  if (challengeType == "user") {  //search result is a user
+    var resultCol_two_text = document.createElement("p");
+    resultCol_two.appendChild(resultCol_two_text);
+    resultCol_two_text.innerHTML = "hi";
+    resultCol_two_text.style.textAlign = "center";
+    resultCol_two_text.style.fontSize = "1em";
+    resultCol_two_text.style.padding= "0";
+    // TODO: Get lianne to query user photo to place in the innerHTML
+    //       on the line above
+    var resultCol_three_text = document.createElement("p");
+
+  } else {  //search result is a challenge
+
+  }
+
+
+  newResult.appendChild(resultCol_one);
+  resultCol_one.appendChild(resultCol_one_img);
+
+  newResult.appendChild(resultCol_two);
+  newResult.appendChild(resultCol_three);
 
   if ($('#resultsItem').height() >= 300) {
     currentDiv.style.height = $('#resultsItem').height() + 'px';
@@ -1147,7 +1187,7 @@ function addSearchResult(id) {
     currentDiv.style.height = "auto";
   }
 
-  newResult.innerHTML = id;
+  // newResult.innerHTML = id;
   newResult.style.paddingLeft = "20px";
   currentDiv.appendChild(newResult);
 }
@@ -1162,7 +1202,7 @@ function searchLabel(labelEntered){
         if(labels[i].toLowerCase().indexOf(labelEntered.toLowerCase())>=0){
         //  console.log("INDICE: ", labels[i].indexOf(labelEntered));
             console.log("\nChallenge\n",doc.id, " => ", doc.data());
-            addSearchResult("Challenge: " + doc.id);
+            addSearchResult("challenge", doc.id);
         }
       }
   });}).catch(function(error) {
@@ -1179,7 +1219,7 @@ function searchEmail(emailEntered){
         if(labels.toLowerCase().indexOf(emailEntered.toLowerCase())>=0){
           //console.log("INDICE: ", labels.indexOf(emailEntered));
             console.log("\nUsers\n",doc.id, " => ", doc.data());
-            addSearchResult("User: " + doc.id);
+            addSearchResult("user", doc.id);
         }
 
   });}).catch(function(error) {

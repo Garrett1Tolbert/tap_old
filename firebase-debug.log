@@ -26,3 +26,55 @@
 [debug] [2018-11-22T01:36:49.031Z] <<< HTTP RESPONSE 200
 [info] i  hosting[alphabetter-tap-v1]: Serving hosting files from: tap_project
 [info] ✔  hosting[alphabetter-tap-v1]: Local server: http://localhost:5000
+[debug] [2018-11-22T01:53:35.272Z] ----------------------------------------------------------------------
+[debug] [2018-11-22T01:53:35.273Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2018-11-22T01:53:35.274Z] CLI Version:   4.2.1
+[debug] [2018-11-22T01:53:35.274Z] Platform:      darwin
+[debug] [2018-11-22T01:53:35.274Z] Node Version:  v10.10.0
+[debug] [2018-11-22T01:53:35.279Z] Time:          Wed Nov 21 2018 17:53:35 GMT-0800 (Pacific Standard Time)
+[debug] [2018-11-22T01:53:35.279Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-11-22T01:53:35.294Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-11-22T01:53:35.294Z] > authorizing via signed-in user
+[debug] [2018-11-22T01:53:35.296Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/alphabetter-tap-v1  
+ 
+[debug] [2018-11-22T01:53:36.098Z] <<< HTTP RESPONSE 200
+[debug] [2018-11-22T01:53:36.100Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/alphabetter-tap-v1  
+ 
+[debug] [2018-11-22T01:53:36.517Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/gtolbert/Desktop/tap'...
+[info] 
+[debug] [2018-11-22T01:53:36.519Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/806333716389/clients/_:getWebAppConfig  
+ 
+[debug] [2018-11-22T01:53:36.751Z] <<< HTTP RESPONSE 200
+[info] i  hosting[alphabetter-tap-v1]: Serving hosting files from: tap_project
+[info] ✔  hosting[alphabetter-tap-v1]: Local server: http://localhost:5000
+[debug] [2018-12-04T05:43:54.857Z] ----------------------------------------------------------------------
+[debug] [2018-12-04T05:43:54.859Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2018-12-04T05:43:54.859Z] CLI Version:   4.2.1
+[debug] [2018-12-04T05:43:54.859Z] Platform:      darwin
+[debug] [2018-12-04T05:43:54.859Z] Node Version:  v10.10.0
+[debug] [2018-12-04T05:43:54.861Z] Time:          Mon Dec 03 2018 21:43:54 GMT-0800 (Pacific Standard Time)
+[debug] [2018-12-04T05:43:54.861Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-12-04T05:43:54.876Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-12-04T05:43:54.876Z] > authorizing via signed-in user
+[debug] [2018-12-04T05:43:54.878Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-12-04T05:43:54.878Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+
+[debug] [2018-12-04T05:43:55.070Z] <<< HTTP RESPONSE 200
+[debug] [2018-12-04T05:43:55.093Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/alphabetter-tap-v1  
+ 
+[debug] [2018-12-04T05:43:55.585Z] <<< HTTP RESPONSE 200
+[debug] [2018-12-04T05:43:55.586Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/alphabetter-tap-v1  
+ 
+[debug] [2018-12-04T05:43:55.932Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/gtolbert/Desktop/tap'...
+[info] 
+[debug] [2018-12-04T05:43:55.934Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/806333716389/clients/_:getWebAppConfig  
+ 
+[debug] [2018-12-04T05:43:56.259Z] <<< HTTP RESPONSE 200
+[info] i  hosting[alphabetter-tap-v1]: Serving hosting files from: tap_project
+[info] ✔  hosting[alphabetter-tap-v1]: Local server: http://localhost:5000
