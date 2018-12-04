@@ -249,6 +249,7 @@ button:hover, a:hover {
     border-radius: 10px;
     width: 100%;
     padding-left: 5%;
+
   }
   #follow-unfollowUser:focus, #follow-unfollowUser:active{
     outline:none;
@@ -805,7 +806,7 @@ button:hover, a:hover {
 
   /* FOLLOW/UNFOLLOWER */
   .modal-body {
-    width: 55vw;
+    width: 100%;/*55vw;*/
   }
   #follow-unfollowUser {
     height: 50px;
@@ -815,7 +816,7 @@ button:hover, a:hover {
     background-color: #537EA6;
     border-radius: 10px;
     width: 100%;
-    padding-left: 35%;
+    /*padding-left: 35%;*/
   }
   #follow-unfollowUser:focus, #follow-unfollowUser:active{
     outline:none;
@@ -824,7 +825,8 @@ button:hover, a:hover {
   #follow_unfollow_icon {
     color:white;
     height:50%;
-    width:50%;
+    width: 5%;
+    margin-left: 5%;
   }
 
   /* FULL APPLICATION */
@@ -1053,12 +1055,16 @@ button:hover, a:hover {
   .delete-button {
     height: 35px;
     width: 35px;
-    margin-left: 0;
+    margin-left: 20%;
+    margin-right: 5%;
+    /*float: left;*/
   }
   .edit-button{
     height: 35px;
     width: 35px;
-    float: right;
+    margin-left: 56%;
+    margin-right: 5%;
+    /*float: right;*/
   }
   .delete-button:hover, .edit-button:hover{
     cursor: pointer;
@@ -1278,7 +1284,7 @@ button:hover, a:hover {
 
   #searchResults {
     padding: 0;
-    height: 350px;
+    height: 250px;
     width: 600px;
     /* border: 3px solid blue; */
     position: absolute;

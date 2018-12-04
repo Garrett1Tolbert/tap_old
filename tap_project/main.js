@@ -443,8 +443,9 @@ function addToCompletedChallenges(challengeToBeAdded){
 }
 
 function follow_unfollowUser(isFollowing) {
+
+  //var displayName = "Lianne";
   var icon = document.createElement("i");
-  var displayName = "Lianne";
   icon.id = "follow_unfollow_icon";
 
   if (isFollowing) {
@@ -477,8 +478,9 @@ function follow(userToFollowIdentifier){
             toFollow.get().then(function(toFollow){
               if(toFollow.exists){
                 var followersOf = toFollow.data().followers;
-                  icon.className = "fas fa-user-plus";
+                icon.className = "fas fa-user-plus";
                 document.getElementById('follow-unfollowUser').innerHTML = "Follow " + toFollow.data().firstname;
+                document.getElementById('follow-unfollowUser').appendChild(icon)
                 var filteredFollowers = followersOf.filter(function(valueFollow, indexF, arrF){
                   return valueFollow.id != user.uid;});
                 var followerUpdate = db.collection("users").doc(userToFollowIdentifier).update({
@@ -502,6 +504,7 @@ function follow(userToFollowIdentifier){
                   var followersOf2 = doc.data().followers;
                   icon.className = "fas fa-user-minus";
                   document.getElementById('follow-unfollowUser').innerHTML = "Unfollow " + doc.data().firstname;
+                  document.getElementById('follow-unfollowUser').appendChild(icon)
                   var myself2 = db.collection("users").doc(user.uid);
                   myself2.get().then(function(doc2){
                     if(doc2.exists){
@@ -544,6 +547,8 @@ function setFollowProfileElements(userPassed){
     document.getElementById('followPage_Photo').setAttribute("src",userPassed.data().profilePhoto);
     document.getElementById('followersFollowCount').innerHTML = userPassed.data().followers.length;
     document.getElementById('followingFollowCount').innerHTML = userPassed.data().following.length;
+    var icon = document.createElement("i");
+    icon.id = "follow_unfollow_icon";
     var button = document.getElementById('follow-unfollowUser');
     button.setAttribute("onclick", "follow('" + userPassed.id + "')");
     firebase.auth().onAuthStateChanged(function(user) {
@@ -558,9 +563,13 @@ function setFollowProfileElements(userPassed){
             }
             if(followers.includes(user.uid)){
               document.getElementById('follow-unfollowUser').innerHTML = "Unfollow " + userPassed.data().firstname;
+              icon.className = "fas fa-user-minus";
+              document.getElementById('follow-unfollowUser').appendChild(icon);
             }
             else{
               document.getElementById('follow-unfollowUser').innerHTML = "Follow " + userPassed.data().firstname;
+              icon.className = "fas fa-user-plus";
+              document.getElementById('follow-unfollowUser').appendChild(icon);
             }
           }
         }).catch(function(error) {console.log("Error getting document:", error);});
@@ -785,8 +794,8 @@ function addElement (div,userPhoto, docID, docData, didCreate, status) {
     newDelete.setAttribute("aria-label","delete your challenge");
     newDelete.style.color = "red";
     newDelete.style.paddingTop = "3%";
-    newDelete.style.marginLeft = "90%";
-    newDelete.style.float = "boottright";
+  //  newDelete.style.marginRight = "80%";
+  //  newDelete.style.float = "boottright";
     // newDiv.style.width = "33%";
 
     newDelete.classList.add("delete-button");
@@ -794,19 +803,19 @@ function addElement (div,userPhoto, docID, docData, didCreate, status) {
 
     //add edit icon
     var newEdit = document.createElement("i");
-    contentDiv.appendChild(newEdit);
+
     newEdit.className = "fas fa-pencil-alt fa-2x";
     newEdit.style.color = "#525456";
-    newEdit.style.float = "left";
-  //  newEdit.style.marginRight = "90%";
+    //newEdit.style.float = "left";
+  //newEdit.style.marginLeft = "80%";
     var function_new = "getEditChallengeInfo('"+ newDiv.id+"')";
     newEdit.setAttribute("onclick",function_new);
      //ewEdit.style.float = "right";
-
-    newEdit.style.zIndex = "1000";
+    //newEdit.style.zIndex = "1000";
     newEdit.style.paddingTop = "3%";
     newEdit.setAttribute("aria-label","edit a challenge");
     newEdit.classList.add("edit-button");
+    contentDiv.appendChild(newEdit);
 
 
     // if(screen.width < 601) {
@@ -1114,14 +1123,16 @@ function challengesLikedSearch(value){
 function searchUsingEnter(e) {
   searchBar_value = document.getElementById('search');
   document.getElementById('resultsItem').innerHTML = "";
-  if(searchBar_value.value==""){
+  if(searchBar_value.value=="" || searchBar_value.value==" "){
+    var currentDiv = document.getElementById('resultsItem');
+    currentDiv.style.height = '0px';
     return;
   }
 
 
   searchLabel(searchBar_value.value);
   searchEmail(searchBar_value.value);
-  console.log("INPUT");
+
 
 }
 
