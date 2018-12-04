@@ -1302,17 +1302,17 @@ button:hover, a:hover {
     z-index: 999;
   }
   .searchCol1 {
-    border: 3px solid blue;
+    /* border: 3px solid blue; */
     padding-top: 1%;
     padding-bottom: 1%;
     width: 15%;
   }
   .searchCol2 {
-    border: 3px solid red;
+    /* border: 3px solid red; */
     width: 70%;
   }
   .searchCol3 {
-    border: 3px solid green;
+    /* border: 3px solid green; */
     width: 15%;
   }
   .search-results {

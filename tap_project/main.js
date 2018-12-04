@@ -1145,9 +1145,10 @@ function addSearchResult(challengeType,id) {
   var resultCol_one = document.createElement("div");
   resultCol_one.className = "searchCol1 col-2";
   var resultCol_one_img = document.createElement("img");
+  resultCol_one.borderLeft = "5px solid lightgray";
   resultCol_one_img.className = "rounded-circle";
-  resultCol_one_img.style.width = "30px";
-  resultCol_one_img.style.height = "30px";
+  resultCol_one_img.style.width = "45px";
+  resultCol_one_img.style.height = "45px";
   resultCol_one_img.style.marginTop = "1%";
   resultCol_one_img.setAttribute("src","images/default_profile_pic.png");
   // TODO: Get lianne to query user photo to place here
@@ -1161,10 +1162,12 @@ function addSearchResult(challengeType,id) {
   if (challengeType == "user") {  //search result is a user
     var resultCol_two_text = document.createElement("p");
     resultCol_two.appendChild(resultCol_two_text);
-    resultCol_two_text.innerHTML = "hi";
+    resultCol_two_text.innerHTML = "Brandon Marshall";
     resultCol_two_text.style.textAlign = "center";
-    resultCol_two_text.style.fontSize = "1em";
+    resultCol_two_text.style.fontSize = "1.5em";
     resultCol_two_text.style.padding= "0";
+    resultCol_two_text.style.marginTop= "4%";
+    resultCol_two_text.style.color= "#525456";
     // TODO: Get lianne to query user photo to place in the innerHTML
     //       on the line above
     var resultCol_three_text = document.createElement("p");
