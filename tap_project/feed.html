@@ -204,13 +204,22 @@
                       </div>
                       <input id="answer_choice4" type="text" class="form-control challengeAnswers" placeholder="Answer Choice 4" style="margin-left: 0;" aria-label="Text input with radio button">
                     </div>
+                    <div id="hint" class="input-group input-group-sm mb-3" style="width: 275px; margin-left: 5%">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">Hint</span>
+                      </div>
+                      <input id="hints" type="text" class="form-control" style="margin-left: 0;" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="phrase or a sentence">
+                    </div>
                   </div>
                   <div id="mobileLabel" class="input-group input-group-sm mb-3">
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="inputGroup-sizing-sm">Labels</span>
                     </div>
+
                     <input id="mobileLabels" type="text" class="form-control" style="margin-left: 0;" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="separate labels by comma(,)">
+
                   </div>
+
 
                   <div id="correctAnswerAlert" class="alert alert-danger fade show" role="alert" style=" display: none; width: 50%; margin-top: 2%; margin-bottom: 0; margin-left: 3.5%; font-size: 1em; color:#537EA6">
                      <i class="fas fa-info-circle"></i> Don't forget to select the correct answer!
@@ -297,12 +306,36 @@
                 </div>
                 <div id="challengeFooter" class="modal-footer" style="justify-content: center; border:none; margin-top:3%">
                   <!-- <button id="cancelModal" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button> -->
-                  <button id="checkAnswer" type="button" class="btn btn-primary" onclick="checkAnswers()">CHECK</button>
+                  <button id="needHint" type="button" class="btn btn-primary" onclick="">NEED A HINT?</button>
+                  <button id="checkAnswer" type="button" class="btn btn-primary" onclick="checkAnswers()">SUBMIT</button>
+
                   <!-- add a modal inside here -->
                 </div>
+                <div id="challengeResults" class="modal-footer" style="justify-content: center; border:none; margin-top:3%">
+                  <!-- <button id="cancelModal" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button> -->
+
+                  <!-- add a modal inside here -->
+                </div>
+
               </div>
             </div>
           </div>
+
+          <!-- popup box modal starts here -->
+          <div id= "hintPopUp" class="modal fade demo-popup" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel-1" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h3 class="modal-title" id="hintPopUpModal" style="color: #537EA6; font-weight: 700;margin-left: 30%">Your Hint is...</h3>
+                  <button type="button" class="closes" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                </div>
+                <div class="modal-body">
+                  <P id="hintInPopUp">body of popup box</P>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal-->
 
           <!-- Another User Modal -->
           <div id="followingProfileModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
