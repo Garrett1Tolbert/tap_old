@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="testDiv" class="" style="border: 3px solid red;height:200px">
+
+    </div>
+    <button type="button" name="button" onclick="addIt()">add div</button>
+
+
+    <script>
+    function addIt() {
+      var currentDiv = document.getElementById('testDiv');
+      var newdiv = document.createElement("div");
+      newdiv.style.border = "3px solid blue";
+
+      var next1 = document.createElement("div");
+      next1.style.border = "3px solid black";
+      next1.style.height = "10px";
+      var next2 = document.createElement("div");
+      next2.style.border = "3px solid red";
+      next2.style.height = "10px";
+      var next3 = document.createElement("div");
+      next3.style.border = "3px solid green";
+      next3.style.height = "10px";
+
+
+      newdiv.appendChild(next1);
+      newdiv.appendChild(next2);
+      newdiv.appendChild(next3);
+      currentDiv.appendChild(newdiv);
+    }
+    </script>
+  </body>
+</html>
