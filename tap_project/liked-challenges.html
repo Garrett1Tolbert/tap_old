@@ -129,6 +129,133 @@
           </div>
         </div>
 
+        <!-- Play from Search Modal -->
+        <div id="playFromSearchChallengeModal" class="modal fade bd-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3 class="modal-title" id="playFromSearchChallengeModalLabel" style="color: #537EA6; font-weight: 700;margin-left: 40%"></h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body" style="margin-top:5%; padding-bottom: 2%">
+                <div class="row">
+                  <i id="play_stopBtn" data-toggle="tooltip" data-placement="top" title="Play Audio" class="fas fa-play fa-3x" style="color:#537EA6;margin-left: 10%; margin-right: 5%"></i>
+                  <!-- <img id="record_stopBtn" data-toggle="tooltip" data-placement="top" title="Play Audio"  src="images/play_challenge.png" alt="record_audio" style="margin-left: 10%; margin-right: 5%"> -->
+                  <img src="images/fake_audio_level.png" style="margin-left: 5%; margin-right: 5%" alt="audio_level">
+                  <img id="playbackAudioBtn" data-toggle="tooltip" data-placement="right" title="Playback" onclick="playAudio()" src="images/playback.png" style="margin-left: 5%; margin-right: 5%; margin-top: 15px;" height="35px" width="35px" alt="playback">
+                </div>
+                <div class="row" style="margin-top: 10%;margin-left: 15%; height: 40px">
+                  <div id="option1" class="input-group input-group-sm mb-3" style="width: inherit; margin-left: 5%">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <input id="play_answer_radio1" type="radio" name="correct_answer" aria-label="Radio button for following text input">
+                      </div>
+                    </div>
+                    <input id="play_answer_choice1" type="button" class="form-control playchallengeAnswers" value="Answer Choice 1" style="width: 200px;margin-left: 0;" aria-label="Challenge Answer choice">
+                  </div>
+                  <div id="option2" class="input-group input-group-sm mb-3" style="width: inherit; margin-left: 5%">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <input id="play_answer_radio2" type="radio" name="correct_answer" aria-label="Radio button for following text input">
+                      </div>
+                    </div>
+                    <input id="play_answer_choice2" type="button" class="form-control playchallengeAnswers" value="Answer Choice 2" style="width: 200px;margin-left: 0;" aria-label="Challenge Answer choice">
+                  </div>
+                </div>
+                <div class="row" style="height: 40px; margin-top: 2%;margin-left: 15%">
+                  <div id="option3" class="input-group input-group-sm mb-3" style="width: inherit; margin-left: 5%">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <input id="play_answer_radio3" type="radio" name="correct_answer" aria-label="Radio button for following text input">
+                      </div>
+                    </div>
+                    <input id="play_answer_choice3" type="button" class="form-control playchallengeAnswers" value="Answer Choice 3" style="width: 200px;margin-left: 0;" aria-label="Challenge Answer choice">
+                  </div>
+                  <div id="option4" class="input-group input-group-sm mb-3" style="width: inherit; margin-left: 5%">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <input id="play_answer_radio4" type="radio" name="correct_answer" aria-label="Radio button for following text input">
+                      </div>
+                    </div>
+                    <input id="play_answer_choice4" type="button" class="form-control playchallengeAnswers" value="Answer Choice 4" style="width: 200px;margin-left: 0;" aria-label="Challenge Answer choice">
+                  </div>
+                </div>
+                <div id="noAnswerAlert" class="alert alert-danger fade show" role="alert" style=" display: none; width: 65%; margin-top: 2%; margin-bottom: 0; margin-left: 3.5%; font-size: 1em; color:#537EA6">
+                   <i class="fas fa-info-circle"></i> You need to select an answer before checking!
+                </div>
+              </div>
+              <div id="challengeFooter" class="modal-footer" style="justify-content: center; border:none; margin-top:3%">
+                <!-- <button id="cancelModal" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button> -->
+                <button id="needHint" type="button" class="btn btn-primary" onclick="">NEED A HINT?</button>
+                <button id="checkAnswer" type="button" class="btn btn-primary" onclick="checkAnswers()">SUBMIT</button>
+
+                <!-- add a modal inside here -->
+              </div>
+              <div id="challengeResults" class="modal-footer" style="justify-content: center; border:none; margin-top:3%">
+                <!-- <button id="cancelModal" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button> -->
+
+                <!-- add a modal inside here -->
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Another User Modal -->
+        <div id="followingProfileModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header" style="padding: 0;">
+                <div id="profileJumbotron" class="jumbotron jumbotron-fluid shadow" >
+                  <div class="container">
+                    <div class="row">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span id="exitProfile"aria-hidden="true" style="margin-right:2%">&times;</span>
+                      </button>
+                    </div>
+                    <div class="row" id="profileInfo">
+                      <div class="col-lg-4" id="profilePicSection">
+                        <img id="followPage_Photo" class="rounded-circle shadow" src="images/default_profile_pic.png" style="border: 2px solid #FFC000; margin-left: 5px;" src="images/default_profile_pic.png" height="200px" width="200px"  alt="Your_Profile_Pic">
+                      </div>
+                      <div class="col-lg-8" id="ProfileDetailsSection">
+                        <h2 id="followPage_Name" class="display-4" style="font-weight: bold; margin-top: 10%"></h2>
+                        <p id="followPage_Email" class="lead" style="color: #4f5051"></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-body" style="margin: 0">
+                <div id="followers_following_view" class="row" style="margin-top: 5%; margin-bottom: 5%;">
+                  <div id="section-followers" class="col-lg-6">
+                    <div id="section-followers-title" class="row">
+                      <h3 style="margin:auto; font-weight:bold; font-size: 2.25em; color: #537EA6">Followers</h3>
+                    </div>
+                    <div id="section-followers-count" class="row">
+                      <h1 id="followersFollowCount" style="margin: auto; text-align: center; font-size: 5em; color: #FFC000; font-weight:bold"></h1>
+                    </div>
+                  </div>
+                  <div id="section-following" class="col-lg-6">
+                    <div class="row">
+                      <h3 style="margin:auto; font-weight:bold; font-size: 2.25em; color: #537EA6">Following</h3>
+                    </div>
+                    <div class="row">
+                      <h1 id="followingFollowCount" style="margin: auto;text-align: center; font-size: 5em; color: #FFC000; font-weight:bold"></h1>
+                    </div>
+                  </div>
+                </div>
+                <button id="follow-unfollowUser" type="button" onclick="follow_unfollowUser()"></button>
+              </div>
+              <!-- <div class="modal-footer" >
+                <button id="cancelModal" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button id="postModal" type="button" class="btn btn-primary" onclick="getChallengeData()">POST</button>
+              </div> -->
+            </div>
+          </div>
+        </div>
+
         <!-- <div id="anonymousAlert" class="alert alert-warning" role="alert" style="margin-top: 20%; width: 50%; margin-left: auto; margin-right: auto">
           This is a warning alert. For security purposes, user data will be hidden <a href="index.html" class="alert-link">until you Login</a>!
           <br> You can check out our FAQs <a id="anonymousFAQView"><span style="text-decoration: underline">here</span></a> for more details.

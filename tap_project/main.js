@@ -669,26 +669,16 @@ function grabFollowing() {
 function populateLabels(div,labelsArray) {
   var newlabel = document.createElement("p");
   // newlabel.style.backgroundColor = "lightgray";
-  if(labelsArray.length == 0) {
-    div.appendChild(newlabel);
-    // newlabel.innerHTML = "No Labels";
+  for (var i = 0; i < labelsArray.length; i++) {
+    var newlabel = document.createElement("p");
+    // newlabel.style.backgroundColor = "lightgray";
+    newlabel.innerHTML = "#" + labelsArray[i];
     newlabel.style.textAlign = "center";
-    newlabel.style.paddingBottom = "3%";
+    newlabel.style.fontStyle = "italic";
+    newlabel.style.paddingRight = "5%";
     newlabel.style.color = "#525456";
-    newlabel.style.margin = "0";
-
-    return;
-  } else {
-    for (var i = 0; i < labelsArray.length; i++) {
-      var newlabel = document.createElement("p");
-      div.appendChild(newlabel);
-      // newlabel.style.backgroundColor = "lightgray";
-      newlabel.innerHTML = "#" + labelsArray[i];
-      newlabel.style.textAlign = "left";
-      newlabel.style.fontStyle = "italic";
-      newlabel.style.paddingRight = "15%";
-      newlabel.style.color = "#525456";
-    }
+    newlabel.style.fontSize = "1.25em";
+    div.appendChild(newlabel);
   }
 }
 
@@ -832,7 +822,7 @@ function addElement (div,userPhoto, docID, docData, didCreate, status) {
     // }
   }
 
-  populateLabels(labelDiv,docData.labels);
+  // populateLabels(labelDivta.labels);
 
   // add the newly created div and its content into the DOM
   var currentDiv = document.getElementById(div);
@@ -1134,35 +1124,41 @@ function searchUsingEnter(e) {
   if(searchBar_value.value=="" || searchBar_value.value==" " ){
     var currentDiv = document.getElementById('resultsItem');
     currentDiv.style.height = '0px';
+    searchResults.hide();
     return;
   }
 
-  searchInput.focusout(function(e) {
-  searchBar_value.value="";
-  searchResults.hide();
+  searchResults.focusout(function(c) {
+    searchBar_value.value="";
+    searchResults.hide();
   });
 
   searchLabel(searchBar_value.value);
   searchEmail(searchBar_value.value);
   searchResults.show();
+  //searchResults.show();
 
 }
 
-function addSearchResult(challengeType,id) {
+
+function addSearchResult(challengeType,id, labels, userName, userPhoto,follow) {
   var currentDiv = document.getElementById('resultsItem');
 
   var newResult = document.createElement("div");
   newResult.className = "search-results";
+  // newResult.style.border = "3px solid lightgray";
+  newResult.style.borderRadius = "7px";
 
   var resultCol_one = document.createElement("div");
   resultCol_one.className = "searchCol1 col-2";
   var resultCol_one_img = document.createElement("img");
-  resultCol_one.borderLeft = "5px solid lightgray";
   resultCol_one_img.className = "rounded-circle";
+  resultCol_one_img.style.position = "relative";
   resultCol_one_img.style.width = "45px";
   resultCol_one_img.style.height = "45px";
   resultCol_one_img.style.marginTop = "1%";
-  resultCol_one_img.setAttribute("src","images/default_profile_pic.png");
+  resultCol_one_img.setAttribute("src",userPhoto);
+  resultCol_one_img.setAttribute("onclick","showSearchedProfile('" + id + "')");
   // TODO: Get lianne to query user photo to place here
 
   var resultCol_two = document.createElement("div");
@@ -1174,18 +1170,52 @@ function addSearchResult(challengeType,id) {
   if (challengeType == "user") {  //search result is a user
     var resultCol_two_text = document.createElement("p");
     resultCol_two.appendChild(resultCol_two_text);
-    resultCol_two_text.innerHTML = "Brandon Marshall";
+    resultCol_two_text.innerHTML = userName;
     resultCol_two_text.style.textAlign = "center";
     resultCol_two_text.style.fontSize = "1.5em";
     resultCol_two_text.style.padding= "0";
     resultCol_two_text.style.marginTop= "4%";
     resultCol_two_text.style.color= "#525456";
+    resultCol_two_text.innerHTML = userName;
     // TODO: Get lianne to query user photo to place in the innerHTML
     //       on the line above
-    var resultCol_three_text = document.createElement("p");
+    var resultCol_three_icon = document.createElement("i");
+    resultCol_three.appendChild(resultCol_three_icon);
+
+    resultCol_three_icon.style.width = "25px";
+    resultCol_three_icon.style.height = "25px";
+    resultCol_three_icon.style.marginTop = "5%";
+    resultCol_three.style.paddingTop = "3%";
+    resultCol_three_icon.setAttribute("onclick", "follow('"+ id +"')")
+    if(follow){
+      resultCol_three_icon.className = "fa fa-user-minus fa-1x";
+    }
+    else{
+      resultCol_three_icon.className = "fa fa-user-plus fa-1x";
+    }
 
   } else {  //search result is a challenge
+    resultCol_two.style.paddingTop = "3%";
 
+    var labelDiv = document.createElement("div");
+    labelDiv.style.overflowX = "scroll";
+    labelDiv.style.width = "100%";
+
+    if (labels.length == 1) {
+      labelDiv.style.display = "block";
+    } else {
+      labelDiv.style.display = "flex";
+    }
+
+    populateLabels(labelDiv,labels);
+
+    resultCol_two.appendChild(labelDiv);
+
+    var resultCol_three_icon = document.createElement("i");
+    resultCol_three.appendChild(resultCol_three_icon);
+    resultCol_three_icon.className = "fas fa-play fa-1x";
+    resultCol_three.style.paddingTop = "4%";
+    resultCol_three.setAttribute("onclick","playChallenge('" + id + "')")
   }
 
 
@@ -1207,17 +1237,44 @@ function addSearchResult(challengeType,id) {
   currentDiv.appendChild(newResult);
 }
 
+function me(id) {
+  alert("yeess: " +  id)
+}
+
+function showSearchedProfile(userIdentifier) {
+  const db = firebase.firestore();
+    var user = db.collection("users").doc(userIdentifier);
+    user.get().then(function(queryResult){
+      if(queryResult.exists){
+        setFollowProfileElements(queryResult);
+        $("#followingProfileModal").modal("show");
+      }
+    }).catch(function(error) {
+      console.error("Could not find challenge: ", error);
+    });
+}
+
 function searchLabel(labelEntered){
   const db = firebase.firestore();
   db.collection("challenges").get()
   .then(function(querySnapshot) {
     querySnapshot.forEach(function(doc) {
-      var labels = doc.data().labels;
-      for(var i=0;i<labels.length;i++){
-        if(labels[i].toLowerCase().indexOf(labelEntered.toLowerCase())>=0){
-        //  console.log("INDICE: ", labels[i].indexOf(labelEntered));
-            console.log("\nChallenge\n",doc.id, " => ", doc.data());
-            addSearchResult("challenge", doc.id);
+      if(doc.data().public){
+        var labels = doc.data().labels;
+        for(var i=0;i<labels.length;i++){
+          if(labels[i].toLowerCase().indexOf(labelEntered.toLowerCase())>=0){
+          //  console.log("INDICE: ", labels[i].indexOf(labelEntered));
+              console.log("\nChallenge\n",doc.id, " => ", doc.data());
+              var user = db.collection("users").doc(doc.data().creatorId.id).get();
+              user.then(function(docUser){
+                if(docUser.exists){
+                  addSearchResult("challenge", doc.id, doc.data().labels,null, docUser.data().profilePhoto,false);
+                }
+              }).catch(function(error){
+                console.log("Error getting documents: ", error);
+              });
+
+          }
         }
       }
   });}).catch(function(error) {
@@ -1227,19 +1284,32 @@ function searchLabel(labelEntered){
 
 function searchEmail(emailEntered){
   const db = firebase.firestore();
-  db.collection("users").get()
-  .then(function(querySnapshot) {
-    querySnapshot.forEach(function(doc) {
-      var labels = doc.data().email;
-        if(labels.toLowerCase().indexOf(emailEntered.toLowerCase())>=0){
-          //console.log("INDICE: ", labels.indexOf(emailEntered));
-            console.log("\nUsers\n",doc.id, " => ", doc.data());
-            addSearchResult("user", doc.id);
-        }
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      db.collection("users").get()
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+          var labels = doc.data().email;
+            if(labels.toLowerCase().indexOf(emailEntered.toLowerCase())>=0){
+              var followers = doc.data().followers;
+              var follow = false;
+                for(var i=0; i<followers.length;i++){
+                  if(followers[i].id == user.uid){
+                    follow=true;
+                  }
+                }
+                addSearchResult("user", doc.id,null,doc.data().firstname+" "+doc.data().lastname, doc.data().profilePhoto,follow);
+            }
 
-  });}).catch(function(error) {
-      console.log("Error getting documents: ", error);
+      });}).catch(function(error) {
+          console.log("Error getting documents: ", error);
+      });
+    }
+    else{
+      console.log("No user logged in");
+    }
   });
+
 }
 
 

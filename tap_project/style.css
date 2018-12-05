@@ -338,7 +338,26 @@ button:hover, a:hover {
     /* border: 3px solid green; */
     z-index: 999;
   }
-
+  .searchCol1 {
+    padding-top: 1%;
+    padding-bottom: 1%;
+    width: 15%;
+  }
+  .searchCol2 {
+    display: flex;
+    justify-content: center;
+    padding-right: 0;
+    width: 70%;
+  }
+  .searchCol3 {
+    width: 15%;
+  }
+  .search-results {
+    display: flex;
+  }
+  .search-results:hover .searchCol1 {
+    border-left: 3px solid #537EA6;
+  }
   /* Header */
   #feed_header,#myChall_header,#likedChall_header {
     height: 10%;
@@ -1302,22 +1321,23 @@ button:hover, a:hover {
     z-index: 999;
   }
   .searchCol1 {
-    /* border: 3px solid blue; */
     padding-top: 1%;
     padding-bottom: 1%;
     width: 15%;
   }
   .searchCol2 {
-    /* border: 3px solid red; */
+    display: flex;
+    justify-content: center;
+    padding-right: 0;
     width: 70%;
   }
   .searchCol3 {
-    /* border: 3px solid green; */
     width: 15%;
   }
   .search-results {
     display: flex;
-    justify-content: center;
-    /* border: 3px solid red; */
+  }
+  .search-results:hover .searchCol1 {
+    border-left: 3px solid #537EA6;
   }
 }
