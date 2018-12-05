@@ -1502,6 +1502,7 @@ function deleteBlobFromStorage(challengeIdentifier){
 
 async function timedCount() {
     document.getElementById('demo').innerHTML = c;
+    document.getElementById('demo').style.display = "block";
     // console.log(c);
     if (c > 0){
       c = c - 1;
@@ -1522,7 +1523,13 @@ async function stopCount() {
     clearTimeout(time);
     timer_is_on = 0;
     c = 15
-    document.getElementById('demo').innerHTML = c;
+    let timer = document.getElementById('demo');
+    let testt = document.getElementById('demo2');
+
+    timer.innerHTML = c;
+    timer.style.display = "none";
+    // testt.innerHTML = " bob";
+    // testt.style.color = "red";
 }
 let c = 15;
 let timer_is_on = 0;
