@@ -1143,7 +1143,7 @@ function searchUsingEnter(e) {
 }
 
 
-function addSearchResult(challengeType,id, labels, userName, userPhoto) {
+function addSearchResult(challengeType,id, labels, userName, userPhoto,follow) {
   var currentDiv = document.getElementById('resultsItem');
 
   var newResult = document.createElement("div");
@@ -1183,11 +1183,18 @@ function addSearchResult(challengeType,id, labels, userName, userPhoto) {
     //       on the line above
     var resultCol_three_icon = document.createElement("i");
     resultCol_three.appendChild(resultCol_three_icon);
-    resultCol_three_icon.className = "fa fa-user-plus fa-1x";
+
     resultCol_three_icon.style.width = "25px";
     resultCol_three_icon.style.height = "25px";
     resultCol_three_icon.style.marginTop = "5%";
     resultCol_three.style.paddingTop = "3%";
+    resultCol_three_icon.setAttribute("onclick", "follow('"+ id +"')")
+    if(follow){
+      resultCol_three_icon.className = "fa fa-user-minus fa-1x";
+    }
+    else{
+      resultCol_three_icon.className = "fa fa-user-plus fa-1x";
+    }
 
   } else {  //search result is a challenge
     resultCol_two.style.paddingTop = "3%";
@@ -1249,7 +1256,7 @@ function searchLabel(labelEntered){
             var user = db.collection("users").doc(doc.data().creatorId.id).get();
             user.then(function(docUser){
               if(docUser.exists){
-                addSearchResult("challenge", doc.id, doc.data().labels,null, docUser.data().profilePhoto);
+                addSearchResult("challenge", doc.id, doc.data().labels,null, docUser.data().profilePhoto,false);
               }
             }).catch(function(error){
               console.log("Error getting documents: ", error);
@@ -1264,19 +1271,32 @@ function searchLabel(labelEntered){
 
 function searchEmail(emailEntered){
   const db = firebase.firestore();
-  db.collection("users").get()
-  .then(function(querySnapshot) {
-    querySnapshot.forEach(function(doc) {
-      var labels = doc.data().email;
-        if(labels.toLowerCase().indexOf(emailEntered.toLowerCase())>=0){
-          //console.log("INDICE: ", labels.indexOf(emailEntered));
-            console.log("\nUsers\n",doc.id, " => ", doc.data());
-            addSearchResult("user", doc.id,null,doc.data().firstname+" "+doc.data().lastname, doc.data().profilePhoto);
-        }
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      db.collection("users").get()
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+          var labels = doc.data().email;
+            if(labels.toLowerCase().indexOf(emailEntered.toLowerCase())>=0){
+              var followers = doc.data().followers;
+              var follow = false;
+                for(var i=0; i<followers.length;i++){
+                  if(followers[i].id == user.uid){
+                    follow=true;
+                  }
+                }
+                addSearchResult("user", doc.id,null,doc.data().firstname+" "+doc.data().lastname, doc.data().profilePhoto,follow);
+            }
 
-  });}).catch(function(error) {
-      console.log("Error getting documents: ", error);
+      });}).catch(function(error) {
+          console.log("Error getting documents: ", error);
+      });
+    }
+    else{
+      console.log("No user logged in");
+    }
   });
+
 }
 
 
