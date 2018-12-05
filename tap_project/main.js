@@ -1126,19 +1126,22 @@ function searchUsingEnter(e) {
   if(searchBar_value.value=="" || searchBar_value.value==" " ){
     var currentDiv = document.getElementById('resultsItem');
     currentDiv.style.height = '0px';
+    searchResults.hide();
     return;
   }
 
-  searchInput.focusout(function(e) {
-  searchBar_value.value="";
-  searchResults.hide();
+  searchResults.focusout(function(c) {
+    searchBar_value.value="";
+    searchResults.hide();
   });
 
   searchLabel(searchBar_value.value);
   searchEmail(searchBar_value.value);
   searchResults.show();
+  //searchResults.show();
 
 }
+
 
 function addSearchResult(challengeType,id, labels, userName, userPhoto) {
   var currentDiv = document.getElementById('resultsItem');
