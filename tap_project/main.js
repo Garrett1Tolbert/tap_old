@@ -924,7 +924,8 @@ function getEditChallengeInfo(challengeIdentifier){
       document.getElementById('challengeId').innerHTML=challengeIdentifier;
 
       $("#editChallengeModal").modal("show");
-      document.getElementById('playBackAudioButtonEditChallenge').setAttribute("onclick", "editChallengeAudio()");
+      // document.getElementById('playBackAudioButtonEditChallenge').setAttribute("onclick", "editChallengeAudio()");
+      document.getElementById('playbackAudioBtn_edit').setAttribute("onclick", "editChallengeAudio()");
     }
   }).catch(function(error) {
     console.error("Could not find challenge: ", error);
