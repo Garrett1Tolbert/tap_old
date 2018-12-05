@@ -295,8 +295,18 @@ function listenToEventsOnFeed(){
 
 function getHint(hint){
   console.log("Hint ", hint);
-  document.getElementById('hintInPopUp').innerHTML = hint;
-  $("#hintPopUp").modal("show");
+  var div = document.getElementById("challengeResults");
+  div.innerHTML="";
+  var newAnswer = document.createElement("h3");
+  newAnswer.className = "test-head";
+  div.appendChild(newAnswer);
+  newAnswer.style.color = "#537EA6";
+  newAnswer.innerHTML = hint;
+  newAnswer.style.border = "5px";
+  newAnswer.style.borderColor = "yellow";
+
+  //document.getElementById('hintInPopUp').innerHTML = hint;
+//  $("#hintPopUp").modal("show");
 }
 function playChallenge(challengeIdentifier) {
   document.getElementById("challengeId").innerHTML = challengeIdentifier;
@@ -382,9 +392,11 @@ function checkAnswers() {
     answer = document.getElementById(answerString).value;
 
     var div = document.getElementById("challengeResults");
-    //div.innerHTML="";
+    div.innerHTML="";
+    //div.removeChildren;
     var newAnswer = document.createElement("h3");
     newAnswer.className = "test-head";
+
 
     div.appendChild(newAnswer);
 
@@ -1109,7 +1121,7 @@ function challengesLikedSearch(value){
       var creator = db1.collection("users").doc(challenges.data().creatorId.id);
       creator.get().then(function(creator){
         if(creator.exists){
-          addElement("myChallenges-section",creator.data().profilePhoto,challenges.id,challenges.data(), false,true);
+          addElement("likedChallenges-section",creator.data().profilePhoto,challenges.id,challenges.data(), false,true);
         }
       }).catch(function(error) {console.log("Error getting document:", error);});
     }
@@ -1637,7 +1649,7 @@ async function editChallengeAudio(){
 
 
 async function playChallengeModalAudio(){
-  if (currentPageName() === "feed.html"){
+  if (currentPageName() === "feed.html" || currentPageName() === "liked-challenges.html"){
     var challengeIdentifier = document.getElementById('challengeId').innerHTML;
     var audioURL = await getURLFromStorage(challengeIdentifier);
     var audio = new Audio(audioURL);
