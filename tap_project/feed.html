@@ -321,6 +321,80 @@
             </div>
           </div>
 
+          <!-- Play from Search Modal -->
+          <div id="playFromSearchChallengeModal" class="modal fade bd-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h3 class="modal-title" id="playFromSearchChallengeModalLabel" style="color: #537EA6; font-weight: 700;margin-left: 40%"></h3>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body" style="margin-top:5%; padding-bottom: 2%">
+                  <div class="row">
+                    <i id="play_stopBtn" data-toggle="tooltip" data-placement="top" title="Play Audio" class="fas fa-play fa-3x" style="color:#537EA6;margin-left: 10%; margin-right: 5%"></i>
+                    <!-- <img id="record_stopBtn" data-toggle="tooltip" data-placement="top" title="Play Audio"  src="images/play_challenge.png" alt="record_audio" style="margin-left: 10%; margin-right: 5%"> -->
+                    <img src="images/fake_audio_level.png" style="margin-left: 5%; margin-right: 5%" alt="audio_level">
+                    <img id="playbackAudioBtn" data-toggle="tooltip" data-placement="right" title="Playback" onclick="playAudio()" src="images/playback.png" style="margin-left: 5%; margin-right: 5%; margin-top: 15px;" height="35px" width="35px" alt="playback">
+                  </div>
+                  <div class="row" style="margin-top: 10%;margin-left: 15%; height: 40px">
+                    <div id="option1" class="input-group input-group-sm mb-3" style="width: inherit; margin-left: 5%">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <input id="play_answer_radio1" type="radio" name="correct_answer" aria-label="Radio button for following text input">
+                        </div>
+                      </div>
+                      <input id="play_answer_choice1" type="button" class="form-control playchallengeAnswers" value="Answer Choice 1" style="width: 200px;margin-left: 0;" aria-label="Challenge Answer choice">
+                    </div>
+                    <div id="option2" class="input-group input-group-sm mb-3" style="width: inherit; margin-left: 5%">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <input id="play_answer_radio2" type="radio" name="correct_answer" aria-label="Radio button for following text input">
+                        </div>
+                      </div>
+                      <input id="play_answer_choice2" type="button" class="form-control playchallengeAnswers" value="Answer Choice 2" style="width: 200px;margin-left: 0;" aria-label="Challenge Answer choice">
+                    </div>
+                  </div>
+                  <div class="row" style="height: 40px; margin-top: 2%;margin-left: 15%">
+                    <div id="option3" class="input-group input-group-sm mb-3" style="width: inherit; margin-left: 5%">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <input id="play_answer_radio3" type="radio" name="correct_answer" aria-label="Radio button for following text input">
+                        </div>
+                      </div>
+                      <input id="play_answer_choice3" type="button" class="form-control playchallengeAnswers" value="Answer Choice 3" style="width: 200px;margin-left: 0;" aria-label="Challenge Answer choice">
+                    </div>
+                    <div id="option4" class="input-group input-group-sm mb-3" style="width: inherit; margin-left: 5%">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <input id="play_answer_radio4" type="radio" name="correct_answer" aria-label="Radio button for following text input">
+                        </div>
+                      </div>
+                      <input id="play_answer_choice4" type="button" class="form-control playchallengeAnswers" value="Answer Choice 4" style="width: 200px;margin-left: 0;" aria-label="Challenge Answer choice">
+                    </div>
+                  </div>
+                  <div id="noAnswerAlert" class="alert alert-danger fade show" role="alert" style=" display: none; width: 65%; margin-top: 2%; margin-bottom: 0; margin-left: 3.5%; font-size: 1em; color:#537EA6">
+                     <i class="fas fa-info-circle"></i> You need to select an answer before checking!
+                  </div>
+                </div>
+                <div id="challengeFooter" class="modal-footer" style="justify-content: center; border:none; margin-top:3%">
+                  <!-- <button id="cancelModal" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button> -->
+                  <button id="needHint" type="button" class="btn btn-primary" onclick="">NEED A HINT?</button>
+                  <button id="checkAnswer" type="button" class="btn btn-primary" onclick="checkAnswers()">SUBMIT</button>
+
+                  <!-- add a modal inside here -->
+                </div>
+                <div id="challengeResults" class="modal-footer" style="justify-content: center; border:none; margin-top:3%">
+                  <!-- <button id="cancelModal" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button> -->
+
+                  <!-- add a modal inside here -->
+                </div>
+
+              </div>
+            </div>
+          </div>
+
           <!-- popup box modal starts here -->
           <div id= "hintPopUp" class="modal fade demo-popup" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel-1" aria-hidden="true">
             <div class="modal-dialog">

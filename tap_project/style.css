@@ -1302,13 +1302,13 @@ button:hover, a:hover {
     z-index: 999;
   }
   .searchCol1 {
-    /* border: 3px solid blue; */
     padding-top: 1%;
     padding-bottom: 1%;
     width: 15%;
   }
   .searchCol2 {
-    /* border: 3px solid red; */
+    /* border: 3px solid green; */
+    padding-right: 0;
     width: 70%;
   }
   .searchCol3 {
@@ -1317,7 +1317,13 @@ button:hover, a:hover {
   }
   .search-results {
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     /* border: 3px solid red; */
+  }
+  /* .search-results:hover .searchCol1,.search-results:hover .searchCol2,.search-results:hover .searchCol3 {
+    border-bottom: 3px solid lightgray;
+  } */
+  .search-results:hover .searchCol1 {
+    border-left: 3px solid #537EA6;
   }
 }

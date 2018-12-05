@@ -671,26 +671,16 @@ function grabFollowing() {
 function populateLabels(div,labelsArray) {
   var newlabel = document.createElement("p");
   // newlabel.style.backgroundColor = "lightgray";
-  if(labelsArray.length == 0) {
-    div.appendChild(newlabel);
-    // newlabel.innerHTML = "No Labels";
+  for (var i = 0; i < labelsArray.length; i++) {
+    var newlabel = document.createElement("p");
+    // newlabel.style.backgroundColor = "lightgray";
+    newlabel.innerHTML = "#" + labelsArray[i];
     newlabel.style.textAlign = "center";
-    newlabel.style.paddingBottom = "3%";
+    newlabel.style.fontStyle = "italic";
+    newlabel.style.paddingRight = "5%";
     newlabel.style.color = "#525456";
-    newlabel.style.margin = "0";
-
-    return;
-  } else {
-    for (var i = 0; i < labelsArray.length; i++) {
-      var newlabel = document.createElement("p");
-      div.appendChild(newlabel);
-      // newlabel.style.backgroundColor = "lightgray";
-      newlabel.innerHTML = "#" + labelsArray[i];
-      newlabel.style.textAlign = "left";
-      newlabel.style.fontStyle = "italic";
-      newlabel.style.paddingRight = "15%";
-      newlabel.style.color = "#525456";
-    }
+    newlabel.style.fontSize = "1.25em";
+    div.appendChild(newlabel);
   }
 }
 
@@ -834,7 +824,7 @@ function addElement (div,userPhoto, docID, docData, didCreate, status) {
     // }
   }
 
-  populateLabels(labelDiv,docData.labels);
+  // populateLabels(labelDivta.labels);
 
   // add the newly created div and its content into the DOM
   var currentDiv = document.getElementById(div);
@@ -1150,17 +1140,19 @@ function searchUsingEnter(e) {
 
 }
 
-function addSearchResult(challengeType,id) {
+function addSearchResult(challengeType,id, labels) {
   var currentDiv = document.getElementById('resultsItem');
 
   var newResult = document.createElement("div");
   newResult.className = "search-results";
+  // newResult.style.border = "3px solid lightgray";
+  newResult.style.borderRadius = "7px";
 
   var resultCol_one = document.createElement("div");
   resultCol_one.className = "searchCol1 col-2";
   var resultCol_one_img = document.createElement("img");
-  resultCol_one.borderLeft = "5px solid lightgray";
   resultCol_one_img.className = "rounded-circle";
+  resultCol_one_img.style.position = "relative";
   resultCol_one_img.style.width = "45px";
   resultCol_one_img.style.height = "45px";
   resultCol_one_img.style.marginTop = "1%";
@@ -1182,12 +1174,39 @@ function addSearchResult(challengeType,id) {
     resultCol_two_text.style.padding= "0";
     resultCol_two_text.style.marginTop= "4%";
     resultCol_two_text.style.color= "#525456";
+    resultCol_two_text.innerHTML = "Brandon Marshall";
     // TODO: Get lianne to query user photo to place in the innerHTML
     //       on the line above
-    var resultCol_three_text = document.createElement("p");
+    var resultCol_three_icon = document.createElement("i");
+    resultCol_three.appendChild(resultCol_three_icon);
+    resultCol_three_icon.className = "fa fa-user-plus fa-1x";
+    resultCol_three_icon.style.width = "25px";
+    resultCol_three_icon.style.height = "25px";
+    resultCol_three_icon.style.marginTop = "5%";
+    resultCol_three.style.paddingTop = "3%";
 
   } else {  //search result is a challenge
+    resultCol_two.style.paddingTop = "3%";
 
+    var labelDiv = document.createElement("div");
+    labelDiv.style.overflowX = "scroll";
+    labelDiv.style.width = "100%";
+
+    if (labels.length == 1) {
+      labelDiv.style.display = "block";
+    } else {
+      labelDiv.style.display = "flex";
+    }
+
+    populateLabels(labelDiv,labels);
+
+    resultCol_two.appendChild(labelDiv);
+
+    var resultCol_three_icon = document.createElement("i");
+    resultCol_three.appendChild(resultCol_three_icon);
+    resultCol_three_icon.className = "fas fa-play fa-1x";
+    resultCol_three.style.paddingTop = "4%";
+    resultCol_three.setAttribute("onclick","me()")
   }
 
 
@@ -1209,6 +1228,10 @@ function addSearchResult(challengeType,id) {
   currentDiv.appendChild(newResult);
 }
 
+function me() {
+  alert("yeess")
+}
+
 function searchLabel(labelEntered){
   const db = firebase.firestore();
   db.collection("challenges").get()
@@ -1219,7 +1242,7 @@ function searchLabel(labelEntered){
         if(labels[i].toLowerCase().indexOf(labelEntered.toLowerCase())>=0){
         //  console.log("INDICE: ", labels[i].indexOf(labelEntered));
             console.log("\nChallenge\n",doc.id, " => ", doc.data());
-            addSearchResult("challenge", doc.id);
+            addSearchResult("challenge", doc.id, doc.data().labels);
         }
       }
   });}).catch(function(error) {
