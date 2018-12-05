@@ -203,6 +203,59 @@
           </div>
         </div>
 
+        <!-- Another User Modal -->
+        <div id="followingProfileModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header" style="padding: 0;">
+                <div id="profileJumbotron" class="jumbotron jumbotron-fluid shadow" >
+                  <div class="container">
+                    <div class="row">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span id="exitProfile"aria-hidden="true" style="margin-right:2%">&times;</span>
+                      </button>
+                    </div>
+                    <div class="row" id="profileInfo">
+                      <div class="col-lg-4" id="profilePicSection">
+                        <img id="followPage_Photo" class="rounded-circle shadow" src="images/default_profile_pic.png" style="border: 2px solid #FFC000; margin-left: 5px;" src="images/default_profile_pic.png" height="200px" width="200px"  alt="Your_Profile_Pic">
+                      </div>
+                      <div class="col-lg-8" id="ProfileDetailsSection">
+                        <h2 id="followPage_Name" class="display-4" style="font-weight: bold; margin-top: 10%"></h2>
+                        <p id="followPage_Email" class="lead" style="color: #4f5051"></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-body" style="margin: 0">
+                <div id="followers_following_view" class="row" style="margin-top: 5%; margin-bottom: 5%;">
+                  <div id="section-followers" class="col-lg-6">
+                    <div id="section-followers-title" class="row">
+                      <h3 style="margin:auto; font-weight:bold; font-size: 2.25em; color: #537EA6">Followers</h3>
+                    </div>
+                    <div id="section-followers-count" class="row">
+                      <h1 id="followersFollowCount" style="margin: auto; text-align: center; font-size: 5em; color: #FFC000; font-weight:bold"></h1>
+                    </div>
+                  </div>
+                  <div id="section-following" class="col-lg-6">
+                    <div class="row">
+                      <h3 style="margin:auto; font-weight:bold; font-size: 2.25em; color: #537EA6">Following</h3>
+                    </div>
+                    <div class="row">
+                      <h1 id="followingFollowCount" style="margin: auto;text-align: center; font-size: 5em; color: #FFC000; font-weight:bold"></h1>
+                    </div>
+                  </div>
+                </div>
+                <button id="follow-unfollowUser" type="button" onclick="follow_unfollowUser()"></button>
+              </div>
+              <!-- <div class="modal-footer" >
+                <button id="cancelModal" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button id="postModal" type="button" class="btn btn-primary" onclick="getChallengeData()">POST</button>
+              </div> -->
+            </div>
+          </div>
+        </div>
+
         <!-- <div id="anonymousAlert" class="alert alert-warning" role="alert" style="margin-top: 20%; width: 50%; margin-left: auto; margin-right: auto">
           This is a warning alert. For security purposes, user data will be hidden <a href="index.html" class="alert-link">until you Login</a>!
           <br> You can check out our FAQs <a id="anonymousFAQView"><span style="text-decoration: underline">here</span></a> for more details.

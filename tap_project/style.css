@@ -1308,6 +1308,8 @@ button:hover, a:hover {
   }
   .searchCol2 {
     /* border: 3px solid green; */
+    display: flex;
+    justify-content: center;
     padding-right: 0;
     width: 70%;
   }
