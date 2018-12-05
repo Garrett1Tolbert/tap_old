@@ -337,7 +337,7 @@ function playChallenge(challengeIdentifier) {
 
           $("#playChallengeModal").modal("show");
 
-          document.getElementById('play_stopBtn').setAttribute("onclick", "playChallengeModalAudio()");
+          document.getElementById('playBackAudioButtonFeedPlay').setAttribute("onclick", "playChallengeModalAudio()");
 
         }
       });
@@ -904,9 +904,8 @@ function getEditChallengeInfo(challengeIdentifier){
       }
       document.getElementById('challengeId').innerHTML=challengeIdentifier;
 
-
-      $("#playbackAudioBtn").setAttribute("onclick", "playBackEditChallengeAudio()");
       $("#editChallengeModal").modal("show");
+      document.getElementById('playBackAudioButtonEditChallenge').setAttribute("onclick", "editChallengeAudio()");
     }
   }).catch(function(error) {
     console.error("Could not find challenge: ", error);
@@ -1626,14 +1625,14 @@ $('#record_stopBtn').click(function(){
 });
 
 // Playback from my-challenges.html
-async function playBackEditChallengeAudio(){
+async function editChallengeAudio(){
     if (currentPageName() === "my-challenges.html"){
       var challengeIdentifier = document.getElementById('challengeId').innerHTML;
       var audioURL = await getURLFromStorage(challengeIdentifier);
       var audio = new Audio(audioURL);
       audio.play();
     }
-});
+}
 
 
 
