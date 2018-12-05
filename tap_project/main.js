@@ -1472,7 +1472,7 @@ function getURLFromStorage(challengeID){
 
     returnURL = await recordingsChallengeIDRef.getDownloadURL();
 
-    console.log(returnURL);
+    // console.log(returnURL);
 
     resolve(returnURL);
   });
@@ -1531,6 +1531,15 @@ $('#record_stopBtn').click(function(){
     stopCount();
     recordStop();
   }
+});
+
+$('#playbackAudioBtn').click(async function(){
+    if (currentPageName() === "my-challenges.html"){
+      var challengeIdentifier = document.getElementById('challengeId').innerHTML;
+      var audioURL = await getURLFromStorage(challengeIdentifier);
+      var audio = new Audio(audioURL);
+      audio.play();
+    }
 });
 //-----------------
 // Code that MUST be initlialized first when each HTML page loads
