@@ -295,8 +295,18 @@ function listenToEventsOnFeed(){
 
 function getHint(hint){
   console.log("Hint ", hint);
-  document.getElementById('hintInPopUp').innerHTML = hint;
-  $("#hintPopUp").modal("show");
+  var div = document.getElementById("challengeResults");
+  div.innerHTML="";
+  var newAnswer = document.createElement("h3");
+  newAnswer.className = "test-head";
+  div.appendChild(newAnswer);
+  newAnswer.style.color = "#537EA6";
+  newAnswer.innerHTML = hint;
+  newAnswer.style.border = "5px";
+  newAnswer.style.borderColor = "yellow";
+
+  //document.getElementById('hintInPopUp').innerHTML = hint;
+//  $("#hintPopUp").modal("show");
 }
 function playChallenge(challengeIdentifier) {
   document.getElementById("challengeId").innerHTML = challengeIdentifier;
@@ -382,9 +392,11 @@ function checkAnswers() {
     answer = document.getElementById(answerString).value;
 
     var div = document.getElementById("challengeResults");
-    //div.innerHTML="";
+    div.innerHTML="";
+    //div.removeChildren;
     var newAnswer = document.createElement("h3");
     newAnswer.className = "test-head";
+
 
     div.appendChild(newAnswer);
 
