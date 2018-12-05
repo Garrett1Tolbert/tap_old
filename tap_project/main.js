@@ -904,6 +904,8 @@ function getEditChallengeInfo(challengeIdentifier){
       }
       document.getElementById('challengeId').innerHTML=challengeIdentifier;
 
+
+      $("#playbackAudioBtn").setAttribute("onclick", "playBackEditChallengeAudio()");
       $("#editChallengeModal").modal("show");
     }
   }).catch(function(error) {
@@ -1616,7 +1618,7 @@ $('#record_stopBtn').click(function(){
 });
 
 // Playback from my-challenges.html
-$('#playbackAudioBtn').click(async function(){
+async function playBackEditChallengeAudio(){
     if (currentPageName() === "my-challenges.html"){
       var challengeIdentifier = document.getElementById('challengeId').innerHTML;
       var audioURL = await getURLFromStorage(challengeIdentifier);
