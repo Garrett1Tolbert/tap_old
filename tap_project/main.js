@@ -427,7 +427,7 @@ function addToCompletedChallenges(challengeToBeAdded){
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
       const db = firebase.firestore();
-      console.log("user id", user.uid);
+    //  console.log("user id", user.uid);
       var completedChallenges = db.collection("users").doc(user.uid);
       completedChallenges.get().then(function(doc){
         if(doc.exists){
@@ -838,8 +838,8 @@ function addElement (div,userPhoto, docID, docData, didCreate, status) {
 
   // add the newly created div and its content into the DOM
   var currentDiv = document.getElementById(div);
-  console.log("parameter",  div);
-  console.log("currentDic", currentDiv);
+//  console.log("parameter",  div);
+  //console.log("currentDic", currentDiv);
   currentDiv.appendChild(newDiv);
   //document.body.insertBefore(newDiv, currentDiv);
 
@@ -986,9 +986,10 @@ function getChallenges(listOfFollowingPath, currentUser){
   var profileUserPhoto;
   var challengeList=[];
   var likedBy = [];
-  var challenges = db.collection("challenges").orderBy("time", "desc");
+  var challenges = db.collection("challenges").orderBy("time", "asc");
   challenges.get().then(function(querySnapshot){
     querySnapshot.forEach(function(doc){
+
       var creator = doc.data().creatorId.path;
       var query = doc.data();
       var status = false;
@@ -1005,8 +1006,9 @@ function getChallenges(listOfFollowingPath, currentUser){
           var docUser = db.collection("users").doc(doc.data().creatorId.id);
           docUser.get().then(function(querySnapshot){
             if(querySnapshot.exists) {
+              console.log("Challenge 2: ", doc.id);
               var completedChallenges = querySnapshot.data();
-              console.log("JUMMMM INTERESTING", completedChallenges);
+              //console.log("JUMMMM INTERESTING", completedChallenges);
               var isChallengeComplete = checkifChallengeisCompleted(doc.path, completedChallenges);
               addElement("challenges-section",querySnapshot.data().profilePhoto,doc.id,doc.data(), false,status);
           }
@@ -1022,8 +1024,8 @@ function getChallenges(listOfFollowingPath, currentUser){
 
 function checkifChallengeisCompleted(challengePath, listOfChallenges){
   var result = false;
-  console.log("PATH: ",challengePath);
-  console.log("LIST of CHALLENGES", listOfChallenges);
+  //console.log("PATH: ",challengePath);
+  //console.log("LIST of CHALLENGES", listOfChallenges);
   for(var i=0;i<listOfChallenges.length;i++){
     if(listOfChallenges.get(i).path == challengePath){
       result = true;
@@ -1126,20 +1128,25 @@ function challengesLikedSearch(value){
   }).catch(function(error) {console.log("Error getting document:", error);});
 }
 
-
 function searchUsingEnter(e) {
   searchBar_value = document.getElementById('search');
   document.getElementById('resultsItem').innerHTML = "";
-  if(searchBar_value.value=="" || searchBar_value.value==" "){
+  var searchInput = $("#searchbar");
+  var searchResults = $("#resultsItem");
+  if(searchBar_value.value=="" || searchBar_value.value==" " ){
     var currentDiv = document.getElementById('resultsItem');
     currentDiv.style.height = '0px';
     return;
   }
 
+  searchInput.focusout(function(e) {
+  searchBar_value.value="";
+  searchResults.hide();
+  });
 
   searchLabel(searchBar_value.value);
   searchEmail(searchBar_value.value);
-
+  searchResults.show();
 
 }
 

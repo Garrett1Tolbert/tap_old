@@ -68,14 +68,16 @@
           <div id="headerCol3" class="col-7">
             <div id="searchbar" class="box" style="float:right">
               <div class="searchbar">
-                <span onclick="searchUsingClick()" class="icon"><i class="fa fa-search"></i></span>
-                <input type="text" id= "search" onkeyup="searchUsingEnter(event)" placeholder="Search for a username, genre, or artist" name="search" aria-label="Search bar">              </div>
-            </div>
+                <span class="icon"><i class="fa fa-search"></i></span>
+                <input type="text" id= "search" onkeyup="searchUsingEnter(event)" placeholder="Search for a username, genre, or artist" name="search" aria-label="Search bar">
+              </div>
+
             <ul id="searchResults">
               <div id="resultsItem" >
 
               </div>
             </ul>
+            </div>
           </div>
           </div>
         </nav>
@@ -250,7 +252,7 @@
             </div>
           </div>
 
-          <div id="myChallengeArea">
+          <div id="MyChallengeArea">
               <div id="myChallenges-section" class="">
               </div>
           </div> <!--Challenge Area-->
@@ -284,7 +286,9 @@
       apiKey: "AIzaSyAIpR8O8xEDrSitpVI6jpVBEvXU5reQLNM",
       authDomain: "alphabetter-tap-v1.firebaseapp.com",
       // databaseURL: "https://alphabetter-tap-v1.firebaseio.com",
-      projectId: "alphabetter-tap-v1"
+      projectId: "alphabetter-tap-v1",
+      databaseURL: "https://alphabetter-tap-v1.firebaseio.com",
+      projectId: "alphabetter-tap-v1",
       storageBucket: "alphabetter-tap-v1.appspot.com"
       // messagingSenderId: "806333716389"
     };
