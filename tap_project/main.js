@@ -1217,7 +1217,7 @@ function addSearchResult(challengeType,id, labels, userName, userPhoto,follow) {
     resultCol_three.appendChild(resultCol_three_icon);
     resultCol_three_icon.className = "fas fa-play fa-1x";
     resultCol_three.style.paddingTop = "4%";
-    resultCol_three.setAttribute("onclick","me()")
+    resultCol_three.setAttribute("onclick","me('" + id + "')");
   }
 
 
@@ -1239,8 +1239,8 @@ function addSearchResult(challengeType,id, labels, userName, userPhoto,follow) {
   currentDiv.appendChild(newResult);
 }
 
-function me() {
-  alert("yeess")
+function me(challengeIdentifier) {
+  alert(challengeIdentifier)
 }
 
 function searchLabel(labelEntered){
