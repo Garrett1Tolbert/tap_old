@@ -1,29 +1,29 @@
-[debug] [2018-12-04T23:19:06.377Z] ----------------------------------------------------------------------
-[debug] [2018-12-04T23:19:06.378Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
-[debug] [2018-12-04T23:19:06.378Z] CLI Version:   5.1.1
-[debug] [2018-12-04T23:19:06.378Z] Platform:      darwin
-[debug] [2018-12-04T23:19:06.378Z] Node Version:  v10.10.0
-[debug] [2018-12-04T23:19:06.380Z] Time:          Tue Dec 04 2018 15:19:06 GMT-0800 (Pacific Standard Time)
-[debug] [2018-12-04T23:19:06.380Z] ----------------------------------------------------------------------
+[debug] [2018-12-05T00:18:13.254Z] ----------------------------------------------------------------------
+[debug] [2018-12-05T00:18:13.256Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2018-12-05T00:18:13.256Z] CLI Version:   5.1.1
+[debug] [2018-12-05T00:18:13.256Z] Platform:      darwin
+[debug] [2018-12-05T00:18:13.256Z] Node Version:  v10.10.0
+[debug] [2018-12-05T00:18:13.258Z] Time:          Tue Dec 04 2018 16:18:13 GMT-0800 (Pacific Standard Time)
+[debug] [2018-12-05T00:18:13.258Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2018-12-04T23:19:06.392Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2018-12-04T23:19:06.393Z] > authorizing via signed-in user
-[debug] [2018-12-04T23:19:06.393Z] [iam] checking project alphabetter-tap-v1 for permissions ["firebase.projects.get"]
-[debug] [2018-12-04T23:19:06.394Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
-[debug] [2018-12-04T23:19:06.394Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+[debug] [2018-12-05T00:18:13.271Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-12-05T00:18:13.271Z] > authorizing via signed-in user
+[debug] [2018-12-05T00:18:13.271Z] [iam] checking project alphabetter-tap-v1 for permissions ["firebase.projects.get"]
+[debug] [2018-12-05T00:18:13.273Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-12-05T00:18:13.273Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
  <request body omitted>
-[debug] [2018-12-04T23:19:06.566Z] <<< HTTP RESPONSE 200
-[debug] [2018-12-04T23:19:06.583Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/alphabetter-tap-v1:testIamPermissions  
+[debug] [2018-12-05T00:18:13.419Z] <<< HTTP RESPONSE 200
+[debug] [2018-12-05T00:18:13.430Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/alphabetter-tap-v1:testIamPermissions  
 
-[debug] [2018-12-04T23:19:06.805Z] <<< HTTP RESPONSE 200
-[debug] [2018-12-04T23:19:06.807Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/alphabetter-tap-v1  
+[debug] [2018-12-05T00:18:13.657Z] <<< HTTP RESPONSE 200
+[debug] [2018-12-05T00:18:13.658Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/alphabetter-tap-v1  
  
-[debug] [2018-12-04T23:19:07.055Z] <<< HTTP RESPONSE 200
+[debug] [2018-12-05T00:18:13.887Z] <<< HTTP RESPONSE 200
 [info] 
 [info] === Serving from '/Users/liannes/Desktop/tap'...
 [info] 
-[debug] [2018-12-04T23:19:07.057Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/806333716389/clients/_:getWebAppConfig  
+[debug] [2018-12-05T00:18:13.888Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/806333716389/clients/_:getWebAppConfig  
  
-[debug] [2018-12-04T23:19:07.300Z] <<< HTTP RESPONSE 200
+[debug] [2018-12-05T00:18:14.230Z] <<< HTTP RESPONSE 200
 [info] i  hosting: Serving hosting files from: tap_project
 [info] ✔  hosting: Local server: http://localhost:5000

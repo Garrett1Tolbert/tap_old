@@ -1140,7 +1140,7 @@ function searchUsingEnter(e) {
 
 }
 
-function addSearchResult(challengeType,id, labels) {
+function addSearchResult(challengeType,id, labels, userName, userPhoto) {
   var currentDiv = document.getElementById('resultsItem');
 
   var newResult = document.createElement("div");
@@ -1156,7 +1156,7 @@ function addSearchResult(challengeType,id, labels) {
   resultCol_one_img.style.width = "45px";
   resultCol_one_img.style.height = "45px";
   resultCol_one_img.style.marginTop = "1%";
-  resultCol_one_img.setAttribute("src","images/default_profile_pic.png");
+  resultCol_one_img.setAttribute("src",userPhoto);
   // TODO: Get lianne to query user photo to place here
 
   var resultCol_two = document.createElement("div");
@@ -1168,13 +1168,14 @@ function addSearchResult(challengeType,id, labels) {
   if (challengeType == "user") {  //search result is a user
     var resultCol_two_text = document.createElement("p");
     resultCol_two.appendChild(resultCol_two_text);
-    resultCol_two_text.innerHTML = "Brandon Marshall";
+    resultCol_two_text.innerHTML = userName;
     resultCol_two_text.style.textAlign = "center";
     resultCol_two_text.style.fontSize = "1.5em";
     resultCol_two_text.style.padding= "0";
     resultCol_two_text.style.marginTop= "4%";
     resultCol_two_text.style.color= "#525456";
-    resultCol_two_text.innerHTML = "Brandon Marshall";
+    resultCol_two_text.innerHTML = userName;
+      resultCol_one_img.setAttribute("src",userPhoto);
     // TODO: Get lianne to query user photo to place in the innerHTML
     //       on the line above
     var resultCol_three_icon = document.createElement("i");
@@ -1242,7 +1243,15 @@ function searchLabel(labelEntered){
         if(labels[i].toLowerCase().indexOf(labelEntered.toLowerCase())>=0){
         //  console.log("INDICE: ", labels[i].indexOf(labelEntered));
             console.log("\nChallenge\n",doc.id, " => ", doc.data());
-            addSearchResult("challenge", doc.id, doc.data().labels);
+            var user = db.collection("users").doc(doc.data().creatorId.id).get();
+            user.then(function(docUser){
+              if(docUser.exists){
+                addSearchResult("challenge", doc.id, doc.data().labels,null, docUser.data().profilePhoto);
+              }
+            }).catch(function(error){
+              console.log("Error getting documents: ", error);
+            });
+
         }
       }
   });}).catch(function(error) {
@@ -1259,7 +1268,7 @@ function searchEmail(emailEntered){
         if(labels.toLowerCase().indexOf(emailEntered.toLowerCase())>=0){
           //console.log("INDICE: ", labels.indexOf(emailEntered));
             console.log("\nUsers\n",doc.id, " => ", doc.data());
-            addSearchResult("user", doc.id);
+            addSearchResult("user", doc.id,null,doc.data().firstname+" "+doc.data().lastname, doc.data().profilePhoto);
         }
 
   });}).catch(function(error) {
