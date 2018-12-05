@@ -689,11 +689,15 @@ function populateLabels(div,labelsArray) {
     newlabel.style.fontStyle = "italic";
     newlabel.style.paddingRight = "5%";
     newlabel.style.color = "#525456";
+    newlabel.style.width = "100%";
     newlabel.style.fontSize = "1.25em";
     div.appendChild(newlabel);
   }
 }
 
+function disabled() {
+  return;
+}
 
 function addElement (div,userPhoto, docID, docData, didCreate, status) {
   // window.alert(screen.width);
@@ -766,6 +770,7 @@ function addElement (div,userPhoto, docID, docData, didCreate, status) {
 
   contentDiv.appendChild(newAudioLevel);
   newAudioLevel.className = "audio-levels";
+  newAudioLevel.style.marginLeft = "5%";
   newAudioLevel.src = "images/fake_audio_level.png";
   newAudioLevel.setAttribute("aria-label","audio levels");
 
@@ -790,6 +795,8 @@ function addElement (div,userPhoto, docID, docData, didCreate, status) {
 
 
   if(didCreate == true) {
+    newPlay.style.display = "none";
+    newAudioLevel.style.marginLeft = "10%";
 
     //add trash icon
     var newDelete = document.createElement("i");
@@ -1173,14 +1180,13 @@ function addSearchResult(challengeType,id, labels, userName, userPhoto,follow) {
   var resultCol_one = document.createElement("div");
   resultCol_one.className = "searchCol1 col-2";
   var resultCol_one_img = document.createElement("img");
-  resultCol_one_img.className = "rounded-circle";
+  resultCol_one_img.className = "rounded-circle resultsImg";
   resultCol_one_img.style.position = "relative";
-  resultCol_one_img.style.width = "45px";
-  resultCol_one_img.style.height = "45px";
+  // resultCol_one_img.style.width = "45px";
+  // resultCol_one_img.style.height = "45px";
   resultCol_one_img.style.marginTop = "1%";
   resultCol_one_img.setAttribute("src",userPhoto);
   resultCol_one_img.setAttribute("onclick","showSearchedProfile('" + id + "')");
-  // TODO: Get lianne to query user photo to place here
 
   var resultCol_two = document.createElement("div");
   resultCol_two.className = "searchCol2 col-8";
@@ -1192,14 +1198,14 @@ function addSearchResult(challengeType,id, labels, userName, userPhoto,follow) {
     var resultCol_two_text = document.createElement("p");
     resultCol_two.appendChild(resultCol_two_text);
     resultCol_two_text.innerHTML = userName;
-    resultCol_two_text.style.textAlign = "center";
-    resultCol_two_text.style.fontSize = "1.5em";
-    resultCol_two_text.style.padding= "0";
-    resultCol_two_text.style.marginTop= "4%";
-    resultCol_two_text.style.color= "#525456";
+    resultCol_two_text.style.className = "searchResult_name";
+    // resultCol_two_text.style.textAlign = "center";
+    // resultCol_two_text.style.fontSize = "1.5em";
+    // resultCol_two_text.style.padding= "0";
+    // resultCol_two_text.style.marginTop= "4%";
+    // resultCol_two_text.style.color= "#525456";
     resultCol_two_text.innerHTML = userName;
-    // TODO: Get lianne to query user photo to place in the innerHTML
-    //       on the line above
+
     var resultCol_three_icon = document.createElement("i");
     resultCol_three.appendChild(resultCol_three_icon);
 
@@ -1220,7 +1226,8 @@ function addSearchResult(challengeType,id, labels, userName, userPhoto,follow) {
 
     var labelDiv = document.createElement("div");
     labelDiv.style.overflowX = "scroll";
-    labelDiv.style.width = "100%";
+    labelDiv.style.width = "92%";
+    labelDiv.style.fontSize = ".75em";
 
     if (labels.length == 1) {
       labelDiv.style.display = "block";
@@ -1254,7 +1261,6 @@ function addSearchResult(challengeType,id, labels, userName, userPhoto,follow) {
   }
 
   // newResult.innerHTML = id;
-  newResult.style.paddingLeft = "20px";
   currentDiv.appendChild(newResult);
 }
 
@@ -1592,8 +1598,13 @@ function deleteBlobFromStorage(challengeIdentifier){
 }
 
 async function timedCount() {
-    document.getElementById('demo').innerHTML = c;
+  document.getElementById('record_stopBtn').style.marginRight = "2%";
+  document.getElementById('record_stopBtn').style.marginTop = "1%";
+  // document.getElementById('playbackAudioBtn').style.marginTop = "5%";
+    document.getElementById('demo').innerHTML = ": " + c;
     document.getElementById('demo').style.display = "block";
+    document.getElementById('demo').style.color = "#537EA6";
+    document.getElementById('demo').style.fontWeight = "bold";
     // console.log(c);
     if (c > 0){
       c = c - 1;
@@ -1615,10 +1626,9 @@ async function stopCount() {
     timer_is_on = 0;
     c = 15
     let timer = document.getElementById('demo');
-    let testt = document.getElementById('demo2');
 
-    timer.innerHTML = c;
     timer.style.display = "none";
+    document.getElementById('record_stopBtn').style.marginTop = "0%";
     // testt.innerHTML = " bob";
     // testt.style.color = "red";
 }

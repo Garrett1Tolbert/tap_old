@@ -54,7 +54,7 @@
 
       <div id="content">
         <nav id="feed_header" class="navbar sticky-top navbar-light shadow-sm p-3" style="background-color:#ffc000; padding:0">
-          <div id="headerCol1" class="col-3" style="display:flex; align-items:center">
+          <div id="headerCol1" class="col-4" style="display:flex; align-items:center">
             <button type="button" id="sidebarCollapse" class="btn btn-info" aria-label="Open Sidebar">
                 <i id="backBtn" class="fas fa-bars fa-2x"></i>
             </button>
@@ -65,7 +65,7 @@
               <img src="images/Tap(Light).png" width="80" height="80" alt="Logo">
             </a>
           </div>
-          <div id="headerCol3" class="col-7">
+          <div id="headerCol3" class="col-6">
             <div id="searchbar" class="box"  style="float:right">
               <div class="searchbar">
                 <span class="icon"><i class="fa fa-search"></i></span>
@@ -158,13 +158,12 @@
                 </div>
                 <div class="modal-body" style="margin-top:5%; padding-bottom: 2%">
                   <div class="row">
-                    <img id="record_stopBtn" data-toggle="tooltip" data-placement="top" title="Record Audio" src="images/record_audio.png" alt="record_audio">
+                    <img id="record_stopBtn" data-toggle="tooltip" data-placement="top" title="Record Audio" src="images/record_audio.png" alt="record_audio" height="30px" width="30px">
+                    <h3 id="demo" style="margin-top:3%; margin-right:5%">:</h3>
                     <img id="fake_audio" src="images/fake_audio_level.png" alt="audio_level">
                     <img id="playbackAudioBtn" data-toggle="tooltip" data-placement="right" title="Playback" onclick="playAudio()" src="images/playback.png" height="35px" width="35px" alt="playback">
                   </div>
                   <div class="row" style="margin-top: 10%; height: 40px">
-                    <p id="demo"></p>
-
                     <div id="option1" class="input-group input-group-sm mb-3">
                       <div class="input-group-prepend">
                         <div class="input-group-text">
@@ -258,15 +257,15 @@
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <div class="modal-body" style="margin-top:5%; padding-bottom: 2%">
+                <div class="modal-body" id="play_body" style="margin-top:5%; padding-bottom: 2%">
                   <div class="row">
                     <i id="playBackAudioButtonFeedPlay" data-toggle="tooltip" data-placement="top" title="Play Audio" class="fas fa-play fa-3x" style="color:#537EA6;margin-left: 20%; margin-right: 5%"></i>
                     <!-- <img id="record_stopBtn" data-toggle="tooltip" data-placement="top" title="Play Audio"  src="images/play_challenge.png" alt="record_audio" style="margin-left: 10%; margin-right: 5%"> -->
-                    <img src="images/fake_audio_level.png" style="margin-left: 5%; margin-right: 5%" alt="audio_level">
+                    <img id="fake_audio_play" src="images/fake_audio_level.png" style="margin-left: 5%; margin-right: 5%" alt="audio_level">
                     <!-- <img id="playbackAudioBtn" data-toggle="tooltip" data-placement="right" title="Playback" onclick="playAudio()" src="images/playback.png" style="margin-left: 5%; margin-right: 5%; margin-top: 15px;" height="35px" width="35px" alt="playback"> -->
                   </div>
-                  <div class="row" style="margin-top: 10%;margin-left: 15%; height: 40px">
-                    <div id="option1" class="input-group input-group-sm mb-3" style="width: inherit; margin-left: 5%">
+                  <div class="row" id="play_topRow">
+                    <div id="play_option1" class="input-group input-group-sm mb-3">
                       <div class="input-group-prepend">
                         <div class="input-group-text">
                           <input id="play_answer_radio1" type="radio" name="correct_answer" aria-label="Radio button for following text input">
@@ -274,7 +273,7 @@
                       </div>
                       <input id="play_answer_choice1" type="button" class="form-control playchallengeAnswers" value="Answer Choice 1" style="width: 200px;margin-left: 0;" aria-label="Challenge Answer choice">
                     </div>
-                    <div id="option2" class="input-group input-group-sm mb-3" style="width: inherit; margin-left: 5%">
+                    <div id="play_option2" class="input-group input-group-sm mb-3">
                       <div class="input-group-prepend">
                         <div class="input-group-text">
                           <input id="play_answer_radio2" type="radio" name="correct_answer" aria-label="Radio button for following text input">
@@ -284,7 +283,7 @@
                     </div>
                   </div>
                   <div class="row" style="height: 40px; margin-top: 2%;margin-left: 15%">
-                    <div id="option3" class="input-group input-group-sm mb-3" style="width: inherit; margin-left: 5%">
+                    <div id="play_option3" class="input-group input-group-sm mb-3">
                       <div class="input-group-prepend">
                         <div class="input-group-text">
                           <input id="play_answer_radio3" type="radio" name="correct_answer" aria-label="Radio button for following text input">
@@ -292,7 +291,7 @@
                       </div>
                       <input id="play_answer_choice3" type="button" class="form-control playchallengeAnswers" value="Answer Choice 3" style="width: 200px;margin-left: 0;" aria-label="Challenge Answer choice">
                     </div>
-                    <div id="option4" class="input-group input-group-sm mb-3" style="width: inherit; margin-left: 5%">
+                    <div id="play_option4" class="input-group input-group-sm mb-3">
                       <div class="input-group-prepend">
                         <div class="input-group-text">
                           <input id="play_answer_radio4" type="radio" name="correct_answer" aria-label="Radio button for following text input">

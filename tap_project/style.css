@@ -310,7 +310,7 @@ button:hover, a:hover {
     display: flex;
   }
   #profilePicSection,#ProfileDetailsSection{
-    margin-left: 20%;
+    /* margin-left: 20%; */
   }
   #followers_following_view{
     width: 100vw;
@@ -319,11 +319,15 @@ button:hover, a:hover {
   #section-followers,#section-following{
     /* margin-left: 5%; */
   }
-
+  #playChallengeModalLabel {
+    color: #537EA6;
+    font-weight: 700;
+    margin-left: 15%;
+  }
   #searchResults {
     padding: 0;
     /* height: 350px; */
-    width: 100%;
+    width: 110%;
     /* border: 3px solid `blue; */
     position: absolute;
     /* bottom: 0; */
@@ -337,26 +341,95 @@ button:hover, a:hover {
     margin-top: 20%;
     /* border: 3px solid green; */
     z-index: 999;
+    padding-top: 4%;
   }
   .searchCol1 {
     padding-top: 1%;
+    padding-right: 2%;
     padding-bottom: 1%;
     width: 15%;
+  }
+  .resultsImg {
+    width: 30px;
+    height: 30px;
   }
   .searchCol2 {
     display: flex;
     justify-content: center;
     padding-right: 0;
-    width: 70%;
+    padding-left: 12%;
+    width: 60%;
   }
   .searchCol3 {
-    width: 15%;
+    width: 25%;
+    padding: 0;
   }
   .search-results {
     display: flex;
+    padding-left: 0;
+  }
+  .searchResult_name {
+    font-size: .75em;
+    padding: 0;
+    margin-left: 10%;
+    padding-left: 10%;
+    margin-top: 2%;
+    color: #525456;
+  }
+
+  #play_stopBtn {
+    color:#537EA6;
+    margin-left: 20%;
+    margin-right: 5%;
+    width: 30px;
+    height: 30px;
+  }
+  #fake_audio_play {
+    margin-left: 5%;
+    margin-right: 5%;
+    width: 50%;
+    height: 60%;
+  }
+  #play_body {
+    padding: 0;
+  }
+  #play_topRow {
+    width: 100%;
+    margin-top: 10%;
+    margin-left: 0;
+    margin-right: 5%;
+    height: 40px;
+  }
+  /* #play_option1,#play_option2,#play_option3,#play_option4 {
+    width: 50%;
+    margin-left: 5%;
+  } */
+  #disabled_stopBtn {
+    height: 12.5%;
+    width: 12.5%;
+    margin-left: 7%;
+    margin-top: 2%;
+  }
+  #fake_audio_edit {
+    width: 50%;
+    height: 50%;
+    margin-top: 2%;
+    margin-left: 4%;
+}
+  #playbackAudioBtn_edit {
+    height: 5%;
+    width: 5%;
+  }
+  .modal-title {
+    margin-left: 5%;
+    text-align: center;
   }
   .search-results:hover .searchCol1 {
     border-left: 3px solid #537EA6;
+  }
+  #searchResults,#resultsItem{
+    max-height: 305px;
+    overflow-y: scroll;
   }
   /* Header */
   #feed_header,#myChall_header,#likedChall_header {
@@ -401,7 +474,7 @@ button:hover, a:hover {
 
  #searchbar {
    z-index: 1000;
-    width:100%;
+    width:110%;
     text-overflow: ellipsis;
   }
 
@@ -566,7 +639,7 @@ button:hover, a:hover {
   #hint,#hints {
     display: none;
   }
-  #option1,#option2,#option3,#option4 {
+  #option1,#option2,#option3,#option4,#play_option1,#play_option2,#play_option3,#play_option4 {
     width: 42%;
     margin-left: 5%;
   }
@@ -1024,7 +1097,6 @@ button:hover, a:hover {
   #myChall_header {
     /* border: 5px solid black; */
     height: 100px;
-    margin-bottom: 3%;
   }
 
   #myChall_body {
@@ -1061,7 +1133,6 @@ button:hover, a:hover {
   .audio-levels {
     width: 53%;
     height: 25px;
-    margin-left: 5%;
     padding-right: 2%;
   }
 
@@ -1250,22 +1321,28 @@ button:hover, a:hover {
     letter-spacing: 3px;
   }
   #record_stopBtn {
-    height: 7%;
-    width: 7%;
+    height: 5%;
+    width: 5%;
+    margin-left: 7%;
+    margin-right: 5%;
+  }
+  #disabled_stopBtn {
+    height: 10%;
+    width: 10%;
     margin-left: 7%;
     margin-right: 5%;
   }
   #fake_audio {
-    height: 50%;
+    height: 20%;
     width: 60%;
     margin-left: 2%;
     margin-right: 2%;
   }
   #playbackAudioBtn {
-    height: 7%;
-    width: 7%;
+    height: 5%;
+    width: 5%;
     margin-left: 2%;
-    margin-top: 1%;
+    margin-top: 2%;
     margin-right: 5%;
   }
   #mobileLabel,#mobileLabels {
@@ -1336,9 +1413,40 @@ button:hover, a:hover {
   }
   .search-results {
     display: flex;
+    padding-left: 20px;
+  }
+  .searchResult_name {
+    text-align: center;
+    font-size: 1.5em;
+    padding: 0;
+    margin-top: 4%;
+    color: #525456;
+  }
+  .search-results {
+    display: flex;
   }
   .search-results:hover .searchCol1 {
     border-left: 3px solid #537EA6;
   }
+<<<<<<< Updated upstream
   #like
+=======
+  #play_topRow {
+    margin-top: 10%;
+    margin-left: 15%;
+    height: 40px;
+  }
+  #play_option1,#play_option2,#play_option3,#play_option4 {
+    width: inherit;
+    margin-left: 5%;
+  }
+  #disabled_stopBtn {
+    margin-left: 10%;
+    margin-right: 5%;
+  }
+  #fake_audio_edit {
+    margin-left: 5%;
+    margin-right: 5;
+  }
+>>>>>>> Stashed changes
 }

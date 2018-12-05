@@ -54,7 +54,7 @@
 
       <div id="content">
         <nav id="likedChall_header" class="navbar sticky-top navbar-light shadow-sm p-3" style="background-color:#ffc000; padding:0">
-          <div id="headerCol1" class="col-3" style="display:flex; align-items:center">
+          <div id="headerCol1" class="col-4" style="display:flex; align-items:center">
             <button type="button" id="sidebarCollapse" class="btn btn-info" aria-label="Open Sidebar">
                 <i id="backBtn" class="fas fa-bars fa-2x"></i>
             </button>
@@ -65,19 +65,18 @@
               <img src="images/Tap(Light).png" width="80" height="80" alt="Logo">
             </a>
           </div>
-          <div id="headerCol3" class="col-7">
-            <div id="searchbar" class="box" style="float:right">
+          <div id="headerCol3" class="col-6">
+            <div id="searchbar" class="box"  style="float:right">
               <div class="searchbar">
                 <span class="icon"><i class="fa fa-search"></i></span>
                 <input type="text" id= "search" onkeyup="searchUsingEnter(event)" placeholder="Search for a username, genre, or artist" name="search" aria-label="Search bar">
-              </div>
-
+                <!-- <input type="text" id= "search" onkeypress="searchUsingEnter(event)" placeholder="Search for a username, genre, or artist" name="search" aria-label="Search bar"> -->
+            </div>
             <ul id="searchResults">
               <div id="resultsItem" >
 
               </div>
             </ul>
-            </div>
           </div>
           </div>
         </nav>
