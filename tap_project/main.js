@@ -299,6 +299,7 @@ function getHint(hint){
   $("#hintPopUp").modal("show");
 }
 function playChallenge(challengeIdentifier) {
+  document.getElementById("challengeId").innerHTML = challengeIdentifier;
   currChallenge = challengeIdentifier;
   const db = firebase.firestore();
   var doc = db.collection("challenges").doc(challengeIdentifier);
@@ -336,10 +337,7 @@ function playChallenge(challengeIdentifier) {
 
           $("#playChallengeModal").modal("show");
 
-          var audioURL = await getURLFromStorage(challengeIdentifier);
-          var audio = new Audio(audioURL);
-          audio.play();
-
+          document.getElementById('play_stopBtn').setAttribute("onclick", "playChallengeModalAudio()");
 
         }
       });
@@ -1540,6 +1538,7 @@ $('#record_stopBtn').click(function(){
   }
 });
 
+// Playback from my-challenges.html
 $('#playbackAudioBtn').click(async function(){
     if (currentPageName() === "my-challenges.html"){
       var challengeIdentifier = document.getElementById('challengeId').innerHTML;
@@ -1548,6 +1547,18 @@ $('#playbackAudioBtn').click(async function(){
       audio.play();
     }
 });
+
+
+
+async function playChallengeModalAudio(){
+  if (currentPageName() === "feed.html"){
+    var challengeIdentifier = document.getElementById('challengeId').innerHTML;
+    var audioURL = await getURLFromStorage(challengeIdentifier);
+    var audio = new Audio(audioURL);
+    audio.play();
+  }
+
+}
 //-----------------
 // Code that MUST be initlialized first when each HTML page loads
 //-----------------
