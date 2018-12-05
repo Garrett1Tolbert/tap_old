@@ -1108,7 +1108,7 @@ function challengesLikedSearch(value){
       var creator = db1.collection("users").doc(challenges.data().creatorId.id);
       creator.get().then(function(creator){
         if(creator.exists){
-          addElement("myChallenges-section",creator.data().profilePhoto,challenges.id,challenges.data(), false,true);
+          addElement("likedChallenges-section",creator.data().profilePhoto,challenges.id,challenges.data(), false,true);
         }
       }).catch(function(error) {console.log("Error getting document:", error);});
     }
@@ -1636,7 +1636,7 @@ $('#playbackAudioBtn').click(async function(){
 
 
 async function playChallengeModalAudio(){
-  if (currentPageName() === "feed.html"){
+  if (currentPageName() === "feed.html" || currentPageName() === "liked-challenges.html"){
     var challengeIdentifier = document.getElementById('challengeId').innerHTML;
     var audioURL = await getURLFromStorage(challengeIdentifier);
     var audio = new Audio(audioURL);
