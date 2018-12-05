@@ -1261,20 +1261,22 @@ function searchLabel(labelEntered){
   db.collection("challenges").get()
   .then(function(querySnapshot) {
     querySnapshot.forEach(function(doc) {
-      var labels = doc.data().labels;
-      for(var i=0;i<labels.length;i++){
-        if(labels[i].toLowerCase().indexOf(labelEntered.toLowerCase())>=0){
-        //  console.log("INDICE: ", labels[i].indexOf(labelEntered));
-            console.log("\nChallenge\n",doc.id, " => ", doc.data());
-            var user = db.collection("users").doc(doc.data().creatorId.id).get();
-            user.then(function(docUser){
-              if(docUser.exists){
-                addSearchResult("challenge", doc.id, doc.data().labels,null, docUser.data().profilePhoto,false);
-              }
-            }).catch(function(error){
-              console.log("Error getting documents: ", error);
-            });
+      if(doc.data().public){
+        var labels = doc.data().labels;
+        for(var i=0;i<labels.length;i++){
+          if(labels[i].toLowerCase().indexOf(labelEntered.toLowerCase())>=0){
+          //  console.log("INDICE: ", labels[i].indexOf(labelEntered));
+              console.log("\nChallenge\n",doc.id, " => ", doc.data());
+              var user = db.collection("users").doc(doc.data().creatorId.id).get();
+              user.then(function(docUser){
+                if(docUser.exists){
+                  addSearchResult("challenge", doc.id, doc.data().labels,null, docUser.data().profilePhoto,false);
+                }
+              }).catch(function(error){
+                console.log("Error getting documents: ", error);
+              });
 
+          }
         }
       }
   });}).catch(function(error) {
