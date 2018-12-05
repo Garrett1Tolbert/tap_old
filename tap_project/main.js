@@ -1160,6 +1160,7 @@ function addSearchResult(challengeType,id, labels, userName, userPhoto) {
   resultCol_one_img.style.height = "45px";
   resultCol_one_img.style.marginTop = "1%";
   resultCol_one_img.setAttribute("src",userPhoto);
+  resultCol_one_img.setAttribute("onclick","showSearchedProfile('" + id + "')");
   // TODO: Get lianne to query user photo to place here
 
   var resultCol_two = document.createElement("div");
@@ -1178,7 +1179,6 @@ function addSearchResult(challengeType,id, labels, userName, userPhoto) {
     resultCol_two_text.style.marginTop= "4%";
     resultCol_two_text.style.color= "#525456";
     resultCol_two_text.innerHTML = userName;
-      resultCol_one_img.setAttribute("src",userPhoto);
     // TODO: Get lianne to query user photo to place in the innerHTML
     //       on the line above
     var resultCol_three_icon = document.createElement("i");
@@ -1188,6 +1188,7 @@ function addSearchResult(challengeType,id, labels, userName, userPhoto) {
     resultCol_three_icon.style.height = "25px";
     resultCol_three_icon.style.marginTop = "5%";
     resultCol_three.style.paddingTop = "3%";
+    resultCol_three.setAttribute("onclick","me('" + id + "')");
 
   } else {  //search result is a challenge
     resultCol_two.style.paddingTop = "3%";
@@ -1234,6 +1235,19 @@ function addSearchResult(challengeType,id, labels, userName, userPhoto) {
 
 function me(challengeIdentifier) {
   alert(challengeIdentifier)
+}
+
+function showSearchedProfile(userIdentifier) {
+  const db = firebase.firestore();
+    var user = db.collection("users").doc(userIdentifier);
+    user.get().then(function(queryResult){
+      if(queryResult.exists){
+        setFollowProfileElements(queryResult);
+        $("#followingProfileModal").modal("show");
+      }
+    }).catch(function(error) {
+      console.error("Could not find challenge: ", error);
+    });
 }
 
 function searchLabel(labelEntered){
