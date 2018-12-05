@@ -1128,16 +1128,24 @@ function searchUsingEnter(e) {
     return;
   }
 
-  searchResults.focusout(function(c) {
-    searchBar_value.value="";
-    searchResults.hide();
-  });
+  // searchResults.focusout(function(c) {
+  //   searchBar_value.value="";
+  //   searchResults.hide();
+  // });
 
   searchLabel(searchBar_value.value);
   searchEmail(searchBar_value.value);
   searchResults.show();
   //searchResults.show();
 
+}
+
+function outOfFocus(){
+  searchBar_value = document.getElementById('search');
+  var searchInput = $("#searchbar");
+  var searchResults = $("#resultsItem");
+  searchBar_value.value="";
+  searchResults.hide();
 }
 
 
